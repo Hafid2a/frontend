@@ -54,6 +54,12 @@ docker run -p 3000:3000 \
 
 The Dockerfile uses `output: standalone` for optimized production builds.
 
+## Easypanel
+
+- **Builder:** Prefer **Dockerfile** (this repo uses **Node 20**). If you use **Nixpacks**, keep branch **`main`** so you get `nixpacks.toml` + `.nvmrc` (Node 20), or set env **`NIXPACKS_NODE_VERSION=20`** for the service.
+- **Stale builds:** If deploy logs show **`GIT_SHA=ce32d43…`** (or any old hash), Easypanel is not cloning current `main`. Open **Source** → branch **`main`** → **Deploy**; remove a custom **`GIT_SHA`** env var if you added one.
+- **Auto hook:** This repo ships `.github/workflows/easypanel-deploy-hook.yml` — add GitHub secret **`EASYPANEL_DEPLOY_WEBHOOK`** (Easypanel “Deploy Webhook” URL) to trigger redeploy on each push to `main`.
+
 ## Page Structure
 
 | Route | Description |

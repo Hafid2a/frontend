@@ -1,0 +1,28 @@
+# Optional: after each push to main, Easypanel runs a deploy that clones the branch
+# configured under Source (use branch main, not a pinned commit).
+#
+# 1. Easypanel → frontend app → copy "Deploy Webhook" URL.
+# 2. GitHub → Settings → Secrets → Actions → EASYPANEL_DEPLOY_WEBHOOK = <URL>
+#
+# If unset, this workflow exits 0 and does nothing.
+
+name: Easypanel deploy hook
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Easypanel deployment
+        env:
+          HOOK: ${{ secrets.EASYPANEL_DEPLOY_WEBHOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "EASYPANEL_DEPLOY_WEBHOOK not set; skip (see workflow file header)."
+            exit 0
+          fi
+          curl -fsS -X POST "$HOOK"
+          echo "Easypanel deploy triggered."
