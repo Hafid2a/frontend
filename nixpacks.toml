@@ -1,3 +1,13 @@
-# Next.js 16 requires Node >= 20.9.0; Nixpacks otherwise picks Node 18.
+# The Node toolchain version is picked by Nixpacks' Node provider from (in practice):
+#   .nvmrc, package.json "engines.node", OR build-time env NIXPACKS_NODE_VERSION.
+# Values under [variables] below go mostly to runtime image env — they do NOT replace that logic.
+#
+# Easypanel: set build env NIXPACKS_NODE_VERSION=20 AND deploy branch main where .nvmrc exists,
+# or switch builder to Dockerfile (multi-stage Node 20 in this repo).
+
+[phases.setup]
+# Install Node 20 alongside provider packages so `node` on PATH resolves to >=20 where nix prefers it.
+nixPkgs = ["...", "nodejs_20"]
+
 [variables]
-NIXPACKS_NODE_VERSION = "20"
+NODE_ENV = "production"

@@ -56,9 +56,10 @@ The Dockerfile uses `output: standalone` for optimized production builds.
 
 ## Easypanel
 
-- **Builder:** Prefer **Dockerfile** (this repo uses **Node 20**). If you use **Nixpacks**, keep branch **`main`** so you get `nixpacks.toml` + `.nvmrc` (Node 20), or set env **`NIXPACKS_NODE_VERSION=20`** for the service.
-- **Stale builds:** If deploy logs show **`GIT_SHA=ce32d43…`** (or any old hash), Easypanel is not cloning current `main`. Open **Source** → branch **`main`** → **Deploy**; remove a custom **`GIT_SHA`** env var if you added one.
-- **Auto hook:** This repo ships `.github/workflows/easypanel-deploy-hook.yml` — add GitHub secret **`EASYPANEL_DEPLOY_WEBHOOK`** (Easypanel “Deploy Webhook” URL) to trigger redeploy on each push to `main`.
+- **Builder:** Use **Dockerfile** if you can (this repo is **Node 20** end-to-end). Nixpacks defaults to **Node 18**, which **cannot** build Next.js 16.
+- **Nixpacks + Node 20:** In the service **Environment** (build-time), set **`NIXPACKS_NODE_VERSION=20`**. Relying only on `nixpacks.toml` `[variables]` is **not** enough—Nixpacks reads version before that. A **`.nvmrc`** with `20` in the deployed tree also works (present on `main` after the Node 20 pin commits).
+- **Stale builds:** If logs show **`GIT_SHA=ce32d43…`**, you are **not** on current **`main`** (no `.nvmrc` / pinned Node there). Fix **Source** branch to **`main`**, redeploy, and delete any custom **`GIT_SHA`** env var.
+- **Webhook:** Repo includes `.github/workflows/easypanel-deploy-hook.yml` — secret **`EASYPANEL_DEPLOY_WEBHOOK`** = Easypanel deploy URL triggers redeploys on push.
 
 ## Page Structure
 
