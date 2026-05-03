@@ -8,7 +8,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "node .next/standalone/server.js",
+    "start:docker": "node server.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
