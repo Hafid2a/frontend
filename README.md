@@ -70,7 +70,7 @@ The Dockerfile uses `output: standalone` for optimized production builds.
 ## Easypanel
 
 - **تشغيل الإنتاج:** `output: 'standalone'` — **`npm start`** ينفّذ `node .next/standalone/server.js` (لا تستعمل `next start`). Dockerfile يشغّل `node server.js` داخل مجلد الـ standalone.
-- **واجهة Next + بروكسي الطلبات:** على **خدمة الفرونت** عيّن **`API_URL=http://<اسم-خدمة-الباكند-في-Easypanel>:8000`** (رابط داخلي HTTP بين الحاويات). لا تعتمد على `localhost` من داخل حاوية الفرونت — هو لا يصل لباكند آخر. بعد التعديل أعد نشر الفرونت.
+- **واجهة Next + بروكسي الطلبات:** على **خدمة الفرونت** عيّن **`API_URL=http://<اسم-خدمة-الباكند>:8000`** (من **شبكة Docker الداخلية**). يمكنك عدة عناوين مفصولة بفاصلة؛ يُجرّب بالترتيب ثم تلقائياً `backend` و`api` و`host.docker.internal`. لا تستخدم `localhost` إلا إن الباكند فنفس الحاوية.
 - **Builder:** Use **Dockerfile** if you can (this repo is **Node 20** end-to-end). Nixpacks defaults to **Node 18**, which **cannot** build Next.js 16.
 - **Nixpacks + Node 20:** In the service **Environment** (build-time), set **`NIXPACKS_NODE_VERSION=20`**. Relying only on `nixpacks.toml` `[variables]` is **not** enough—Nixpacks reads version before that. A **`.nvmrc`** with `20` in the deployed tree also works (present on `main` after the Node 20 pin commits).
 - **Stale builds:** If logs show **`GIT_SHA=ce32d43…`**, you are **not** on current **`main`** (no `.nvmrc` / pinned Node there). Fix **Source** branch to **`main`**, redeploy, and delete any custom **`GIT_SHA`** env var.

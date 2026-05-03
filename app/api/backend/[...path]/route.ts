@@ -3,6 +3,9 @@ import { resolveBackendCandidates } from "@/lib/server/backend-candidates";
 
 export const runtime = "nodejs";
 
+/** مهلة لكل مرشّح (تجنّب انتظار طويل × عدد العناوين). */
+const PROXY_FETCH_MS = 20_000;
+
 /** Pass through edge / client IP so FastAPI MaxMind still sees the shopper. */
 function forwardHeaders(req: NextRequest): Headers {
   const h = new Headers();
@@ -51,7 +54,7 @@ async function proxy(
     const init: RequestInit = {
       method: req.method,
       headers,
-      signal: AbortSignal.timeout(60_000),
+      signal: AbortSignal.timeout(PROXY_FETCH_MS),
     };
     if (bodyBuf !== null) {
       init.body = bodyBuf.byteLength ? bodyBuf : undefined;
@@ -66,11 +69,22 @@ async function proxy(
   }
 
   if (!res) {
-    console.error("[api/backend] all backend candidates failed", lastErr);
+    const hostsTried = resolved.candidates.map((c) => {
+      try {
+        return new URL(c).host;
+      } catch {
+        return c;
+      }
+    });
+    console.error(
+      "[api/backend] all backend candidates failed; tried hosts:",
+      hostsTried.join(", "),
+      lastErr
+    );
     return NextResponse.json(
       {
         detail:
-          "تعذّر الاتصال بالباكند جرّب كل العناوين المضبوطة. تحقق من تشغيل FastAPI، ومن API_URL (مثال: http://backend:8000 داخل Docker — لا تستخدم localhost من حاوية أخرى).",
+          "تعذّر الاتصال بالباكند بعد تجربة كل العناوين. تحقق: 1) خدمة FastAPI شغّالة و /health يعمل 2) على الفرونت API_URL = عنوان يصل من **داخل** حاوية الفرونت (مثال http://اسم-الخدمة-في-Easypanel:8000) ويمكنك عدة عناوين بفاصلة 3) لا تستخدم localhost إلا إن الباكند فنفس الحاوية.",
       },
       { status: 502 }
     );

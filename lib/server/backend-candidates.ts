@@ -15,7 +15,8 @@ export function normalizeApiBase(raw: string): string {
   return s;
 }
 
-function isDockerEnv(): boolean {
+/** بعض الحاويات بدون ‎/.dockerenv — للّوج فقط */
+export function isDockerEnv(): boolean {
   try {
     return existsSync("/.dockerenv");
   } catch {
@@ -24,14 +25,14 @@ function isDockerEnv(): boolean {
 }
 
 /**
- * جمع عناوين الباكند: متغيرات البيئة أولاً، ثم في Docker أسماء الخدمات الشائعة
- * (تُجرّب بالترتيب — إن كان API_URL=localhost بالغلط ما زال http://backend:8000 يُجرَب بعده).
+ * - API_URL / BACKEND_URL … يمكن أن تكون عدة عناوين مفصولة بفاصلة (تُجرّب بالترتيب).
+ * - في الإنتاج تُضاف دائماً في الأخير: backend / api / host.docker.internal (حد أقصى تأخير طفيف إذا أول عنوان ناجح).
  */
 export function resolveBackendCandidates(): ResolvedBackend {
   const seen = new Set<string>();
   const out: string[] = [];
 
-  const push = (raw?: string | null) => {
+  const pushOne = (raw?: string | null) => {
     if (!raw?.trim()) return;
     const n = normalizeApiBase(raw);
     if (n && !seen.has(n)) {
@@ -40,29 +41,35 @@ export function resolveBackendCandidates(): ResolvedBackend {
     }
   };
 
-  push(process.env.API_URL);
-  push(process.env.BACKEND_URL);
-  push(process.env.INTERNAL_API_URL);
-  push(process.env.NEXT_INTERNAL_API_URL);
-  push(process.env.NEXT_PUBLIC_API_URL);
+  const pushList = (raw?: string | null) => {
+    if (!raw?.trim()) return;
+    for (const part of raw.split(",")) {
+      pushOne(part.trim());
+    }
+  };
 
-  if (isDockerEnv()) {
-    push("http://backend:8000");
-    push("http://api:8000");
-  }
+  pushList(process.env.API_URL);
+  pushList(process.env.BACKEND_URL);
+  pushList(process.env.INTERNAL_API_URL);
+  pushList(process.env.NEXT_INTERNAL_API_URL);
+  pushList(process.env.NEXT_PUBLIC_API_URL);
 
   if (process.env.NODE_ENV !== "production") {
     if (out.length === 0) {
-      push("http://127.0.0.1:8000");
+      pushOne("http://127.0.0.1:8000");
     }
     return { ok: true, candidates: out };
   }
+
+  pushOne("http://backend:8000");
+  pushOne("http://api:8000");
+  pushOne("http://host.docker.internal:8000");
 
   if (out.length === 0) {
     return {
       ok: false,
       detail:
-        "لم يُضبط عنوان الباكند. أضف API_URL أو BACKEND_URL (مثال داخل Docker: http://backend:8000) وأعد تشغيل حاوية الواجهة.",
+        "لم يُضبط أي عنوان باكند. أضف API_URL على خدمة الفرونت (مثال: http://اسم-خدمة-الباكند:8000 — يمكن عدة عناوين بفاصلة).",
     };
   }
 
