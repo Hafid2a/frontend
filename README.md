@@ -69,6 +69,7 @@ The Dockerfile uses `output: standalone` for optimized production builds.
 
 ## Easypanel
 
+- **متغيرات جاهزة:** انسخ ملف [`deploy/easypanel-frontend.env`](./deploy/easypanel-frontend.env) إلى **Variables** خدمة الفرونت (احذف تكرار `NEXT_PUBLIC_SITE_URL` ولا تضع `localhost` على السيرفر).
 - **تشغيل الإنتاج:** `output: 'standalone'` — **`npm start`** ينفّذ `node .next/standalone/server.js` (لا تستعمل `next start`). Dockerfile يشغّل `node server.js` داخل مجلد الـ standalone.
 - **واجهة Next + بروكسي الطلبات:** على **خدمة الفرونت** عيّن **`API_URL=http://<اسم-خدمة-الباكند>:8000`** (من **شبكة Docker الداخلية**). يمكنك عدة عناوين مفصولة بفاصلة؛ يُجرّب بالترتيب ثم تلقائياً `backend` و`api` و`host.docker.internal`. لا تستخدم `localhost` إلا إن الباكند فنفس الحاوية.
 - **Builder:** Use **Dockerfile** if you can (this repo is **Node 20** end-to-end). Nixpacks defaults to **Node 18**, which **cannot** build Next.js 16.

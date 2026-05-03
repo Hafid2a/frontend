@@ -32,6 +32,7 @@ const defaultInternalPort = () =>
  * غالباً https://api... من داخل الحاوية يفشل (DNS IPv6 / جدار) بينما http://backend:8000 ينجح.
  *
  * API_INTERNAL_URLS: قائمة مفصولة بفاصلة، مثال: http://backend:8000,http://اسم-الخدمة:8000
+ * BACKEND_SERVICE_NAME: اسم خدمة الباكند في Compose (مثلاً backend) لربط http://NAME:PORT
  */
 function pushStandardInternalCandidates(
   pushOne: (raw?: string | null) => void,
@@ -40,6 +41,11 @@ function pushStandardInternalCandidates(
   pushList(process.env.API_INTERNAL_URLS);
 
   const p = defaultInternalPort();
+  const named = process.env.BACKEND_SERVICE_NAME?.trim();
+  if (named) {
+    pushOne(`http://${named}:${p}`);
+  }
+
   for (const h of ["backend", "api", "najd-backend", "najd_backend"]) {
     pushOne(`http://${h}:${p}`);
   }
