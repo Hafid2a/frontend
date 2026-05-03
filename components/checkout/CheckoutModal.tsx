@@ -404,11 +404,7 @@ export function CheckoutModal() {
                             </p>
                           ) : (
                             <p className="mt-1 text-center text-xs text-muted">
-                              للاختبار من خارج السعودية استعمل بالضبط{" "}
-                              <span dir="ltr" className="font-mono">
-                                0550505044
-                              </span>{" "}
-                              (NAJD) — رقم آخر يتطلب اتصالاً من داخل المملكة.
+                              رقم جوال سعودي صحيح (05XXXXXXXX) لتأكيد التوصيل.
                             </p>
                           )}
                         </div>
