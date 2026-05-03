@@ -4,15 +4,34 @@ export function useMockOrdersApi(): boolean {
   return v === "true" || v === "1";
 }
 
-/** طلبات حقيقية: عبر بروكسي Next (نفس الدومين) لتفادي CORS و Failed to fetch */
+/**
+ * طلبات مباشرة من المتصفح إلى NEXT_PUBLIC_API_URL (تجاوز بروكسي /api/backend).
+ * استخدمه على Easypanel إذا فشل الاتصال الداخلي بين حاويات الفرونت والباكند.
+ * يتطلّب أن يتضمّن CORS_ORIGINS في الباكند أصل الموقع (مثلاً https://najdofficial.com).
+ */
+export function useDirectBrowserApi(): boolean {
+  const v = process.env.NEXT_PUBLIC_API_DIRECT;
+  return v === "true" || v === "1";
+}
+
+const REMOTE_API = (
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
+).replace(/\/$/, "");
+
+/** افتراضي: بروكسي Next (نفس الدومين) لتفادي CORS؛ أو مباشر إن NEXT_PUBLIC_API_DIRECT */
 function ordersPostUrl(): string {
-  return useMockOrdersApi() ? "/api/orders" : "/api/backend/orders";
+  if (useMockOrdersApi()) return "/api/orders";
+  if (useDirectBrowserApi()) return `${REMOTE_API}/orders`;
+  return "/api/backend/orders";
 }
 
 function orderResourceUrl(orderId: string, suffix: "" | "/upsell"): string {
   const enc = encodeURIComponent(orderId);
   if (useMockOrdersApi()) {
     return `/api/orders/${enc}${suffix}`;
+  }
+  if (useDirectBrowserApi()) {
+    return `${REMOTE_API}/orders/${enc}${suffix}`;
   }
   return `/api/backend/orders/${enc}${suffix}`;
 }
