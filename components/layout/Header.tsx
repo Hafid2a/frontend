@@ -54,6 +54,12 @@ export function Header() {
             المنتجات
           </Link>
           <Link
+            href="/thank-you"
+            className="text-stone/80 hover:text-stone text-sm transition-colors"
+          >
+            بعد الشراء
+          </Link>
+          <Link
             href="/about"
             className="text-stone/80 hover:text-stone text-sm transition-colors"
           >
@@ -80,6 +86,13 @@ export function Header() {
             className="block text-stone/80 hover:text-stone py-2 text-sm"
           >
             المنتجات
+          </Link>
+          <Link
+            href="/thank-you"
+            onClick={() => setMobileOpen(false)}
+            className="block text-stone/80 hover:text-stone py-2 text-sm"
+          >
+            بعد الشراء
           </Link>
           <Link
             href="/about"

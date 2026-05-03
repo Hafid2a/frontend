@@ -29,12 +29,25 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000)
 
+### `ERR_CONNECTION_REFUSED` في المتصفح
+
+المتصفح يحاول فتح عنوانًا **ولا يوجد أي برنامج يستمع على ذلك المنفذ**:
+
+| ما تفتحه | المطلوب |
+|----------|---------|
+| `http://localhost:3000` | شغّل الواجهة: من مجلد `frontend` نفّذ `npm run dev` |
+| طلبات إلى الـ API تفشل (سلة، طلب، صفحة الشكر) | مع **`NEXT_PUBLIC_MOCK_ORDERS=false`** الطلبات تمشي لـ **`/api/backend/...`** (نفس دومين الموقع) ثم الخادم يوجّه للباكند — **ما محتاج** تضبط CORS للمتصفح. تأكد الباكند شغال وأن **`NEXT_PUBLIC_API_URL`** (أو **`API_URL`** على السيرفر) صحيح. أو **`NEXT_PUBLIC_MOCK_ORDERS=true`** للتطوير بدون باكند. |
+
+للباكند الحقيقي: من `backend` استخدم Docker (`docker compose up --build`) ثم [http://localhost:8000/health](http://localhost:8000/health). عندها يمكنك ضبط `NEXT_PUBLIC_MOCK_ORDERS=false` واستخدام `NEXT_PUBLIC_API_URL=http://localhost:8000` (أو `http://127.0.0.1:8000`).
+
 ## Environment Variables
 
 | Variable | Description |
 |---|---|
+| `NEXT_PUBLIC_MOCK_ORDERS` | `true` = طلبات وهمية داخل Next — **بدون MaxMind** (كل الطلبات تمر). `false` = الباكند الحقيقي |
 | `NEXT_PUBLIC_SITE_URL` | Production URL (e.g. `https://najdofficial.com`) |
-| `NEXT_PUBLIC_API_URL` | Backend API base URL (e.g. `https://api.najdofficial.com`) |
+| `NEXT_PUBLIC_API_URL` | عنوان الباكند للبروكسي (`/api/backend/...`) وللروابط العامة |
+| `API_URL` / `BACKEND_URL` | (اختياري، سيرفر فقط) إن وُجد، يُفضَّل للاتصال الداخلي مثل `http://backend:8000` |
 | `NEXT_PUBLIC_META_PIXEL_ID` | Meta/Facebook Pixel ID (optional) |
 | `NEXT_PUBLIC_TIKTOK_PIXEL_ID` | TikTok Pixel ID (optional) |
 | `NEXT_PUBLIC_SNAP_PIXEL_ID` | Snapchat Pixel ID (optional) |
@@ -56,6 +69,7 @@ The Dockerfile uses `output: standalone` for optimized production builds.
 
 ## Easypanel
 
+- **واجهة Next + بروكسي الطلبات:** على **خدمة الفرونت** عيّن **`API_URL=http://<اسم-خدمة-الباكند-في-Easypanel>:8000`** (رابط داخلي HTTP بين الحاويات). لا تعتمد على `localhost` من داخل حاوية الفرونت — هو لا يصل لباكند آخر. بعد التعديل أعد نشر الفرونت.
 - **Builder:** Use **Dockerfile** if you can (this repo is **Node 20** end-to-end). Nixpacks defaults to **Node 18**, which **cannot** build Next.js 16.
 - **Nixpacks + Node 20:** In the service **Environment** (build-time), set **`NIXPACKS_NODE_VERSION=20`**. Relying only on `nixpacks.toml` `[variables]` is **not** enough—Nixpacks reads version before that. A **`.nvmrc`** with `20` in the deployed tree also works (present on `main` after the Node 20 pin commits).
 - **Stale builds:** If logs show **`GIT_SHA=ce32d43…`**, you are **not** on current **`main`** (no `.nvmrc` / pinned Node there). Fix **Source** branch to **`main`**, redeploy, and delete any custom **`GIT_SHA`** env var.
@@ -95,7 +109,7 @@ The Dockerfile uses `output: standalone` for optimized production builds.
 3. Cross-sell suggestion shown in cart
 4. "أكمل الطلب" → CheckoutModal (COD only)
 5. Name + Saudi phone validation (normalizes to +9665XXXXXXXX)
-6. POST `/orders` to backend
+6. POST إلى `/api/backend/orders` (يُحوّلها Next للباكند؛ تفادي CORS)
 7. If upsell returned → UpsellModal with 10-15s countdown at 99 SAR
 8. Redirect to `/thank-you/[orderId]`
 

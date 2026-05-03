@@ -3,14 +3,22 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle2, Flame, PhoneCall, ShieldCheck, Truck, X } from "lucide-react";
+import {
+  AlertTriangle,
+  CheckCircle2,
+  Flame,
+  PhoneCall,
+  ShieldCheck,
+  Truck,
+  X,
+} from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useCheckoutStore } from "@/stores/checkout-store";
 import { dedupeCartItems, useCartStore } from "@/stores/cart-store";
 import { normalizeSaudiMobile } from "@/lib/phone";
-import { createOrder } from "@/lib/api";
+import { createOrder, useMockOrdersApi } from "@/lib/api";
 import { generateEventId } from "@/lib/event-id";
 import { trackInitiateCheckout } from "@/lib/tracking";
 import { UpsellModal } from "./UpsellModal";
@@ -27,6 +35,26 @@ const checkoutSchema = z.object({
 
 type CheckoutForm = z.infer<typeof checkoutSchema>;
 
+/** تصنيف خطأ الدفع: الشبكة تُخطئ غالباً بحظر VPN بينما المشكلة API/CORS. */
+function checkoutErrorKind(message: string): "network" | "geo" | "other" {
+  const m = message.trim();
+  if (
+    m === "Failed to fetch" ||
+    /networkerror|load failed|fetch failed|network request failed/i.test(m)
+  ) {
+    return "network";
+  }
+  if (
+    m.includes("تعذر إتمام الطلب") ||
+    m.includes("تعذّر إتمام الطلب") ||
+    (m.includes("المملكة") &&
+      (m.includes("VPN") || m.includes("بروكسي") || m.includes("افتراضية")))
+  ) {
+    return "geo";
+  }
+  return "other";
+}
+
 export function CheckoutModal() {
   const { isOpen, closeCheckout } = useCheckoutStore();
   const { items, getTotal, clearCart } = useCartStore();
@@ -36,11 +64,16 @@ export function CheckoutModal() {
     useState<CreateOrderResponse | null>(null);
   const [showUpsell, setShowUpsell] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
   const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    if (isOpen) setCheckoutError(null);
+  }, [isOpen]);
 
   const {
     register,
@@ -51,9 +84,12 @@ export function CheckoutModal() {
     resolver: zodResolver(checkoutSchema),
   });
 
+  const isMockOrdersApi = useMockOrdersApi();
+
   const onSubmit = async (data: CheckoutForm) => {
     const phone = normalizeSaudiMobile(data.phone)!;
     setIsSubmitting(true);
+    setCheckoutError(null);
 
     const purchaseEventId = generateEventId("purchase");
     const initiateEventId = generateEventId("initiate_checkout");
@@ -87,7 +123,19 @@ export function CheckoutModal() {
       };
 
       const response = await createOrder(payload);
+      if (!response?.order_id?.trim()) {
+        throw new Error("استجابة غير مكتملة من الخادم — تحقق من تشغيل الباكند.");
+      }
       setOrderResponse(response);
+
+      if (typeof window !== "undefined") {
+        sessionStorage.setItem(
+          `najd_purchase_eid_${response.order_id}`,
+          purchaseEventId
+        );
+      }
+
+      const thankYouPath = `/thank-you/${encodeURIComponent(response.order_id)}`;
 
       if (response.upsell) {
         setShowUpsell(true);
@@ -95,12 +143,17 @@ export function CheckoutModal() {
         clearCart();
         closeCheckout();
         reset();
-        router.push(`/thank-you/${response.order_id}`);
+        /* من داخل createPortal أحياناً router.push ما يحدّثش المسار — إعادة تحميل كاملة أوثق */
+        if (typeof window !== "undefined") {
+          window.location.assign(thankYouPath);
+        } else {
+          router.push(thankYouPath);
+        }
       }
     } catch (err: unknown) {
       const message =
         err instanceof Error ? err.message : "حدث خطأ، يرجى المحاولة مجدداً";
-      alert(message);
+      setCheckoutError(message);
     } finally {
       setIsSubmitting(false);
     }
@@ -111,10 +164,19 @@ export function CheckoutModal() {
     clearCart();
     closeCheckout();
     reset();
-    if (orderResponse) {
-      router.push(`/thank-you/${orderResponse.order_id}`);
+    if (orderResponse?.order_id?.trim()) {
+      const thankYouPath = `/thank-you/${encodeURIComponent(orderResponse.order_id)}`;
+      if (typeof window !== "undefined") {
+        window.location.assign(thankYouPath);
+      } else {
+        router.push(thankYouPath);
+      }
     }
   };
+
+  const checkoutErrKind = checkoutError
+    ? checkoutErrorKind(checkoutError)
+    : null;
 
   return (
     <>
@@ -150,6 +212,26 @@ export function CheckoutModal() {
                           إتمام الطلب
                         </h2>
                       </div>
+
+                      {isMockOrdersApi ? (
+                        <div
+                          role="status"
+                          className="mx-6 mb-1 rounded-2xl border border-amber-400/50 bg-amber-500/15 px-4 py-3 text-right text-xs text-amber-100/95"
+                        >
+                          <p className="font-medium text-amber-50">
+                            وضع تجريبي نشط — لا يوجد فلتر دولة أو VPN
+                          </p>
+                          <p className="mt-1 leading-relaxed text-amber-100/80">
+                            الطلبات تُحفظ داخل المتجر فقط (بدون الباكند). ضع{" "}
+                            <span className="font-mono text-[10px] dir-ltr inline-block">
+                              NEXT_PUBLIC_MOCK_ORDERS=false
+                            </span>{" "}
+                            في <span className="font-mono">.env.local</span> وأعد
+                            تشغيل <span className="font-mono">npm run dev</span> لتفعيل
+                            MaxMind على السيرفر الحقيقي.
+                          </p>
+                        </div>
+                      ) : null}
 
                       <div className="border-y border-warm-sand/15 bg-deep-night px-6 py-3">
                         <div className="mb-3 flex justify-center">
@@ -208,6 +290,87 @@ export function CheckoutModal() {
                       </div>
 
                       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 px-6 pb-5">
+                        {checkoutError ? (
+                          <div
+                            role="alert"
+                            className="rounded-2xl border border-error/50 bg-error/15 px-4 py-3 text-right"
+                          >
+                            <div className="flex items-start gap-2">
+                              <AlertTriangle
+                                className="mt-0.5 h-5 w-5 shrink-0 text-error"
+                                aria-hidden
+                              />
+                              <div className="min-w-0 flex-1">
+                                {checkoutErrKind === "network" ? (
+                                  <>
+                                    <p className="text-sm font-medium text-stone">
+                                      لا يوجد اتصال بالخادم (فشل الطلب)
+                                    </p>
+                                    <p className="mt-1 text-xs leading-relaxed text-muted">
+                                      المتصفح ينادي{" "}
+                                      <span dir="ltr" className="font-mono text-[10px]">
+                                        /api/backend
+                                      </span>{" "}
+                                      ثم الخادم يوجّه للباكند. تأكد أن FastAPI شغال وأن
+                                      على السيرفر مضبوط{" "}
+                                      <span dir="ltr" className="font-mono text-[10px]">
+                                        API_URL
+                                      </span>{" "}
+                                      أو{" "}
+                                      <span dir="ltr" className="font-mono text-[10px]">
+                                        NEXT_PUBLIC_API_URL
+                                      </span>{" "}
+                                      (مثلاً{" "}
+                                      <span dir="ltr" className="font-mono text-[10px]">
+                                        http://backend:8000
+                                      </span>{" "}
+                                      داخل Docker). محلياً:{" "}
+                                      <span dir="ltr" className="font-mono text-[10px]">
+                                        http://127.0.0.1:8000
+                                      </span>
+                                      .
+                                    </p>
+                                    <p className="mt-2 text-[11px] text-muted">
+                                      للتجربة المحلية يمكن تفعيل{" "}
+                                      <span
+                                        dir="ltr"
+                                        className="font-mono text-[10px]"
+                                      >
+                                        NEXT_PUBLIC_MOCK_ORDERS=true
+                                      </span>{" "}
+                                      مؤقتاً بدون FastAPI.
+                                    </p>
+                                  </>
+                                ) : checkoutErrKind === "geo" ? (
+                                  <>
+                                    <p className="text-sm font-medium text-stone">
+                                      تعذّر إتمام الطلب من هذا الاتصال
+                                    </p>
+                                    <p className="mt-1 text-xs leading-relaxed text-muted">
+                                      {checkoutError}
+                                    </p>
+                                    <p className="mt-2 text-[11px] leading-relaxed text-muted">
+                                      الطلبات متاحة من داخل المملكة فقط (أو رقم الاختبار
+                                      المصرّح مثل 0550505044 عندما يصل الطلب للباكند). تأكد
+                                      أنك داخل السعودية وأنك لا تستخدم VPN أو بروكسي، ثم
+                                      أعد المحاولة.
+                                    </p>
+                                  </>
+                                ) : (
+                                  <>
+                                    <p className="text-sm font-medium text-stone">
+                                      لم يكتمل الطلب
+                                    </p>
+                                    <p className="mt-1 text-xs leading-relaxed text-muted">
+                                      {checkoutError}
+                                    </p>
+                                  </>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        ) : null}
+
                         <div>
                           <label className="mb-2 block text-right text-sm font-medium text-stone">
                             الاسم الكامل

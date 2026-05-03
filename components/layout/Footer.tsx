@@ -59,6 +59,10 @@ const footerSections = [
     links: [
       { label: "تواصل معنا", href: "/contact" },
       { label: "عن نجد", href: "/about" },
+      {
+        label: "صفحة الشكر (بعد الشراء)",
+        href: "/thank-you",
+      },
       { label: "الدفع عند الاستلام", href: "/contact" },
       { label: "الشحن داخل السعودية فقط", href: "/contact" },
     ],

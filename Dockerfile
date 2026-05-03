@@ -12,6 +12,7 @@ RUN npm run build
 FROM node:20-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
+# وقت التشغيل (Easypanel): عيّن API_URL=http://اسم-خدمة-الباكند:8000 حتى يصل بروكسي /api/backend إلى FastAPI
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
