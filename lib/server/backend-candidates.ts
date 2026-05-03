@@ -24,9 +24,31 @@ export function isDockerEnv(): boolean {
   }
 }
 
+const defaultInternalPort = () =>
+  (process.env.API_INTERNAL_PORT || "8000").trim() || "8000";
+
 /**
- * - API_URL / BACKEND_URL … يمكن أن تكون عدة عناوين مفصولة بفاصلة (تُجرّب بالترتيب).
- * - في الإنتاج تُضاف دائماً في الأخير: backend / api / host.docker.internal (حد أقصى تأخير طفيف إذا أول عنوان ناجح).
+ * في الإنتاج: عناوين الشبكة الداخلية (Docker / Easypanel) **قبل** https العام —
+ * غالباً https://api... من داخل الحاوية يفشل (DNS IPv6 / جدار) بينما http://backend:8000 ينجح.
+ *
+ * API_INTERNAL_URLS: قائمة مفصولة بفاصلة، مثال: http://backend:8000,http://اسم-الخدمة:8000
+ */
+function pushStandardInternalCandidates(
+  pushOne: (raw?: string | null) => void,
+  pushList: (raw?: string | null) => void
+): void {
+  pushList(process.env.API_INTERNAL_URLS);
+
+  const p = defaultInternalPort();
+  for (const h of ["backend", "api", "najd-backend", "najd_backend"]) {
+    pushOne(`http://${h}:${p}`);
+  }
+  pushOne(`http://host.docker.internal:${p}`);
+}
+
+/**
+ * - API_URL / API_BASE_URL … فاصلة = عدة عناوين.
+ * - الإنتاج: داخلي أولاً (انظر pushStandardInternalCandidates) ثم متغيراتك.
  */
 export function resolveBackendCandidates(): ResolvedBackend {
   const seen = new Set<string>();
@@ -48,6 +70,12 @@ export function resolveBackendCandidates(): ResolvedBackend {
     }
   };
 
+  if (process.env.NODE_ENV === "production") {
+    if (process.env.API_PROXY_INTERNAL_FIRST !== "0") {
+      pushStandardInternalCandidates(pushOne, pushList);
+    }
+  }
+
   pushList(process.env.API_URL);
   pushList(process.env.API_BASE_URL);
   pushList(process.env.BACKEND_URL);
@@ -55,16 +83,18 @@ export function resolveBackendCandidates(): ResolvedBackend {
   pushList(process.env.NEXT_INTERNAL_API_URL);
   pushList(process.env.NEXT_PUBLIC_API_URL);
 
+  if (process.env.NODE_ENV === "production") {
+    if (process.env.API_PROXY_INTERNAL_FIRST === "0") {
+      pushStandardInternalCandidates(pushOne, pushList);
+    }
+  }
+
   if (process.env.NODE_ENV !== "production") {
     if (out.length === 0) {
       pushOne("http://127.0.0.1:8000");
     }
     return { ok: true, candidates: out };
   }
-
-  pushOne("http://backend:8000");
-  pushOne("http://api:8000");
-  pushOne("http://host.docker.internal:8000");
 
   if (out.length === 0) {
     return {

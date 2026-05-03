@@ -13,6 +13,7 @@ FROM node:20-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 # يستمع على كل الواجهات (Docker / Easypanel) — غيّر PORT في المنصة إن لزم (مثلاً 80)
+ENV NODE_OPTIONS=--dns-result-order=ipv4first
 ENV HOSTNAME=0.0.0.0
 ENV PORT=3000
 # وقت التشغيل (Easypanel): عيّن API_URL=http://اسم-خدمة-الباكند:8000 حتى يصل بروكسي /api/backend إلى FastAPI
