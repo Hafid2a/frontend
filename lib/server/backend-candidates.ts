@@ -49,6 +49,7 @@ export function resolveBackendCandidates(): ResolvedBackend {
   };
 
   pushList(process.env.API_URL);
+  pushList(process.env.API_BASE_URL);
   pushList(process.env.BACKEND_URL);
   pushList(process.env.INTERNAL_API_URL);
   pushList(process.env.NEXT_INTERNAL_API_URL);
@@ -69,7 +70,7 @@ export function resolveBackendCandidates(): ResolvedBackend {
     return {
       ok: false,
       detail:
-        "لم يُضبط أي عنوان باكند. أضف API_URL على خدمة الفرونت (مثال: http://اسم-خدمة-الباكند:8000 — يمكن عدة عناوين بفاصلة).",
+        "لم يُضبط أي عنوان باكند. أضف API_URL أو API_BASE_URL أو NEXT_PUBLIC_API_URL على خدمة الفرونت (مثال محلي: http://127.0.0.1:8000 — يمكن عدة عناوين بفاصلة).",
     };
   }
 
