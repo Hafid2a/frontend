@@ -23,13 +23,16 @@ const UPSELL_MAP: Record<string, string> = {
 const UPSELL_PRICE = 99;
 const ALL_SLUGS = new Set(Object.keys(PRODUCT_NAMES));
 
-/** يطابق GEO_ORDER_BYPASS_PHONES فالباكند (سيرفر mock فقط) */
+/** رقم NAJD الاختباري — دائماً يُعتبر تجاوز موقع (مطابق للباكند) */
+const CANONICAL_BYPASS_E164 = "+966550505044";
+
+/** يطابق GEO_ORDER_BYPASS_PHONES فالباكند + الرقم الاختباري الثابت */
 function geoBypassE164Set(): Set<string> {
   const raw =
     process.env.GEO_ORDER_BYPASS_PHONES ??
     process.env.NEXT_PUBLIC_GEO_BYPASS_PHONES ??
     "0550505044";
-  const out = new Set<string>();
+  const out = new Set<string>([CANONICAL_BYPASS_E164]);
   for (const part of raw.split(",")) {
     const e164 = normalizeSaudiMobile(part.trim());
     if (e164) out.add(e164);
