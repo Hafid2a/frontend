@@ -16,7 +16,7 @@ ENV NODE_ENV=production
 ENV NODE_OPTIONS=--dns-result-order=ipv4first
 ENV HOSTNAME=0.0.0.0
 ENV PORT=3000
-# وقت التشغيل (Easypanel): عيّن API_URL=http://اسم-خدمة-الباكند:8000 حتى يصل بروكسي /api/backend إلى FastAPI
+# وقت التشغيل: الطلبات من المتصفح إلى NEXT_PUBLIC_API_URL (تُبنى عند npm run build)
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public

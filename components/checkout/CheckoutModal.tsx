@@ -18,7 +18,7 @@ import { z } from "zod";
 import { useCheckoutStore } from "@/stores/checkout-store";
 import { dedupeCartItems, useCartStore } from "@/stores/cart-store";
 import { normalizeSaudiMobile } from "@/lib/phone";
-import { createOrder, useDirectBrowserApi, useMockOrdersApi } from "@/lib/api";
+import { createOrder, useMockOrdersApi } from "@/lib/api";
 import { generateEventId } from "@/lib/event-id";
 import { trackInitiateCheckout } from "@/lib/tracking";
 import { UpsellModal } from "./UpsellModal";
@@ -85,7 +85,6 @@ export function CheckoutModal() {
   });
 
   const isMockOrdersApi = useMockOrdersApi();
-  const isDirectBrowserApi = useDirectBrowserApi();
 
   const onSubmit = async (data: CheckoutForm) => {
     const phone = normalizeSaudiMobile(data.phone)!;
@@ -234,13 +233,13 @@ export function CheckoutModal() {
                         </div>
                       ) : null}
 
-                      {!isMockOrdersApi && isDirectBrowserApi ? (
+                      {!isMockOrdersApi ? (
                         <div
                           role="status"
                           className="mx-6 mb-1 rounded-2xl border border-sky-400/40 bg-sky-500/10 px-4 py-3 text-right text-xs text-sky-50/95"
                         >
                           <p className="font-medium text-sky-100">
-                            الاتصال بالـ API مباشرة من المتصفح (بدون بروكسي Next)
+                            الاتصال بالـ API مباشرة من المتصفح (بروكسي Next معطّل)
                           </p>
                           <p className="mt-1 leading-relaxed text-sky-100/85">
                             تأكد أن أصل الموقع (مثلاً{" "}
@@ -330,50 +329,16 @@ export function CheckoutModal() {
                                       لا يوجد اتصال بالخادم (فشل الطلب)
                                     </p>
                                     <p className="mt-1 text-xs leading-relaxed text-muted">
-                                      {isDirectBrowserApi ? (
-                                        <>
-                                          المتصفح ينادي{" "}
-                                          <span dir="ltr" className="font-mono text-[10px]">
-                                            NEXT_PUBLIC_API_URL
-                                          </span>{" "}
-                                          مباشرة. تأكد أن الـ API يعمل ويُفتح من المتصفح،
-                                          وأن{" "}
-                                          <span dir="ltr" className="font-mono text-[10px]">
-                                            CORS_ORIGINS
-                                          </span>{" "}
-                                          على الباكند يتضمّن أصل الموقع الحالي (وبـ www إن
-                                          استخدمتَه).
-                                        </>
-                                      ) : (
-                                        <>
-                                          المتصفح ينادي{" "}
-                                          <span dir="ltr" className="font-mono text-[10px]">
-                                            /api/backend
-                                          </span>{" "}
-                                          ثم الخادم يوجّه للباكند. تأكد أن FastAPI شغال وأن
-                                          على السيرفر مضبوط{" "}
-                                          <span dir="ltr" className="font-mono text-[10px]">
-                                            API_URL
-                                          </span>{" "}
-                                          أو{" "}
-                                          <span dir="ltr" className="font-mono text-[10px]">
-                                            NEXT_PUBLIC_API_URL
-                                          </span>{" "}
-                                          (مثلاً{" "}
-                                          <span dir="ltr" className="font-mono text-[10px]">
-                                            http://backend:8000
-                                          </span>{" "}
-                                          داخل Docker). محلياً:{" "}
-                                          <span dir="ltr" className="font-mono text-[10px]">
-                                            http://127.0.0.1:8000
-                                          </span>
-                                          . أو فعّل{" "}
-                                          <span dir="ltr" className="font-mono text-[10px]">
-                                            NEXT_PUBLIC_API_DIRECT=true
-                                          </span>{" "}
-                                          للاتصال المباشر بالـ API.
-                                        </>
-                                      )}
+                                      المتصفح ينادي{" "}
+                                      <span dir="ltr" className="font-mono text-[10px]">
+                                        NEXT_PUBLIC_API_URL
+                                      </span>{" "}
+                                      مباشرة. تأكد أن الـ API يعمل ويُفتح من المتصفح، وأن{" "}
+                                      <span dir="ltr" className="font-mono text-[10px]">
+                                        CORS_ORIGINS
+                                      </span>{" "}
+                                      على الباكند يتضمّن أصل الموقع الحالي (وبـ www إن
+                                      استخدمتَه).
                                     </p>
                                     <p className="mt-2 text-[11px] text-muted">
                                       للتجربة المحلية يمكن تفعيل{" "}

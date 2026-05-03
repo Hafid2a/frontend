@@ -5,24 +5,16 @@ export function useMockOrdersApi(): boolean {
 }
 
 /**
- * طلبات مباشرة من المتصفح إلى NEXT_PUBLIC_API_URL (تجاوز بروكسي /api/backend).
- * استخدمه على Easypanel إذا فشل الاتصال الداخلي بين حاويات الفرونت والباكند.
- * يتطلّب أن يتضمّن CORS_ORIGINS في الباكند أصل الموقع (مثلاً https://najdofficial.com).
+ * عنوان الـ API من المتصفح (NEXT_PUBLIC_* عبر next.config).
+ * لا يُستخدم بروكسي /api/backend — اتصال مباشر (يتطلّب CORS صحيح على الباكند).
  */
-export function useDirectBrowserApi(): boolean {
-  const v = process.env.NEXT_PUBLIC_API_DIRECT;
-  return v === "true" || v === "1";
-}
-
 const REMOTE_API = (
   process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
 ).replace(/\/$/, "");
 
-/** افتراضي: بروكسي Next (نفس الدومين) لتفادي CORS؛ أو مباشر إن NEXT_PUBLIC_API_DIRECT */
 function ordersPostUrl(): string {
   if (useMockOrdersApi()) return "/api/orders";
-  if (useDirectBrowserApi()) return `${REMOTE_API}/orders`;
-  return "/api/backend/orders";
+  return `${REMOTE_API}/orders`;
 }
 
 function orderResourceUrl(orderId: string, suffix: "" | "/upsell"): string {
@@ -30,10 +22,7 @@ function orderResourceUrl(orderId: string, suffix: "" | "/upsell"): string {
   if (useMockOrdersApi()) {
     return `/api/orders/${enc}${suffix}`;
   }
-  if (useDirectBrowserApi()) {
-    return `${REMOTE_API}/orders/${enc}${suffix}`;
-  }
-  return `/api/backend/orders/${enc}${suffix}`;
+  return `${REMOTE_API}/orders/${enc}${suffix}`;
 }
 
 function formatApiDetail(detail: unknown): string {

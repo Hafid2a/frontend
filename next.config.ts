@@ -1,8 +1,8 @@
 import type { NextConfig } from "next";
 
 /**
- * عنوان الـ API الظاهر للكلاينت + نفس القيمة الافتراضية لـ NEXT_PUBLIC_API_URL.
- * إذا ضبطت فقط API_BASE_URL (مثل الباكند في Easypanel)، يكفي لـ npm run dev على localhost:3000.
+ * عنوان الـ API للمتصفح (NEXT_PUBLIC_API_URL) — طلبات checkout مباشرة بدون بروكسي Next.
+ * يكفي API_BASE_URL أو API_URL أو NEXT_PUBLIC_API_URL وقت البناء.
  */
 function publicApiBaseUrl(): string {
   return (
