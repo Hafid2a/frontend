@@ -1,17 +1,17 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand colors */
-  --color-najd-green: #0B6B4F;
-  --color-deep-night: #070D18;
-  --color-warm-sand: #D6A85A;
-  --color-ink: #080808;
-  --color-charcoal: #111827;
-  --color-stone: #F6EFE4;
-  --color-muted: #9A8F80;
-  --color-success: #168A5A;
-  --color-warning: #C98A2B;
-  --color-error: #B42318;
+  /* Brand — beauty / night routine (rose & plum; utilities still use najd-green name) */
+  --color-najd-green: #c75b7e;
+  --color-deep-night: #120a14;
+  --color-warm-sand: #e8b9a8;
+  --color-ink: #0a0709;
+  --color-charcoal: #1c141f;
+  --color-stone: #fdf8fa;
+  --color-muted: #a89da3;
+  --color-success: #3d8f72;
+  --color-warning: #d4a25c;
+  --color-error: #c23d52;
 
   /* Font families */
   --font-arabic: var(--font-arabic-var), "IBM Plex Sans Arabic", sans-serif;
@@ -24,8 +24,8 @@
 }
 
 :root {
-  --background: #070D18;
-  --foreground: #F6EFE4;
+  --background: #120a14;
+  --foreground: #fdf8fa;
 }
 
 html {
@@ -35,10 +35,10 @@ html {
 
 body {
   background:
-    radial-gradient(circle at top right, rgba(11, 107, 79, 0.18), transparent 32rem),
-    radial-gradient(circle at bottom left, rgba(214, 168, 90, 0.08), transparent 30rem),
-    #070D18;
-  color: #F6EFE4;
+    radial-gradient(circle at top right, rgba(199, 91, 126, 0.22), transparent 34rem),
+    radial-gradient(circle at bottom left, rgba(232, 185, 168, 0.09), transparent 32rem),
+    #120a14;
+  color: #fdf8fa;
   font-family: var(--font-sans);
   font-weight: 500;
 }

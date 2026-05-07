@@ -137,9 +137,9 @@ GET  /orders/:id      → get order detail (thank you page)
 
 | Token | Hex | Usage |
 |---|---|---|
-| `najd-green` | `#0F3D2E` | Primary CTA, accents |
-| `deep-night` | `#07110D` | Page background |
-| `warm-sand` | `#C8A96A` | Gold accents, prices |
-| `stone` | `#F4F0E7` | Primary text |
-| `charcoal` | `#1C1C1A` | Cards, modals |
-| `muted` | `#7A7468` | Secondary text |
+| `najd-green` | `#C75B7E` | Primary CTA, accents (rose) |
+| `deep-night` | `#120A14` | Page background (plum-black) |
+| `warm-sand` | `#E8B9A8` | Accents / rose-gold highlights |
+| `stone` | `#FDF8FA` | Primary text on dark surfaces |
+| `charcoal` | `#1C141F` | Cards, modals |
+| `muted` | `#A89DA3` | Secondary text |

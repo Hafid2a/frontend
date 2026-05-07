@@ -184,7 +184,7 @@ export default function HomePage() {
     <div>
       {/* ── Hero — خلفية ناعمة + طبقات زجاجية (مستوحاة من نمط المتاجر الراقية) ── */}
       <section className="relative overflow-hidden min-h-[85vh] md:min-h-[90vh] flex items-center">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a1628] via-deep-night to-deep-night" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#1a0f18] via-deep-night to-deep-night" />
         <div className="absolute inset-0 bg-gradient-to-br from-najd-green/25 via-transparent to-warm-sand/[0.07]" />
         <div className="absolute top-0 right-0 h-[28rem] w-[28rem] rounded-full bg-najd-green/15 blur-3xl translate-x-1/4 -translate-y-1/3" />
         <div className="absolute bottom-0 left-0 h-[22rem] w-[22rem] rounded-full bg-warm-sand/10 blur-3xl -translate-x-1/3 translate-y-1/4" />
@@ -204,7 +204,7 @@ export default function HomePage() {
                 </span>
               </div>
               <div className="inline-flex items-center gap-2 rounded-full border border-najd-green/35 bg-najd-green/[0.12] px-3.5 py-1.5 backdrop-blur-md">
-                <span className="w-2 h-2 shrink-0 bg-warm-sand rounded-full animate-pulse shadow-[0_0_8px_rgba(214,168,90,0.6)]" />
+                <span className="w-2 h-2 shrink-0 bg-warm-sand rounded-full animate-pulse shadow-[0_0_8px_rgba(232,185,168,0.65)]" />
                 <span className="text-stone/95 text-xs font-medium">
                   الدفع عند الاستلام داخل السعودية
                 </span>
@@ -284,7 +284,7 @@ export default function HomePage() {
 
                 <Link
                   href="/products"
-                  className="relative z-10 flex min-h-[220px] items-center justify-center overflow-hidden rounded-xl border border-white/15 bg-gradient-to-br from-najd-green/35 via-deep-night to-charcoal px-8 py-16 transition duration-300 hover:border-warm-sand/35 hover:shadow-[0_0_40px_-10px_rgba(214,168,90,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-warm-sand md:min-h-[280px] md:rounded-2xl"
+                  className="relative z-10 flex min-h-[220px] items-center justify-center overflow-hidden rounded-xl border border-white/15 bg-gradient-to-br from-najd-green/35 via-deep-night to-charcoal px-8 py-16 transition duration-300 hover:border-warm-sand/35 hover:shadow-[0_0_40px_-10px_rgba(199,91,126,0.25)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-warm-sand md:min-h-[280px] md:rounded-2xl"
                 >
                   <div className="text-center">
                     <span className="text-6xl md:text-7xl drop-shadow-lg" aria-hidden>

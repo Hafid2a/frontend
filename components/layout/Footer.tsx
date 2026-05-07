@@ -73,7 +73,7 @@ export function Footer() {
   const [openSection, setOpenSection] = useState<string | null>("منتجات نجد");
 
   return (
-    <footer className="mt-20 border-t border-warm-sand/10 bg-[#F4F0E7] text-deep-night">
+    <footer className="mt-20 border-t border-warm-sand/10 bg-[#faf2f5] text-deep-night">
       <div className="mx-auto max-w-6xl px-4 py-8">
         <div className="-mx-4 mb-10 flex snap-x gap-3 overflow-x-auto px-4 pb-2 md:grid md:grid-cols-4 md:overflow-visible">
           {trustCards.map((card) => {

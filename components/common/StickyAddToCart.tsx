@@ -63,7 +63,7 @@ export function StickyAddToCart({ product }: StickyAddToCartProps) {
           <div className="mx-auto max-w-3xl">
             <button
               onClick={handleAdd}
-              className="flex w-full items-center justify-center gap-3 rounded-[18px] bg-najd-green px-6 py-4 text-base font-medium text-white shadow-[0_12px_35px_rgba(11,107,79,0.45)] transition-colors hover:bg-najd-green/90"
+              className="flex w-full items-center justify-center gap-3 rounded-[18px] bg-najd-green px-6 py-4 text-base font-medium text-white shadow-[0_12px_35px_rgba(199,91,126,0.45)] transition-colors hover:bg-najd-green/90"
             >
               <span className="text-lg leading-none">↑</span>
               <span>ابدأ روتين نجد الآن</span>

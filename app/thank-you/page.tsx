@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { Package } from "lucide-react";
 
-const cream = "#F4F0E7";
-const ink = "#111827";
-const subtle = "#5B554A";
+const cream = "#faf2f5";
+const ink = "#1c141f";
+const subtle = "#756a72";
 
 export default function ThankYouIndexPage() {
   return (

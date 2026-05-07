@@ -37,7 +37,7 @@ export function TrustAnnouncementBar() {
   }, []);
 
   return (
-    <div className="border-t border-warm-sand/10 bg-najd-green text-stone shadow-[0_10px_35px_rgba(15,61,46,0.35)]">
+    <div className="border-t border-warm-sand/10 bg-najd-green text-stone shadow-[0_10px_35px_rgba(199,91,126,0.35)]">
       <div className="mx-auto flex h-12 max-w-6xl items-center overflow-hidden px-4 md:h-11">
         <div className="relative flex min-w-full items-center justify-center">
           <AnimatePresence mode="wait">
