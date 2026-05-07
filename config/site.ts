@@ -11,7 +11,7 @@ export const SITE_CONFIG = {
   trustBadges: [
     { icon: "💳", label: "الدفع عند الاستلام" },
     { icon: "🚚", label: "توصيل داخل السعودية" },
-    { icon: "⚡", label: "روتين رجال سريع" },
+    { icon: "🌙", label: "روتين ليلي بسيط" },
     { icon: "💬", label: "دعم واتساب" },
   ],
 };

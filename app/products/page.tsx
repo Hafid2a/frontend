@@ -9,17 +9,17 @@ import { PRODUCTS } from "@/config/products";
 
 const FILTERS = [
   { id: "all", label: "الكل" },
-  { id: "shaving", label: "بعد الحلاقة" },
-  { id: "beard", label: "اللحية" },
-  { id: "tired", label: "آثار السهر" },
-  { id: "gifts", label: "هدايا رجال" },
+  { id: "hydrate", label: "ترطيب ليلي" },
+  { id: "calm", label: "مساء هادئ" },
+  { id: "glow", label: "لمعة راحة" },
+  { id: "gifts", label: "هدية" },
 ];
 
 const FILTER_MAP: Record<string, string[]> = {
-  shaving: ["najd-clear"],
-  beard: ["najd-align"],
-  tired: ["najd-rest"],
-  gifts: ["najd-clear", "najd-align", "najd-rest"],
+  hydrate: ["najd-night-dew"],
+  calm: ["najd-night-calm"],
+  glow: ["najd-night-glow"],
+  gifts: PRODUCTS.map((p) => p.slug),
 };
 
 const fadeUp = {
@@ -48,11 +48,12 @@ export default function ProductsPage() {
           transition={{ duration: 0.5 }}
         >
           <h1 className="text-stone font-bold text-4xl md:text-5xl mb-4">
-            اختر المشكلة.{" "}
-            <span className="text-warm-sand">نجد يعطيك الروتين.</span>
+            روتين ليلي واضح للوجه.{" "}
+            <span className="text-warm-sand">مجموعة نجد تنمو معاكِ.</span>
           </h1>
           <p className="text-muted text-lg">
-            ثلاثة منتجات، ثلاث مشاكل، كلها بالدفع عند الاستلام.
+            اليوم عندنا ثلاث مسارات للعناية الليلية الموضّعة: ترطيب، وهدوء ظاهري،
+            ولمعة خفيفة — واضيفات لاحقة بنفس مبدأ الشفافية والدفع عند الاستلام.
           </p>
         </motion.div>
       </section>
@@ -123,19 +124,11 @@ export default function ProductsPage() {
                 },
                 {
                   label: "أفضل وقت للاستخدام",
-                  values: [
-                    "بعد الحلاقة أو قبل النوم",
-                    "قبل الخروج أو المناسبة",
-                    "صباحاً أو بعد ليلة طويلة",
-                  ],
+                  values: PRODUCTS.map((p) => p.compareWhenAr),
                 },
                 {
-                  label: "المكون الرئيسي",
-                  values: [
-                    "ساليسيليك + جليكوليك",
-                    "سيراميك أيوني حراري",
-                    "كافيين + ببتيدات",
-                  ],
+                  label: "الميزة البارزة",
+                  values: PRODUCTS.map((p) => p.compareHighlightAr),
                 },
                 {
                   label: "السعر يبدأ من",

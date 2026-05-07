@@ -4,10 +4,9 @@ import { useCartStore, OFFER_PRICES } from "@/stores/cart-store";
 import { PRODUCTS } from "@/config/products";
 
 const crossSellCopy: Record<string, string> = {
-  "najd-clear":
-    "إذا تهتم باللحية، لا تنسى منطقة الرقبة بعد التحديد.",
-  "najd-align": "المظهر النشيط يكمل مع لحية مرتبة.",
-  "najd-rest": "إذا الحلاقة رتبت وجهك، ريست يرتب آثار السهر.",
+  "najd-night-dew": "كمّلي روتين الليل بـلمسة هدوء أو لمعة راحة خفيفة طبقاً لبشرتكِ.",
+  "najd-night-calm": "بعد لمسة الهدوء، جرّبي ندى الليل لترطيب مظهر البشرة.",
+  "najd-night-glow": "اكملي المجموعة بندى الليل لطبقة ترطيب مسائية مناسبة.",
 };
 
 export function CrossSellCarousel() {

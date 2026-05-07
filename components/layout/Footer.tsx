@@ -39,9 +39,9 @@ const footerSections = [
   {
     title: "منتجات نجد",
     links: [
-      { label: "نجد كلير · ضد حبوب الحلاقة", href: "/products/najd-clear" },
-      { label: "نجد ألاين · ترتيب اللحية", href: "/products/najd-align" },
-      { label: "نجد ريست · آثار السهر", href: "/products/najd-rest" },
+      { label: "نجد ندى الليل · ماسك مرطّب", href: "/products/najd-night-dew" },
+      { label: "نجد لمسة الهدوء · مسائي", href: "/products/najd-night-calm" },
+      { label: "نجد لمعة الراحة · قبل النوم", href: "/products/najd-night-glow" },
       { label: "كل المنتجات", href: "/products" },
     ],
   },

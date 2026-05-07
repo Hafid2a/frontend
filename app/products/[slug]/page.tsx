@@ -63,8 +63,8 @@ export default function ProductPage({
             {product.problemAr}
           </h2>
           <p className="text-muted leading-relaxed">
-            مشكلة يعاني منها كثير من الرجال يومياً وغالباً ما تُترك بدون حل
-            واضح. {product.heroSubheading}
+            مساءً، كثير من البنات يحسبن جفافاً أو إرهاقاً بصرياً بسيطاً لمظهر
+            الوجه — بدون مسار مسائي خارجي موضَّح بوضوح. {product.heroSubheading}
           </p>
         </div>
       </motion.section>
@@ -108,13 +108,13 @@ export default function ProductPage({
             {[
               {
                 icon: "🇸🇦",
-                title: "صُمّم للسوق السعودي",
-                desc: "نفهم مشاكل الرجل السعودي ونصمم حلولاً بناءً عليها.",
+                title: "صُمّم للبنات في السعودية",
+                desc: "نفهم إيقاع المدرسة والجامعة والمناسبات ونقدّم تعليمات مسائية واقعية بدون ادِّعاء طبي.",
               },
               {
                 icon: "⚡",
-                title: "روتين سريع",
-                desc: "منتجات تناسب الإيقاع اليومي بدون تعقيد.",
+                title: "روتين سريع قبل النوم",
+                desc: "خطوات قليلة بعد غسل وجهكِ — بينما تهيّئين وقت نومكِ.",
               },
               {
                 icon: "💳",
@@ -152,28 +152,29 @@ export default function ProductPage({
         <motion.div {...fadeUp} className="text-center mb-10">
           <p className="text-warm-sand text-sm mb-2">الفرق اللي تحسّه</p>
           <h2 className="text-stone font-medium text-3xl">
-            ليه {product.nameAr} يستاهل يدخل روتينك؟
+            ليه {product.nameAr} يستاهل يدخل روتينكِ الليلي؟
           </h2>
           <p className="text-muted mt-3 max-w-2xl mx-auto">
-            مو منتج عشوائي تضيفه للدرج. هذا حل سريع لمشكلة يومية تأثر على
-            مظهرك وانطباعك.
+            مو منتج عشوائي تضيفينه على الرف. هذا جزء من عناية مسائية خارجية تساعد
+            على تهيئة مظهر البشرة قبل الغفوة — وفق الوصف على التعبئة والفئة
+            المستهدفة.
           </p>
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-4">
           {[
-            {
-              title: "مظهر أرتب",
-              desc: "يساعدك تدخل الدوام أو المناسبة وأنت مسيطر على التفاصيل الصغيرة.",
-            },
-            {
-              title: "روتين سريع",
-              desc: "خطوات قليلة وواضحة تناسب الرجل اللي ما يحب التعقيد.",
-            },
-            {
-              title: "ثقة قبل الخروج",
-              desc: "لأن وجهك ولحيتك وعيونك جزء من أول انطباع عنك.",
-            },
+              {
+                title: "مظهر أوضح",
+                desc: "يساعدكِ تخفيف مظهر الجفاف أو البهتان الخارجي حيث ينطبق ذلك على منتجكم.",
+              },
+              {
+                title: "وقت قبل النوم",
+                desc: "خطوات قليلة وواضحة تناسب اليوم بدون ضغط قبل المدرسة أو المحاضرات.",
+              },
+              {
+                title: "ثقة في تفاصيل بسيطة",
+                desc: "رائحة مهيَّأة وطبقة تتحكّمين بغلظتِها قبل المخدة.",
+              },
           ].map((item, i) => (
             <motion.div
               key={item.title}
@@ -197,11 +198,11 @@ export default function ProductPage({
           <motion.div {...fadeUp}>
             <p className="text-warm-sand text-sm mb-2">مناسب لك إذا</p>
             <h2 className="text-stone font-medium text-3xl mb-4">
-              عندك نفس المشكلة وتبي حل واضح
+              عندكِ نفس الاحتياج وتبين تجربة واضحة
             </h2>
             <p className="text-muted leading-7">
-              {product.nameAr} معمول للرجال اللي يبون نتيجة عملية بدون ما
-              يدخلون في روتين طويل أو كلام تسويقي زايد.
+              {product.nameAr} مهيَّأ لتجربة تجميلية ليلية خارجية؛ جرّبي كما هو
+              موضّح على العبوّة وتأكدي من وقت التنشيف أو الغسل قبيل مخدتِكِ.
             </p>
           </motion.div>
 
@@ -261,11 +262,11 @@ export default function ProductPage({
           className="bg-najd-green/20 rounded-card border border-najd-green/30 p-8 text-center"
         >
           <h2 className="text-stone font-medium text-3xl mb-2">
-            جاهز تختار عرض {product.nameAr}؟
+            جاهزة تختارين عرض {product.nameAr}؟
           </h2>
           <p className="text-muted mb-6">
-            العروض موجودة فوق الصفحة. اختر قطعتين أو ثلاث وارفع قيمة الطلب بدون
-            ما تضيع الزبون بتكرار نفس البلوك.
+            العروض موجودة أعلى الصفحة. اختاري قطعتين أو ثلاث وادمجي أكثر من
+            ماسك في طلب واحد إن كان مناسباً لكم.
           </p>
           <Link
             href="#offers"

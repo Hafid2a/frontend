@@ -17,6 +17,10 @@ const fadeUp = {
 
 const HOME_FAQS = [
   {
+    q: "هل ستضيفون منتجات جديدة؟",
+    a: "نعم. مجموعة نجد تتوسع بمراحل؛ أي إصدار جديد يُعرَض هنا بعد ما يمر على نفس معايير الشفافية وعناية البشرة.",
+  },
+  {
     q: "هل الدفع عند الاستلام متاح؟",
     a: "نعم، الدفع يكون عند استلام الطلب. لا تحتاج بطاقة أو حساب.",
   },
@@ -85,6 +89,21 @@ function HomeFAQ() {
 
 const allReviews = PRODUCTS.flatMap((p) => p.reviews.slice(0, 1));
 
+/** أيقونات تعريفية لصفحة الرئيسية — أضف مفتاحاً عند إضافة منتج جديد */
+const HOME_PILLAR_ICON: Record<string, string> = {
+  "najd-night-dew": "🌙",
+  "najd-night-calm": "💧",
+  "najd-night-glow": "✨",
+};
+
+const homePillars = PRODUCTS.map((p) => ({
+  icon: HOME_PILLAR_ICON[p.slug] ?? "✨",
+  problem: p.problemAr,
+  desc: p.shortDescAr,
+  slug: p.slug,
+  product: p.nameAr,
+}));
+
 function DecisionProofSection() {
   return (
     <section className="py-16 bg-deep-night">
@@ -102,10 +121,9 @@ function DecisionProofSection() {
             <span className="text-4xl text-warm-sand/25">“</span>
           </div>
           <p className="text-right text-stone leading-8 md:text-lg">
-            بصراحة كنت أحسبها نفس منتجات الإعلانات. طلبت نجد كلير بعد ما تعبت
-            من حبوب الحلاقة، واللي خلاني أكمل الطلب إن الموقع واضح: دفع عند
-            الاستلام، تأكيد بالجوال، والمنتج موجه لمشكلة واحدة مو كلام عام.
-            بعد ما شفت الروتين بسيط، أخذت عرض القطعتين.
+            ما يكفيّني مظهر العبوة — المهم أن الروتين الليلي يكون واضح. مع نجد
+            فهمت وش كل ماسك يخدم بشرتي، والمجموعة تتوسع بمراحل، والدفع عند
+            الاستلام يبسّط قراري.
           </p>
           <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-5">
             <span className="rounded-full bg-najd-green/20 px-3 py-1 text-xs text-najd-green">
@@ -113,11 +131,11 @@ function DecisionProofSection() {
             </span>
             <div className="flex items-center gap-3">
               <div className="text-right">
-                <p className="text-stone font-medium">عبدالله الحربي</p>
-                <p className="text-muted text-xs">29 سنة · الرياض</p>
+                <p className="text-stone font-medium">سارة العتيبي</p>
+                <p className="text-muted text-xs">٢١ سنة · الخبر</p>
               </div>
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-najd-green text-warm-sand">
-                ع
+                س
               </div>
             </div>
           </div>
@@ -129,15 +147,16 @@ function DecisionProofSection() {
             قارن، وقرر بنفسك
           </h2>
           <p className="text-muted max-w-2xl mx-auto leading-7">
-            لا نبيعك منتج مجهول بصورة حلوة. كل منتج في نجد مربوط بمشكلة واضحة،
-            عرض واضح، ودفع عند الاستلام عشان القرار يكون أسهل.
+            محورنا عناية ليلية بالبشرة للبنات في السعودية: تركيبات موضّحة، استخدام
+            مسائي واضح، وتوسّع تدريجي بالمجموعة — من غير ما نخسر الثقة أو نكثّر
+            الضجيج.
           </p>
         </motion.div>
 
         <div className="mt-8 grid md:grid-cols-3 gap-4">
           {[
-            ["متجر عشوائي", "منتجات كثيرة بدون تركيز"],
-            ["نجد", "ثلاث مشاكل رجال وثلاث حلول واضحة"],
+            ["متجر عام", "عشرات المنتجات بدون تركيز"],
+            ["نجد", "عناية بالبشرة أولاً، ومجموعة تكبر مع الوقت"],
             ["الشراء", "اسم ورقم فقط والدفع عند الاستلام"],
           ].map(([title, desc], i) => (
             <motion.div
@@ -163,57 +182,81 @@ function DecisionProofSection() {
 export default function HomePage() {
   return (
     <div>
-      {/* ── Hero ── */}
-      <section className="relative overflow-hidden min-h-[90vh] flex items-center">
-        <div className="absolute inset-0 bg-gradient-to-br from-najd-green/30 via-deep-night to-deep-night" />
-        <div className="absolute top-0 left-0 w-96 h-96 bg-najd-green/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute bottom-0 right-0 w-64 h-64 bg-warm-sand/5 rounded-full blur-3xl translate-x-1/3 translate-y-1/3" />
+      {/* ── Hero — خلفية ناعمة + طبقات زجاجية (مستوحاة من نمط المتاجر الراقية) ── */}
+      <section className="relative overflow-hidden min-h-[85vh] md:min-h-[90vh] flex items-center">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a1628] via-deep-night to-deep-night" />
+        <div className="absolute inset-0 bg-gradient-to-br from-najd-green/25 via-transparent to-warm-sand/[0.07]" />
+        <div className="absolute top-0 right-0 h-[28rem] w-[28rem] rounded-full bg-najd-green/15 blur-3xl translate-x-1/4 -translate-y-1/3" />
+        <div className="absolute bottom-0 left-0 h-[22rem] w-[22rem] rounded-full bg-warm-sand/10 blur-3xl -translate-x-1/3 translate-y-1/4" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_20%,rgba(255,255,255,0.06),transparent_55%)]" />
 
-        <div className="relative max-w-6xl mx-auto px-4 py-20 grid md:grid-cols-2 gap-12 items-center">
+        <div className="relative w-full max-w-7xl xl:max-w-[90rem] 2xl:max-w-[96rem] mx-auto px-4 sm:px-6 py-12 md:py-20 lg:py-24 grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,1.32fr)] md:gap-x-10 lg:gap-x-12 xl:gap-x-14 items-stretch md:items-center">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
+            className="order-2 md:order-none mt-8 md:mt-0 rounded-[24px] border border-white/[0.14] bg-white/[0.045] p-6 shadow-[0_24px_80px_-24px_rgba(0,0,0,0.65)] backdrop-blur-2xl backdrop-saturate-150 sm:rounded-[28px] sm:p-7 md:rounded-[32px] md:p-8 md:shadow-[0_32px_100px_-28px_rgba(0,0,0,0.7)]"
           >
-            <div className="inline-flex items-center gap-2 bg-najd-green/30 border border-najd-green/50 rounded-full px-4 py-1.5 mb-6">
-              <span className="w-2 h-2 bg-warm-sand rounded-full animate-pulse" />
-              <span className="text-warm-sand text-xs font-medium">
-                الدفع عند الاستلام داخل السعودية
-              </span>
+            <div className="flex flex-wrap items-center gap-2 mb-6">
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-3.5 py-1.5 backdrop-blur-md">
+                <span className="text-amber-100/90 text-xs font-semibold">
+                  عناية ليلية للوجه — مجموعة تنمو مع الوقت
+                </span>
+              </div>
+              <div className="inline-flex items-center gap-2 rounded-full border border-najd-green/35 bg-najd-green/[0.12] px-3.5 py-1.5 backdrop-blur-md">
+                <span className="w-2 h-2 shrink-0 bg-warm-sand rounded-full animate-pulse shadow-[0_0_8px_rgba(214,168,90,0.6)]" />
+                <span className="text-stone/95 text-xs font-medium">
+                  الدفع عند الاستلام داخل السعودية
+                </span>
+              </div>
             </div>
 
-            <h1 className="text-stone font-bold text-5xl md:text-6xl leading-tight mb-4">
-              نجد.{" "}
-              <span className="text-warm-sand">حضورك</span>
-              <br />
-              قبل كلامك.
+            <h1 className="mb-3 space-y-2 drop-shadow-sm">
+              <span className="block text-warm-sand text-3xl font-bold tracking-tight sm:text-4xl md:text-[2.65rem] md:leading-tight">
+                نجد
+              </span>
+              <span className="block max-w-[22rem] text-balance text-stone/95 text-[0.95rem] leading-snug sm:max-w-xl sm:text-base md:max-w-lg md:text-lg md:leading-relaxed">
+                روتين ليلي بسيط، وبشرة مرتاحة صباحًا — عناية موضّعة بلا تعقيد،
+                وثقة مع نجد من أول مرة.
+              </span>
             </h1>
-            <p className="text-muted text-lg mb-8 leading-relaxed">
-              روتين رجال سعودي لثلاث مشاكل حقيقية: حبوب الحلاقة، فوضى اللحية،
-              وآثار السهر. بسيط، سريع، وبدون تعقيد.
+            <p className="text-muted text-base md:text-lg mb-2 leading-relaxed">
+              اليوم عندنا ثلاثة مسارات للماسك المسائي: ترطيب ليلي، لمسة هدوء، ولمعة
+              راحة — مبنية على وقت النوم ووضوح التعليمات على العبوّة. مع الوقت
+              نزيد إصدارات جديدة بنفس المعيار.
+            </p>
+            <p className="text-warm-sand/85 text-sm mb-8 leading-relaxed">
+              بشرة أولاً · شفافية في الوصف · جودة تعبئة مدروسة · توصيل خلال 2–4
+              أيام عمل داخل السعودية
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3">
               <Link
                 href="/products"
-                className="bg-najd-green text-white px-8 py-4 rounded-btn font-bold text-base hover:bg-najd-green/80 transition-colors text-center"
+                className="bg-najd-green text-white px-8 py-4 rounded-btn text-base hover:bg-najd-green/85 transition-colors text-center shadow-lg shadow-najd-green/25"
               >
-                تسوق منتجات نجد
+                استكشف مجموعة نجد
+              </Link>
+              <Link
+                href="/products/najd-night-dew"
+                className="border border-white/20 bg-white/[0.06] text-stone px-8 py-4 rounded-btn text-base backdrop-blur-sm hover:bg-white/[0.1] transition-colors text-center"
+              >
+                ابدئي بندى الليل
               </Link>
               <Link
                 href="#routine"
-                className="border border-warm-sand/40 text-warm-sand px-8 py-4 rounded-btn font-bold text-base hover:bg-warm-sand/10 transition-colors text-center"
+                className="border border-white/12 bg-transparent text-muted px-8 py-4 rounded-btn text-base hover:bg-white/[0.05] hover:text-stone transition-colors text-center sm:px-6"
               >
-                اعرف روتينك
+                قارن المنتجات
               </Link>
             </div>
 
-            <div className="mt-8 flex items-center gap-4">
+            <div className="mt-8 flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 backdrop-blur-md">
               <div className="flex -space-x-2 space-x-reverse">
-                {["ع", "م", "ف", "خ"].map((letter, i) => (
+                {["س", "د", "ر", "ن"].map((letter, i) => (
                   <div
                     key={i}
-                    className="w-8 h-8 rounded-full bg-najd-green border-2 border-deep-night flex items-center justify-center"
+                    className="w-8 h-8 rounded-full bg-najd-green/90 border-2 border-white/15 flex items-center justify-center shadow-sm"
                   >
                     <span className="text-warm-sand text-xs font-bold">
                       {letter}
@@ -221,50 +264,62 @@ export default function HomePage() {
                   </div>
                 ))}
               </div>
-              <p className="text-muted text-sm">
-                +2,400 طلب داخل السعودية
-              </p>
+              <p className="text-stone/80 text-sm">+2,400 طلب داخل السعودية</p>
             </div>
           </motion.div>
 
-          {/* Hero product visual */}
+          {/* Hero: بانر المجموعة — إطار زجاجي فوق الخلفية */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="hidden md:flex items-center justify-center"
+            className="order-1 md:order-none w-full md:min-w-0 flex justify-center md:justify-end"
           >
-            <div className="relative w-80 h-80">
-              <div className="absolute inset-0 bg-najd-green/20 rounded-card border border-najd-green/30 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-32 h-32 rounded-full bg-warm-sand/20 flex items-center justify-center mx-auto mb-4">
-                    <span className="text-warm-sand text-6xl font-bold font-arabic">
-                      ن
+            <div className="w-[calc(100%+1.5rem)] max-w-none -mx-3 sm:w-full sm:max-w-xl sm:mx-auto md:max-w-none md:w-full md:mx-0">
+              <div className="relative overflow-hidden rounded-2xl border border-white/[0.16] bg-white/[0.06] p-2 pb-2 shadow-[0_28px_90px_-20px_rgba(0,0,0,0.72)] backdrop-blur-2xl backdrop-saturate-150 sm:rounded-[26px] sm:p-3 md:rounded-[32px] md:p-4 md:pb-3 lg:p-5 lg:pb-4 md:shadow-[0_40px_110px_-24px_rgba(0,0,0,0.78)]">
+                <div
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/[0.08] via-transparent to-najd-green/[0.08]"
+                  aria-hidden
+                />
+
+                <Link
+                  href="/products"
+                  className="relative z-10 flex min-h-[220px] items-center justify-center overflow-hidden rounded-xl border border-white/15 bg-gradient-to-br from-najd-green/35 via-deep-night to-charcoal px-8 py-16 transition duration-300 hover:border-warm-sand/35 hover:shadow-[0_0_40px_-10px_rgba(214,168,90,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-warm-sand md:min-h-[280px] md:rounded-2xl"
+                >
+                  <div className="text-center">
+                    <span className="text-6xl md:text-7xl drop-shadow-lg" aria-hidden>
+                      🌙
                     </span>
-                  </div>
-                  <p className="text-stone/60 text-sm">نجد — عناية الرجل</p>
-                </div>
-              </div>
-              {/* Floating badges */}
-              <div className="absolute -top-4 -right-4 bg-charcoal border border-warm-sand/30 rounded-2xl px-3 py-2 shadow-xl">
-                <p className="text-warm-sand text-xs font-bold">⭐ 4.8/5</p>
-                <p className="text-muted text-xs">تقييم العملاء</p>
-              </div>
-              <div className="absolute -bottom-4 -left-4 bg-charcoal border border-najd-green/30 rounded-2xl px-3 py-2 shadow-xl">
-                <p className="text-stone text-xs font-bold">💳 COD</p>
-                <p className="text-muted text-xs">الدفع عند الاستلام</p>
-              </div>
-              <div className="absolute bottom-4 right-4 max-w-[250px] rounded-2xl border border-warm-sand/25 bg-stone/95 px-4 py-3 text-right shadow-2xl">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-najd-green text-warm-sand">
-                    ✓
-                  </div>
-                  <div className="min-w-0">
-                    <p className="truncate text-sm font-medium text-deep-night">
-                      متجر نجد الرسمي
+                    <p className="mt-5 text-lg font-semibold text-stone md:text-xl">
+                      خط نجد الليلي
                     </p>
-                    <p className="truncate text-xs text-muted">
-                      تأكيد وفحص قبل الشحن
+                    <p className="mx-auto mt-2 max-w-xs text-sm text-muted">
+                      ماسكات مسائية موضّعة — عبوّة مهيَّأة ومعلومات واضحة قبل
+                      النوم
+                    </p>
+                  </div>
+                  <span className="pointer-events-none absolute -left-16 top-12 h-40 w-40 rounded-full bg-warm-sand/15 blur-3xl" />
+                  <span className="pointer-events-none absolute -right-12 bottom-0 h-36 w-36 rounded-full bg-najd-green/30 blur-3xl" />
+                </Link>
+
+                {/* تحت الصورة: تباين قوي (ما فوق البانر الأبيض) */}
+                <div className="relative z-20 mt-2 flex flex-wrap items-stretch justify-between gap-2 sm:mt-2.5 md:mt-3">
+                  <div className="min-w-0 flex-1 rounded-xl border border-warm-sand/25 bg-deep-night/92 px-2.5 py-2 shadow-md backdrop-blur-sm sm:rounded-2xl sm:px-3 sm:py-2">
+                    <p className="text-right text-[10px] leading-snug text-warm-sand sm:text-[11px]">
+                      <span className="text-warm-sand" aria-hidden>
+                        ★★★★★
+                      </span>
+                    </p>
+                    <p className="text-right text-[11px] text-stone mt-0.5 sm:text-xs">
+                      تقييم العملاء ٤٫٨ من ٥
+                    </p>
+                  </div>
+                  <div className="min-w-0 flex-1 rounded-xl border border-najd-green/35 bg-deep-night/92 px-2.5 py-2 shadow-md backdrop-blur-sm sm:rounded-2xl sm:px-3 sm:py-2">
+                    <p className="text-right text-[11px] text-stone sm:text-xs">
+                      الدفع عند الاستلام
+                    </p>
+                    <p className="text-right text-[10px] text-muted mt-0.5 leading-snug sm:text-[11px]">
+                      بدون بطاقة — تسليم يد بيد
                     </p>
                   </div>
                 </div>
@@ -281,39 +336,18 @@ export default function HomePage() {
       <section className="py-16 max-w-6xl mx-auto px-4">
         <motion.div {...fadeUp} className="text-center mb-10">
           <h2 className="text-stone font-bold text-3xl mb-3">
-            ثلاث مشاكل، ثلاثة حلول.
+            ابدأ من احتياج بشرتك اليوم
           </h2>
           <p className="text-muted">
-            نجد صُمّم لمشاكل الرجل السعودي اليومية بعد الحلاقة وقبل الاجتماع.
+            كل صنف يشرح وش يخدم بشرتِكِ بالمساء — والقائمة تتوسع دون تعقيد على
+            الاختيار.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6">
-          {[
-            {
-              icon: "🔴",
-              problem: "حبوب الحلاقة",
-              desc: "احمرار وحبوب بعد كل موس أو مكينة. يخليك تتجنب النظر في المرايا.",
-              slug: "najd-clear",
-              product: "نجد كلير",
-            },
-            {
-              icon: "💈",
-              problem: "فوضى اللحية",
-              desc: "لحية كثيفة ومنتفشة ما تنضبط. تعطي انطباع مو زين قبل أي لقاء.",
-              slug: "najd-align",
-              product: "نجد ألاين",
-            },
-            {
-              icon: "😴",
-              problem: "آثار السهر",
-              desc: "هالات وتعب تحت العين يبانون وإن كنت نشيط. يخليك تبدو أكبر من عمرك.",
-              slug: "najd-rest",
-              product: "نجد ريست",
-            },
-          ].map((item, i) => (
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {homePillars.map((item, i) => (
             <motion.div
-              key={i}
+              key={item.slug}
               {...fadeUp}
               transition={{ delay: i * 0.1 }}
               className="bg-charcoal rounded-card border border-white/10 p-6 hover:border-warm-sand/30 transition-colors group"
@@ -343,12 +377,15 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto px-4">
           <motion.div {...fadeUp} className="text-center mb-10">
             <h2 className="text-stone font-bold text-3xl mb-2">
-              منتجات نجد الثلاثة
+              مجموعة نجد الحالية
             </h2>
-            <p className="text-muted">اختر المنتج اللي يناسب مشكلتك</p>
+            <p className="text-muted">
+              عناية بالبشرة والمظهر في أوقات الراحة — اختاري مساراً، والجديد ينضاف
+              هنا بنفس المعيار
+            </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
             {PRODUCTS.map((product, i) => (
               <motion.div
                 key={product.slug}
@@ -366,16 +403,18 @@ export default function HomePage() {
       <section className="py-16 max-w-6xl mx-auto px-4">
         <motion.div {...fadeUp} className="text-center mb-10">
           <h2 className="text-stone font-bold text-3xl mb-2">
-            معيار نجد للجودة
+            معيار نجد: البشرة أولاً
           </h2>
-          <p className="text-muted">نهتم بالتفاصيل قبل ما يصلك المنتج</p>
+          <p className="text-muted">
+            أي منتج جديد يمر على نفس القواعد قبل ما يظهر لك
+          </p>
         </motion.div>
         <div className="grid md:grid-cols-2 gap-6">
           {[
             {
-              icon: "🔬",
-              title: "اختيار مكونات مدروس",
-              desc: "نختار المكونات بناءً على فعاليتها وملاءمتها لبشرة الرجل.",
+              icon: "🧴",
+              title: "بشرة أولاً، لا مفاجآت",
+              desc: "نركّز على ملاءمة التركيبة للبشرة ووضوح المكوّنات وبساطة الاستخدام قبل النوم.",
             },
             {
               icon: "✅",
@@ -440,13 +479,13 @@ export default function HomePage() {
       <section id="routine" className="py-16 max-w-6xl mx-auto px-4">
         <motion.div {...fadeUp} className="text-center mb-10">
           <h2 className="text-stone font-bold text-3xl mb-2">
-            اختر مشكلتك
+            اختَر خطك من المجموعة
           </h2>
           <p className="text-muted">
-            نجد يعطيك الحل المناسب بسرعة
+            نفس القائمة تكبر — ارجع هنا أي وقت لمطابقة منتج جديد مع احتياجك
           </p>
         </motion.div>
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
           {PRODUCTS.map((p, i) => (
             <motion.div key={p.slug} {...fadeUp} transition={{ delay: i * 0.1 }}>
               <Link href={`/products/${p.slug}`}>
@@ -520,10 +559,11 @@ export default function HomePage() {
         className="py-20 text-center max-w-3xl mx-auto px-4"
       >
         <h2 className="text-stone font-bold text-4xl md:text-5xl mb-4">
-          ابدأ بروتين نجد اليوم
+          اطلب روتين نجد اليوم
         </h2>
         <p className="text-muted text-lg mb-8">
-          طلبك ما يأخذ دقيقة. والدفع عند الاستلام.
+          عناية ليلية بسيطة، ومظهر بشرة مريح وقت الصباح — جرّبي نجد اليوم،
+          والدفع عند الاستلام.
         </p>
         <Link
           href="/products"

@@ -9,41 +9,33 @@ import { normalizeSaudiMobile } from "./phone";
 const OFFER_PRICE: Record<number, number> = { 1: 199, 2: 279, 3: 349 };
 
 const PRODUCT_NAMES: Record<string, string> = {
-  "najd-clear": "نجد كلير",
-  "najd-align": "نجد ألاين",
-  "najd-rest": "نجد ريست",
+  "najd-night-dew": "نجد ندى الليل",
+  "najd-night-calm": "نجد لمسة الهدوء",
+  "najd-night-glow": "نجد لمعة الراحة",
 };
 
 const UPSELL_MAP: Record<string, string> = {
-  "najd-clear": "najd-rest",
-  "najd-align": "najd-clear",
-  "najd-rest": "najd-align",
+  "najd-night-dew": "najd-night-calm",
+  "najd-night-calm": "najd-night-glow",
+  "najd-night-glow": "najd-night-dew",
 };
 
 const UPSELL_PRICE = 99;
 const ALL_SLUGS = new Set(Object.keys(PRODUCT_NAMES));
 
-/** رقم NAJD الاختباري — دائماً يُعتبر تجاوز موقع (مطابق للباكند) */
+/** رقم الاختبار الوحيد (تجاوز موقع فالمحاكاة — مطابق للباكند) */
 const CANONICAL_BYPASS_E164 = "+966550505044";
-
-/** يطابق GEO_ORDER_BYPASS_PHONES فالباكند + الرقم الاختباري الثابت */
-function geoBypassE164Set(): Set<string> {
-  const raw =
-    process.env.GEO_ORDER_BYPASS_PHONES ??
-    process.env.NEXT_PUBLIC_GEO_BYPASS_PHONES ??
-    "0550505044";
-  const out = new Set<string>([CANONICAL_BYPASS_E164]);
-  for (const part of raw.split(",")) {
-    const e164 = normalizeSaudiMobile(part.trim());
-    if (e164) out.add(e164);
-  }
-  return out;
-}
 
 function isTestOrderPhone(phone: string): boolean {
   const e164 = normalizeSaudiMobile(phone);
   if (!e164) return false;
-  return geoBypassE164Set().has(e164);
+  return e164 === CANONICAL_BYPASS_E164;
+}
+
+/** أي جوال سعودي في MOCK — للمطورين المحليين فقط */
+function mockAllowAnySaudiPhone(): boolean {
+  const v = process.env.NEXT_PUBLIC_MOCK_ALLOW_ANY_SAUDI?.trim().toLowerCase();
+  return v === "true" || v === "1";
 }
 
 let orderSeq = 0;
@@ -91,27 +83,45 @@ export function mockCreateOrder(body: CreateOrderPayload): CreateOrderResponse {
     throw Object.assign(new Error("ITEMS"), { code: 422, detail: "يجب إضافة منتج واحد على الأقل" });
   }
 
+  if (!mockAllowAnySaudiPhone() && !isTestOrderPhone(body.phone)) {
+    throw Object.assign(new Error("GEO"), {
+      code: 403,
+      detail:
+        "تعذر إتمام الطلب من هذا الاتصال. تأكد أنك داخل المملكة وأنك لا تستخدم شبكة افتراضية خاصة (VPN) أو بروكسي. في وضع التجربة بدون باكند يُقبل رقم الاختبار 0550505044 فقط.",
+    });
+  }
+
   const num = nextOrderNumber();
   let total = 0;
   const items: OrderDetail["items"] = [];
 
   for (const line of body.items) {
-    const price = OFFER_PRICE[line.offer_qty];
-    if (price == null) {
+    /* fallback آمن: إذا كانت `offer_qty` غير معرفة في `OFFER_PRICE`،
+       نعتمد على `price_sar` المرسل من السلة بدل ما نطيش الطلب كامل. */
+    const qty =
+      typeof line.offer_qty === "number" && line.offer_qty > 0
+        ? Math.floor(line.offer_qty)
+        : 1;
+    const fallbackPrice =
+      typeof line.price_sar === "number" && line.price_sar > 0
+        ? Math.floor(line.price_sar)
+        : 0;
+    const price = OFFER_PRICE[qty] ?? fallbackPrice;
+    if (price <= 0) {
       throw Object.assign(new Error("QTY"), {
         code: 422,
         detail: `كمية العرض غير صحيحة: ${line.offer_qty}`,
       });
     }
     const nameAr = PRODUCT_NAMES[line.product_id] ?? line.product_id;
-    const unit = Math.floor(price / line.offer_qty);
+    const unit = Math.max(1, Math.floor(price / qty));
     items.push({
       product_slug: line.product_id,
       product_name_ar: nameAr,
-      quantity: line.offer_qty,
+      quantity: qty,
       unit_price_sar: unit,
       line_total_sar: price,
-      offer_type: offerType(line.offer_qty),
+      offer_type: offerType(qty),
       is_upsell: false,
     });
     total += price;
