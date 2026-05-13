@@ -43,11 +43,11 @@ export function CartDrawer() {
                   transition={{ type: "spring", damping: 24, stiffness: 220 }}
                   className="fixed inset-0 z-50 grid place-items-center p-4"
                 >
-                  <div className="flex max-h-[60vh] w-full max-w-md flex-col overflow-hidden rounded-card border border-white/10 bg-charcoal shadow-2xl">
-                    <div className="flex items-center justify-between border-b border-white/10 p-5">
+                  <div className="flex max-h-[60vh] w-full max-w-md flex-col overflow-hidden rounded-card border border-stone/10 bg-charcoal shadow-2xl">
+                    <div className="flex items-center justify-between border-b border-stone/10 p-5">
                       <button
                         onClick={closeCart}
-                        className="rounded-full p-2 transition-colors hover:bg-white/10"
+                        className="rounded-full p-2 transition-colors hover:bg-stone/10"
                         aria-label="إغلاق السلة"
                       >
                         <X className="h-5 w-5 text-stone" />
@@ -72,7 +72,7 @@ export function CartDrawer() {
                     </div>
 
                     {displayItems.length > 0 && (
-                      <div className="space-y-3 border-t border-white/10 p-4">
+                      <div className="space-y-3 border-t border-stone/10 p-4">
                         <div className="flex items-center justify-around text-xs text-muted">
                           <span>💳 الدفع عند الاستلام</span>
                           <span>📞 تأكيد بالجوال</span>

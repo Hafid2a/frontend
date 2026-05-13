@@ -70,7 +70,7 @@ export default function ProductsPage() {
               className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all ${
                 activeFilter === filter.id
                   ? "bg-najd-green text-white"
-                  : "bg-charcoal text-muted border border-white/10 hover:border-warm-sand/30 hover:text-stone"
+                  : "bg-charcoal text-muted border border-stone/10 hover:border-warm-sand/30 hover:text-stone"
               }`}
             >
               {filter.label}
@@ -102,7 +102,7 @@ export default function ProductsPage() {
           </motion.div>
           <table className="w-full text-right min-w-[600px]">
             <thead>
-              <tr className="border-b border-white/10">
+              <tr className="border-b border-stone/10">
                 <th className="text-muted text-sm font-medium py-3 px-4">
                   المعيار
                 </th>
@@ -116,7 +116,7 @@ export default function ProductsPage() {
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5">
+            <tbody className="divide-y divide-stone/5">
               {[
                 {
                   label: "المشكلة",

@@ -208,7 +208,7 @@ export function CheckoutModal() {
                       <div className="flex items-center justify-between px-6 pb-4 pt-5">
                         <button
                           onClick={closeCheckout}
-                          className="rounded-full p-1.5 transition-colors hover:bg-white/10"
+                          className="rounded-full p-1.5 transition-colors hover:bg-stone/10"
                           aria-label="إغلاق"
                         >
                           <X className="h-6 w-6 text-stone" />
@@ -221,12 +221,12 @@ export function CheckoutModal() {
                       {isMockOrdersApi ? (
                         <div
                           role="status"
-                          className="mx-6 mb-1 rounded-2xl border border-amber-400/50 bg-amber-500/15 px-4 py-3 text-right text-xs text-amber-100/95"
+                          className="mx-6 mb-1 rounded-2xl border border-amber-300 bg-amber-50 px-4 py-3 text-right text-xs text-amber-900"
                         >
-                          <p className="font-medium text-amber-50">
+                          <p className="font-medium text-amber-900">
                             وضع تجريبي نشط — لا يوجد فلتر دولة أو VPN
                           </p>
-                          <p className="mt-1 leading-relaxed text-amber-100/80">
+                          <p className="mt-1 leading-relaxed text-amber-800/90">
                             الطلبات تُحفظ داخل المتجر فقط (بدون الباكند). ضع{" "}
                             <span className="font-mono text-[10px] dir-ltr inline-block">
                               NEXT_PUBLIC_MOCK_ORDERS=false
@@ -300,7 +300,7 @@ export function CheckoutModal() {
                           ))}
                         </div>
 
-                        <div className="border-t border-white/10 pt-4">
+                        <div className="border-t border-stone/10 pt-4">
                           <div className="flex items-center justify-between">
                             <span className="text-xl font-medium text-warm-sand">
                               {getTotal()} ر.س
@@ -465,7 +465,7 @@ export function CheckoutModal() {
                           <input
                             {...register("name")}
                             placeholder="مثال: محمد العتيبي"
-                            className="w-full rounded-2xl border border-white/15 bg-deep-night px-4 py-4 text-right text-stone placeholder-muted outline-none transition-colors focus:border-warm-sand"
+                            className="w-full rounded-2xl border border-stone/15 bg-deep-night px-4 py-4 text-right text-stone placeholder-muted outline-none transition-colors focus:border-warm-sand"
                           />
                           {errors.name && (
                             <p className="mt-1 text-right text-xs text-error">
@@ -483,7 +483,7 @@ export function CheckoutModal() {
                             placeholder="05XXXXXXXX"
                             type="tel"
                             dir="ltr"
-                            className="w-full rounded-2xl border border-white/15 bg-deep-night px-4 py-4 text-right text-stone placeholder-muted outline-none transition-colors focus:border-warm-sand"
+                            className="w-full rounded-2xl border border-stone/15 bg-deep-night px-4 py-4 text-right text-stone placeholder-muted outline-none transition-colors focus:border-warm-sand"
                           />
                           {errors.phone ? (
                             <p className="mt-1 text-right text-xs text-error">
@@ -507,7 +507,7 @@ export function CheckoutModal() {
                         </button>
                       </form>
 
-                      <div className="grid grid-cols-3 gap-2 border-t border-white/10 px-6 pb-6 pt-4 text-center">
+                      <div className="grid grid-cols-3 gap-2 border-t border-stone/10 px-6 pb-6 pt-4 text-center">
                         <div className="space-y-1">
                           <ShieldCheck className="mx-auto h-5 w-5 text-najd-green" />
                           <p className="text-[11px] text-stone">بدون دفع الآن</p>

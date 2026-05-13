@@ -35,7 +35,7 @@ export function ProductMechanism({ product }: ProductMechanismProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="bg-charcoal rounded-card p-6 border border-white/10"
+              className="bg-charcoal rounded-card p-6 border border-stone/10"
             >
               {!point.imageSrc && (
                 <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-najd-green">
@@ -43,7 +43,7 @@ export function ProductMechanism({ product }: ProductMechanismProps) {
                 </div>
               )}
               {point.imageSrc && (
-                <div className="relative mb-4 aspect-[4/5] w-full overflow-hidden rounded-xl border border-najd-green/25 bg-deep-night bg-linear-to-b from-deep-night via-charcoal/90 to-deep-night">
+                <div className="relative mb-4 aspect-[4/5] w-full overflow-hidden rounded-xl border border-najd-green/25 bg-charcoal/60">
                   <Image
                     src={point.imageSrc}
                     alt={point.imageAlt ?? `${point.title} — ${point.desc}`}

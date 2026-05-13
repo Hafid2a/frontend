@@ -60,7 +60,7 @@ export default function AboutPage() {
           </motion.div>
 
           <motion.div {...fadeUp} transition={{ delay: 0.1 }}>
-            <div className="bg-charcoal rounded-card border border-white/10 p-8 text-center">
+            <div className="bg-charcoal rounded-card border border-stone/10 p-8 text-center">
               <div className="text-6xl mb-4">🇸🇦</div>
               <h3 className="text-stone font-bold text-xl mb-2">صُنع للسوق السعودي</h3>
               <p className="text-muted text-sm">
@@ -130,7 +130,7 @@ export default function AboutPage() {
               key={i}
               {...fadeUp}
               transition={{ delay: i * 0.08 }}
-              className="flex items-start gap-4 bg-charcoal rounded-2xl p-5 border border-white/10"
+              className="flex items-start gap-4 bg-charcoal rounded-2xl p-5 border border-stone/10"
             >
               <span className="text-3xl flex-shrink-0">{item.icon}</span>
               <div>
@@ -150,12 +150,12 @@ export default function AboutPage() {
               <p className="text-warm-sand font-bold text-4xl">+2,400</p>
               <p className="text-muted text-sm">طلب داخل السعودية</p>
             </div>
-            <div className="w-px h-12 bg-white/10 hidden md:block" />
+            <div className="w-px h-12 bg-stone/10 hidden md:block" />
             <div>
               <p className="text-warm-sand font-bold text-4xl">4.8★</p>
               <p className="text-muted text-sm">متوسط التقييم</p>
             </div>
-            <div className="w-px h-12 bg-white/10 hidden md:block" />
+            <div className="w-px h-12 bg-stone/10 hidden md:block" />
             <div>
               <p className="text-warm-sand font-bold text-4xl">3</p>
               <p className="text-muted text-sm">منتجات متخصصة</p>

@@ -1,17 +1,24 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand — beauty / night routine (rose & plum; utilities still use najd-green name) */
-  --color-najd-green: #c75b7e;
-  --color-deep-night: #120a14;
-  --color-warm-sand: #e8b9a8;
-  --color-ink: #0a0709;
-  --color-charcoal: #1c141f;
-  --color-stone: #fdf8fa;
-  --color-muted: #a89da3;
-  --color-success: #3d8f72;
-  --color-warning: #d4a25c;
-  --color-error: #c23d52;
+  /* Brand — light Saudi pharmacy-of-beauty (cream surface + refined rose; namabeauty-inspired).
+     Legacy utility names kept (najd-green / deep-night / charcoal / stone / muted) but their values
+     are tuned so existing utility classes render a light theme automatically:
+       bg-deep-night = warm cream body
+       bg-charcoal   = pearl card surface
+       text-stone    = dark ink (primary text)
+       text-muted    = warm mid-gray (secondary text)
+       najd-green    = refined rose accent (despite the historical name) */
+  --color-najd-green: #c2466f;
+  --color-deep-night: #fbf6f0;
+  --color-warm-sand: #b97049;
+  --color-ink: #ffffff;
+  --color-charcoal: #f3ebe2;
+  --color-stone: #1d1416;
+  --color-muted: #6f5f63;
+  --color-success: #2f7a5d;
+  --color-warning: #b97f2c;
+  --color-error: #b1273c;
 
   /* Font families */
   --font-arabic: var(--font-arabic-var), "IBM Plex Sans Arabic", sans-serif;
@@ -24,8 +31,8 @@
 }
 
 :root {
-  --background: #120a14;
-  --foreground: #fdf8fa;
+  --background: #fbf6f0;
+  --foreground: #1d1416;
 }
 
 html {
@@ -35,10 +42,10 @@ html {
 
 body {
   background:
-    radial-gradient(circle at top right, rgba(199, 91, 126, 0.22), transparent 34rem),
-    radial-gradient(circle at bottom left, rgba(232, 185, 168, 0.09), transparent 32rem),
-    #120a14;
-  color: #fdf8fa;
+    radial-gradient(circle at top right, rgba(194, 70, 111, 0.07), transparent 34rem),
+    radial-gradient(circle at bottom left, rgba(185, 112, 73, 0.05), transparent 32rem),
+    #fbf6f0;
+  color: #1d1416;
   font-family: var(--font-sans);
   font-weight: 500;
 }

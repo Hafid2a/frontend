@@ -133,7 +133,7 @@ export default function ContactPage() {
           ) : (
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="bg-charcoal rounded-card border border-white/10 p-6 space-y-4"
+              className="bg-charcoal rounded-card border border-stone/10 p-6 space-y-4"
             >
               <div>
                 <label className="block text-stone text-sm mb-1.5 font-medium">
@@ -142,7 +142,7 @@ export default function ContactPage() {
                 <input
                   {...register("name")}
                   placeholder="اسمك الكريم"
-                  className="w-full bg-deep-night border border-white/20 rounded-xl px-4 py-3 text-stone placeholder-muted focus:outline-none focus:border-warm-sand transition-colors text-right"
+                  className="w-full bg-deep-night border border-stone/20 rounded-xl px-4 py-3 text-stone placeholder-muted focus:outline-none focus:border-warm-sand transition-colors text-right"
                 />
                 {errors.name && (
                   <p className="text-error text-xs mt-1">{errors.name.message}</p>
@@ -158,7 +158,7 @@ export default function ContactPage() {
                   placeholder="05XXXXXXXX"
                   type="tel"
                   dir="ltr"
-                  className="w-full bg-deep-night border border-white/20 rounded-xl px-4 py-3 text-stone placeholder-muted focus:outline-none focus:border-warm-sand transition-colors text-right"
+                  className="w-full bg-deep-night border border-stone/20 rounded-xl px-4 py-3 text-stone placeholder-muted focus:outline-none focus:border-warm-sand transition-colors text-right"
                 />
                 {errors.phone && (
                   <p className="text-error text-xs mt-1">
@@ -175,7 +175,7 @@ export default function ContactPage() {
                   {...register("message")}
                   placeholder="كيف نقدر نساعدك؟"
                   rows={4}
-                  className="w-full bg-deep-night border border-white/20 rounded-xl px-4 py-3 text-stone placeholder-muted focus:outline-none focus:border-warm-sand transition-colors text-right resize-none"
+                  className="w-full bg-deep-night border border-stone/20 rounded-xl px-4 py-3 text-stone placeholder-muted focus:outline-none focus:border-warm-sand transition-colors text-right resize-none"
                 />
                 {errors.message && (
                   <p className="text-error text-xs mt-1">
@@ -208,7 +208,7 @@ export default function ContactPage() {
                 key={i}
                 {...fadeUp}
                 transition={{ delay: i * 0.05 }}
-                className="bg-charcoal rounded-2xl border border-white/10 p-5"
+                className="bg-charcoal rounded-2xl border border-stone/10 p-5"
               >
                 <h3 className="text-stone font-bold text-sm mb-2">{faq.q}</h3>
                 <p className="text-muted text-sm leading-relaxed">{faq.a}</p>
@@ -231,7 +231,7 @@ export default function ContactPage() {
           ].map((step, i) => (
             <div
               key={i}
-              className="bg-charcoal rounded-2xl border border-white/10 p-4 text-center"
+              className="bg-charcoal rounded-2xl border border-stone/10 p-4 text-center"
             >
               <span className="text-3xl block mb-2">{step.icon}</span>
               <p className="text-stone text-xs font-semibold mb-1">

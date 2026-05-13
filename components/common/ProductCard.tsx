@@ -39,7 +39,7 @@ export function ProductCard({ product }: ProductCardProps) {
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-charcoal/50 to-transparent" />
           <div className="absolute bottom-3 right-3">
-            <span className="rounded-full bg-najd-green/80 px-2 py-1 text-xs text-stone">
+            <span className="rounded-full bg-najd-green px-2 py-1 text-xs text-white shadow-sm">
               {product.problemAr}
             </span>
           </div>

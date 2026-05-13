@@ -7,7 +7,7 @@ import { ProductCard } from "@/components/common/ProductCard";
 import { ReviewCard } from "@/components/common/ReviewCard";
 import { PRODUCTS } from "@/config/products";
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ShoppingBag, PhoneCall, PackageCheck } from "lucide-react";
 
 const fadeUp = {
   initial: { opacity: 0, y: 12 },
@@ -17,32 +17,53 @@ const fadeUp = {
 
 const HOME_FAQS = [
   {
+    q: "هل عندكم ضمان استرجاع؟",
+    a: "نعم، ضمان رضا ٣٠ يوم. إذا ما لاحظتي فرقاً مع روتين نجد، تواصلي معنا ونرجّع لكِ المبلغ كاملاً بدون أسئلة.",
+  },
+  {
+    q: "هل الدفع عند الاستلام متاح؟",
+    a: "نعم، الدفع يكون عند استلام الطلب — بدون بطاقة ولا حساب. اسمكِ ورقم جوالكِ فقط لتأكيد الطلب.",
+  },
+  {
+    q: "كم يستغرق التوصيل؟",
+    a: "٢–٤ أيام عمل داخل جميع مدن المملكة العربية السعودية. تتلقّين رسالة تأكيد فور خروج الطلب من المخزن.",
+  },
+  {
+    q: "هل المنتجات مناسبة للبشرة الحساسة؟",
+    a: "نوصي بالبدء بكمية صغيرة ومراقبة تفاعل بشرتكِ، مع اختبار رقعة خلف الأذن قبل أول استخدام كامل. كل منتج له تعليمات استخدام محددة على العبوة.",
+  },
+  {
     q: "هل ستضيفون منتجات جديدة؟",
     a: "نعم. مجموعة نجد تتوسع بمراحل؛ أي إصدار جديد يُعرَض هنا بعد ما يمر على نفس معايير الشفافية وعناية البشرة.",
   },
   {
-    q: "هل الدفع عند الاستلام متاح؟",
-    a: "نعم، الدفع يكون عند استلام الطلب. لا تحتاج بطاقة أو حساب.",
-  },
-  {
-    q: "كم يستغرق التوصيل؟",
-    a: "2-4 أيام عمل داخل المملكة العربية السعودية.",
-  },
-  {
-    q: "هل المنتجات مناسبة للبشرة الحساسة؟",
-    a: "نوصي بالبدء بكمية صغيرة ومراقبة تفاعل بشرتك. كل منتج له تعليمات استخدام محددة.",
-  },
-  {
-    q: "كيف أتأكد أن طلبي وصل؟",
-    a: "ستتلقى رسالة تأكيد وقد نتواصل معك لتأكيد الطلب قبل الشحن.",
-  },
-  {
     q: "هل يمكن طلب أكثر من منتج؟",
-    a: "نعم، يمكنك إضافة أي منتج للسلة وإتمام طلب واحد يصلك بشحنة واحدة.",
+    a: "نعم، يمكنكِ إضافة أي منتج للسلة وإتمام طلب واحد يصلكِ بشحنة واحدة — مع نفس ضمان الـ٣٠ يوم.",
   },
   {
     q: "كيف أتواصل مع الدعم؟",
-    a: "عبر واتساب. فريقنا يرد خلال ساعات.",
+    a: "عبر واتساب. فريقنا يرد خلال ساعات أيام العمل ويساعدكِ في اختيار الصنف المناسب لكِ.",
+  },
+];
+
+const ORDER_STEPS = [
+  {
+    num: "١",
+    icon: ShoppingBag,
+    title: "اختاري روتينكِ",
+    desc: "ثلاثة منتجات تستهدف ثلاث حاجات: ثبات المكياج، حماية النهار، وتهيئة خط الجبهة. اختاري وحدة أو الخط كامل.",
+  },
+  {
+    num: "٢",
+    icon: PhoneCall,
+    title: "أكّدي طلبكِ (بدون دفع)",
+    desc: "اسمكِ ورقم جوالكِ فقط. فريقنا بيتواصل معكِ لتأكيد العنوان قبل الشحن — بدون بطاقة ولا التزام.",
+  },
+  {
+    num: "٣",
+    icon: PackageCheck,
+    title: "استلمي وادفعي",
+    desc: "نوصل الطلب لباب بيتكِ خلال ٢–٤ أيام عمل داخل المملكة، والدفع نقد أو مدى وقت الاستلام.",
   },
 ];
 
@@ -60,7 +81,7 @@ function HomeFAQ() {
               key={i}
               {...fadeUp}
               transition={{ delay: i * 0.05 }}
-              className="bg-charcoal rounded-2xl border border-white/10 overflow-hidden"
+              className="bg-charcoal rounded-2xl border border-stone/10 overflow-hidden"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
@@ -125,7 +146,7 @@ function DecisionProofSection() {
             من الشمس، وخط الجبهة. مع نجد فهمت وش يخدم وجهي تحت الإيشارب والجو،
             والمجموعة واضحة، والدفع عند الاستلام يبسّط قراري.
           </p>
-          <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-5">
+          <div className="mt-6 flex items-center justify-between border-t border-stone/10 pt-5">
             <span className="rounded-full bg-najd-green/20 px-3 py-1 text-xs text-najd-green">
               مشتري مؤكد
             </span>
@@ -134,7 +155,7 @@ function DecisionProofSection() {
                 <p className="text-stone font-medium">سارة العتيبي</p>
                 <p className="text-muted text-xs">٢١ سنة · الخبر</p>
               </div>
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-najd-green text-warm-sand">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-najd-green text-white shadow-sm">
                 س
               </div>
             </div>
@@ -166,7 +187,7 @@ function DecisionProofSection() {
               className={`rounded-2xl border p-5 text-center ${
                 title === "نجد"
                   ? "border-warm-sand/35 bg-najd-green/20"
-                  : "border-white/10 bg-charcoal/60"
+                  : "border-stone/10 bg-charcoal/60"
               }`}
             >
               <h3 className="text-stone font-medium mb-2">{title}</h3>
@@ -184,27 +205,27 @@ export default function HomePage() {
     <div>
       {/* ── Hero — خلفية ناعمة + طبقات زجاجية (مستوحاة من نمط المتاجر الراقية) ── */}
       <section className="relative overflow-hidden min-h-[85vh] md:min-h-[90vh] flex items-center">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#1a0f18] via-deep-night to-deep-night" />
-        <div className="absolute inset-0 bg-gradient-to-br from-najd-green/25 via-transparent to-warm-sand/[0.07]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-najd-green/[0.07] via-deep-night to-deep-night" />
+        <div className="absolute inset-0 bg-gradient-to-br from-najd-green/15 via-transparent to-warm-sand/[0.08]" />
         <div className="absolute top-0 right-0 h-[28rem] w-[28rem] rounded-full bg-najd-green/15 blur-3xl translate-x-1/4 -translate-y-1/3" />
-        <div className="absolute bottom-0 left-0 h-[22rem] w-[22rem] rounded-full bg-warm-sand/10 blur-3xl -translate-x-1/3 translate-y-1/4" />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_20%,rgba(255,255,255,0.06),transparent_55%)]" />
+        <div className="absolute bottom-0 left-0 h-[22rem] w-[22rem] rounded-full bg-warm-sand/15 blur-3xl -translate-x-1/3 translate-y-1/4" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_20%,rgba(194,70,111,0.06),transparent_55%)]" />
 
         <div className="relative w-full max-w-7xl xl:max-w-[90rem] 2xl:max-w-[96rem] mx-auto px-4 sm:px-6 py-12 md:py-20 lg:py-24 grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,1.32fr)] md:gap-x-10 lg:gap-x-12 xl:gap-x-14 items-stretch md:items-center">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            className="order-2 md:order-none mt-8 md:mt-0 rounded-[24px] border border-white/[0.14] bg-white/[0.045] p-6 shadow-[0_24px_80px_-24px_rgba(0,0,0,0.65)] backdrop-blur-2xl backdrop-saturate-150 sm:rounded-[28px] sm:p-7 md:rounded-[32px] md:p-8 md:shadow-[0_32px_100px_-28px_rgba(0,0,0,0.7)]"
+            className="order-2 md:order-none mt-8 md:mt-0 rounded-[24px] border border-warm-sand/25 bg-ink/85 p-6 shadow-[0_24px_80px_-24px_rgba(29,20,22,0.18)] backdrop-blur-2xl backdrop-saturate-150 sm:rounded-[28px] sm:p-7 md:rounded-[32px] md:p-8 md:shadow-[0_32px_100px_-28px_rgba(29,20,22,0.22)]"
           >
             <div className="flex flex-wrap items-center gap-2 mb-6">
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-3.5 py-1.5 backdrop-blur-md">
-                <span className="text-amber-100/90 text-xs font-semibold">
+              <div className="inline-flex items-center gap-2 rounded-full border border-warm-sand/35 bg-warm-sand/[0.08] px-3.5 py-1.5 backdrop-blur-md">
+                <span className="text-warm-sand text-xs font-semibold">
                   وجه تحت الإيشارب والجو — خط كوزميتيك من نجد
                 </span>
               </div>
               <div className="inline-flex items-center gap-2 rounded-full border border-najd-green/35 bg-najd-green/[0.12] px-3.5 py-1.5 backdrop-blur-md">
-                <span className="w-2 h-2 shrink-0 bg-warm-sand rounded-full animate-pulse shadow-[0_0_8px_rgba(232,185,168,0.65)]" />
+                <span className="w-2 h-2 shrink-0 bg-warm-sand rounded-full animate-pulse shadow-[0_0_8px_rgba(185,112,73,0.65)]" />
                 <span className="text-stone/95 text-xs font-medium">
                   الدفع عند الاستلام داخل السعودية
                 </span>
@@ -239,26 +260,26 @@ export default function HomePage() {
               </Link>
               <Link
                 href="/products/najd-thabat-al-khat"
-                className="border border-white/20 bg-white/[0.06] text-stone px-8 py-4 rounded-btn text-base backdrop-blur-sm hover:bg-white/[0.1] transition-colors text-center"
+                className="border border-stone/20 bg-stone/[0.06] text-stone px-8 py-4 rounded-btn text-base backdrop-blur-sm hover:bg-stone/[0.1] transition-colors text-center"
               >
                 ابدئي بثبات الخط
               </Link>
               <Link
                 href="#routine"
-                className="border border-white/12 bg-transparent text-muted px-8 py-4 rounded-btn text-base hover:bg-white/[0.05] hover:text-stone transition-colors text-center sm:px-6"
+                className="border border-stone/12 bg-transparent text-muted px-8 py-4 rounded-btn text-base hover:bg-stone/[0.05] hover:text-stone transition-colors text-center sm:px-6"
               >
                 قارن المنتجات
               </Link>
             </div>
 
-            <div className="mt-8 flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 backdrop-blur-md">
+            <div className="mt-8 flex items-center gap-4 rounded-2xl border border-stone/10 bg-stone/[0.04] px-4 py-3 backdrop-blur-md">
               <div className="flex -space-x-2 space-x-reverse">
                 {["س", "د", "ر", "ن"].map((letter, i) => (
                   <div
                     key={i}
-                    className="w-8 h-8 rounded-full bg-najd-green/90 border-2 border-white/15 flex items-center justify-center shadow-sm"
+                    className="w-8 h-8 rounded-full bg-najd-green border-2 border-stone/10 flex items-center justify-center shadow-sm"
                   >
-                    <span className="text-warm-sand text-xs font-bold">
+                    <span className="text-white text-xs font-bold">
                       {letter}
                     </span>
                   </div>
@@ -276,15 +297,15 @@ export default function HomePage() {
             className="order-1 md:order-none w-full md:min-w-0 flex justify-center md:justify-end"
           >
             <div className="w-[calc(100%+1.5rem)] max-w-none -mx-3 sm:w-full sm:max-w-xl sm:mx-auto md:max-w-none md:w-full md:mx-0">
-              <div className="relative overflow-hidden rounded-2xl border border-white/[0.16] bg-white/[0.06] p-2 pb-2 shadow-[0_28px_90px_-20px_rgba(0,0,0,0.72)] backdrop-blur-2xl backdrop-saturate-150 sm:rounded-[26px] sm:p-3 md:rounded-[32px] md:p-4 md:pb-3 lg:p-5 lg:pb-4 md:shadow-[0_40px_110px_-24px_rgba(0,0,0,0.78)]">
+              <div className="relative overflow-hidden rounded-2xl border border-stone/[0.16] bg-stone/[0.06] p-2 pb-2 shadow-[0_28px_90px_-20px_rgba(0,0,0,0.72)] backdrop-blur-2xl backdrop-saturate-150 sm:rounded-[26px] sm:p-3 md:rounded-[32px] md:p-4 md:pb-3 lg:p-5 lg:pb-4 md:shadow-[0_40px_110px_-24px_rgba(0,0,0,0.78)]">
                 <div
-                  className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/[0.08] via-transparent to-najd-green/[0.08]"
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-br from-stone/[0.08] via-transparent to-najd-green/[0.08]"
                   aria-hidden
                 />
 
                 <Link
                   href="/products"
-                  className="relative z-10 flex min-h-[220px] items-center justify-center overflow-hidden rounded-xl border border-white/15 bg-gradient-to-br from-najd-green/35 via-deep-night to-charcoal px-8 py-16 transition duration-300 hover:border-warm-sand/35 hover:shadow-[0_0_40px_-10px_rgba(199,91,126,0.25)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-warm-sand md:min-h-[280px] md:rounded-2xl"
+                  className="relative z-10 flex min-h-[220px] items-center justify-center overflow-hidden rounded-xl border border-stone/15 bg-gradient-to-br from-najd-green/35 via-deep-night to-charcoal px-8 py-16 transition duration-300 hover:border-warm-sand/35 hover:shadow-[0_0_40px_-10px_rgba(194,70,111,0.25)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-warm-sand md:min-h-[280px] md:rounded-2xl"
                 >
                   <div className="text-center">
                     <span className="text-6xl md:text-7xl drop-shadow-lg" aria-hidden>
@@ -304,7 +325,7 @@ export default function HomePage() {
 
                 {/* تحت الصورة: تباين قوي (ما فوق البانر الأبيض) */}
                 <div className="relative z-20 mt-2 flex flex-wrap items-stretch justify-between gap-2 sm:mt-2.5 md:mt-3">
-                  <div className="min-w-0 flex-1 rounded-xl border border-warm-sand/25 bg-deep-night/92 px-2.5 py-2 shadow-md backdrop-blur-sm sm:rounded-2xl sm:px-3 sm:py-2">
+                  <div className="min-w-0 flex-1 rounded-xl border border-warm-sand/25 bg-charcoal/92 px-2.5 py-2 shadow-md backdrop-blur-sm sm:rounded-2xl sm:px-3 sm:py-2">
                     <p className="text-right text-[10px] leading-snug text-warm-sand sm:text-[11px]">
                       <span className="text-warm-sand" aria-hidden>
                         ★★★★★
@@ -314,7 +335,7 @@ export default function HomePage() {
                       تقييم العملاء ٤٫٨ من ٥
                     </p>
                   </div>
-                  <div className="min-w-0 flex-1 rounded-xl border border-najd-green/35 bg-deep-night/92 px-2.5 py-2 shadow-md backdrop-blur-sm sm:rounded-2xl sm:px-3 sm:py-2">
+                  <div className="min-w-0 flex-1 rounded-xl border border-najd-green/35 bg-charcoal/92 px-2.5 py-2 shadow-md backdrop-blur-sm sm:rounded-2xl sm:px-3 sm:py-2">
                     <p className="text-right text-[11px] text-stone sm:text-xs">
                       الدفع عند الاستلام
                     </p>
@@ -350,7 +371,7 @@ export default function HomePage() {
               key={item.slug}
               {...fadeUp}
               transition={{ delay: i * 0.1 }}
-              className="bg-charcoal rounded-card border border-white/10 p-6 hover:border-warm-sand/30 transition-colors group"
+              className="bg-charcoal rounded-card border border-stone/10 p-6 hover:border-warm-sand/30 transition-colors group"
             >
               <span className="text-4xl mb-4 block">{item.icon}</span>
               <h3 className="text-stone font-bold text-xl mb-2">
@@ -399,49 +420,67 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Brand Standard ── */}
+      {/* ── Brand Standard — 4 Pillars ── */}
       <section className="py-16 max-w-6xl mx-auto px-4">
-        <motion.div {...fadeUp} className="text-center mb-10">
-          <h2 className="text-stone font-bold text-3xl mb-2">
-            معيار نجد: البشرة أولاً
+        <motion.div {...fadeUp} className="text-center mb-12">
+          <p className="text-warm-sand text-sm mb-2">ليش نجد</p>
+          <h2 className="text-stone font-bold text-3xl md:text-4xl mb-3">
+            خط متخصص، مو رفّ من العشرات
           </h2>
-          <p className="text-muted">
-            أي منتج جديد يمر على نفس القواعد قبل ما يظهر لك
+          <p className="text-muted max-w-xl mx-auto leading-7">
+            نجد مبني على أربعة أركان لا نتنازل عنها: التخصص، الشفافية، فحص قبل
+            الشحن، وراحة العميلة السعودية.
           </p>
         </motion.div>
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid sm:grid-cols-2 gap-4 md:gap-5">
           {[
             {
               icon: "🧴",
-              title: "بشرة أولاً، لا مفاجآت",
-              desc: "نركّز على ملاءمة التركيبة للجو المحلي ووضوح المكوّنات وبساطة الاستخدام قبل الخروج وبعد العناية.",
+              title: "كوزميتيك متخصص للوجه",
+              desc: "خط واحد للوجه تحت الإيشارب والجو المحلي — مستحضرات تجميلية خارجية بلغة واضحة وبدون ادِّعاء طبي.",
+              accent: "from-najd-green/25 to-najd-green/5",
+            },
+            {
+              icon: "📋",
+              title: "شفافية في الوصف",
+              desc: "كل منتج يشرح المشكلة الحقيقية ووقت الاستخدام والكمية المناسبة — بدون وعود غير واقعية أو إعلانات مبالغ فيها.",
+              accent: "from-warm-sand/25 to-warm-sand/5",
             },
             {
               icon: "✅",
               title: "فحص جودة قبل الشحن",
-              desc: "كل طلب يمر بفحص قبل الخروج من المخزن.",
+              desc: "كل طلب يمرّ بفحص عبوّة وتغليف قبل الخروج من المخزن — مهيَّأ ليصلكِ سليماً.",
+              accent: "from-success/25 to-success/5",
             },
             {
-              icon: "📦",
-              title: "تغليف يحافظ على المنتج",
-              desc: "تغليف مصمم لحماية المنتج طوال رحلة التوصيل.",
-            },
-            {
-              icon: "💬",
-              title: "دعم واضح بعد الطلب",
-              desc: "فريق واتساب يرد على استفساراتك بسرعة.",
+              icon: "🇸🇦",
+              title: "راحة العميلة السعودية",
+              desc: "الدفع عند الاستلام، توصيل ٢–٤ أيام لجميع المناطق، دعم واتساب، وضمان استرجاع ٣٠ يوم.",
+              accent: "from-najd-green/25 to-warm-sand/10",
             },
           ].map((item, i) => (
             <motion.div
               key={i}
               {...fadeUp}
               transition={{ delay: i * 0.1 }}
-              className="flex items-start gap-4 bg-charcoal rounded-2xl p-5 border border-white/10"
+              className="group relative overflow-hidden rounded-2xl border border-warm-sand/15 bg-charcoal/85 p-6 transition-colors hover:border-warm-sand/35"
             >
-              <span className="text-3xl flex-shrink-0">{item.icon}</span>
-              <div>
-                <h3 className="text-stone font-bold mb-1">{item.title}</h3>
-                <p className="text-muted text-sm leading-relaxed">{item.desc}</p>
+              <div
+                className={`pointer-events-none absolute -left-12 -top-12 h-32 w-32 rounded-full bg-gradient-to-br ${item.accent} blur-2xl opacity-70`}
+                aria-hidden
+              />
+              <div className="relative flex items-start gap-4">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-warm-sand/20 bg-charcoal/70 text-2xl">
+                  {item.icon}
+                </span>
+                <div className="min-w-0">
+                  <h3 className="text-stone font-bold text-lg mb-1.5">
+                    {item.title}
+                  </h3>
+                  <p className="text-muted text-sm leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
               </div>
             </motion.div>
           ))}
@@ -489,7 +528,7 @@ export default function HomePage() {
           {PRODUCTS.map((p, i) => (
             <motion.div key={p.slug} {...fadeUp} transition={{ delay: i * 0.1 }}>
               <Link href={`/products/${p.slug}`}>
-                <div className="bg-charcoal rounded-card border border-white/10 p-6 hover:border-najd-green/60 transition-colors group cursor-pointer">
+                <div className="bg-charcoal rounded-card border border-stone/10 p-6 hover:border-najd-green/60 transition-colors group cursor-pointer">
                   <div className="w-16 h-16 bg-najd-green/20 rounded-2xl flex items-center justify-center mb-4">
                     <span className="text-warm-sand text-3xl font-bold font-arabic">
                       {p.nameAr[2]}
@@ -512,6 +551,62 @@ export default function HomePage() {
               </Link>
             </motion.div>
           ))}
+        </div>
+      </section>
+
+      {/* ── How to Order — 3 Steps ── */}
+      <section className="py-16 bg-deep-night border-y border-warm-sand/10">
+        <div className="max-w-5xl mx-auto px-4">
+          <motion.div {...fadeUp} className="text-center mb-12">
+            <p className="text-warm-sand text-sm mb-2">طريقة الطلب</p>
+            <h2 className="text-stone font-bold text-3xl md:text-4xl mb-3">
+              من الطلب لباب بيتكِ في ٣ خطوات
+            </h2>
+            <p className="text-muted max-w-xl mx-auto leading-7">
+              بدون دفع أونلاين · بدون التزام · بدون مخاطرة
+            </p>
+          </motion.div>
+
+          <div className="relative grid gap-5 md:grid-cols-3 md:gap-6">
+            <div className="pointer-events-none absolute right-[16.66%] left-[16.66%] top-[3.5rem] hidden h-px bg-gradient-to-l from-transparent via-warm-sand/30 to-transparent md:block" />
+
+            {ORDER_STEPS.map((step, i) => {
+              const Icon = step.icon;
+              return (
+                <motion.div
+                  key={i}
+                  {...fadeUp}
+                  transition={{ delay: i * 0.1 }}
+                  className="relative rounded-2xl border border-warm-sand/15 bg-charcoal/70 p-6 text-center backdrop-blur-sm"
+                >
+                  <div className="relative mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-najd-green text-white shadow-[0_8px_30px_-12px_rgba(194,70,111,0.55)]">
+                    <Icon className="h-6 w-6" strokeWidth={1.8} />
+                    <span className="absolute -top-2 -left-2 flex h-7 w-7 items-center justify-center rounded-full border border-warm-sand/40 bg-deep-night text-xs font-bold text-warm-sand">
+                      {step.num}
+                    </span>
+                  </div>
+                  <h3 className="text-stone font-semibold text-lg mb-2">
+                    {step.title}
+                  </h3>
+                  <p className="text-muted text-sm leading-relaxed">
+                    {step.desc}
+                  </p>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          <motion.div {...fadeUp} className="mt-10 text-center">
+            <Link
+              href="/products"
+              className="inline-flex items-center justify-center rounded-btn bg-najd-green px-8 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-najd-green/85 shadow-lg shadow-najd-green/25"
+            >
+              ابدئي طلبكِ الآن
+            </Link>
+            <p className="text-muted text-xs mt-3">
+              ضمان استرجاع ٣٠ يوم · شحن داخل السعودية
+            </p>
+          </motion.div>
         </div>
       </section>
 
@@ -567,10 +662,21 @@ export default function HomePage() {
         </p>
         <Link
           href="/products"
-          className="inline-block bg-warm-sand text-deep-night px-10 py-4 rounded-btn font-bold text-lg hover:bg-warm-sand/80 transition-colors"
+          className="inline-block bg-warm-sand text-deep-night px-10 py-4 rounded-btn font-bold text-lg hover:bg-warm-sand/80 transition-colors shadow-lg shadow-warm-sand/15"
         >
           تسوق الآن
         </Link>
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-muted">
+          <span className="inline-flex items-center gap-1.5">
+            <span className="text-warm-sand">✓</span> ضمان استرجاع ٣٠ يوم
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <span className="text-warm-sand">✓</span> الدفع عند الاستلام
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <span className="text-warm-sand">✓</span> شحن داخل السعودية
+          </span>
+        </div>
       </motion.section>
     </div>
   );

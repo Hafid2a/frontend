@@ -15,17 +15,17 @@ export function OfferCard({ offer, isSelected, onSelect }: OfferCardProps) {
       onClick={onSelect}
       className={`w-full text-right p-4 rounded-2xl border-2 transition-all relative ${
         isSelected
-          ? "border-warm-sand bg-warm-sand/10"
-          : "border-white/20 bg-charcoal hover:border-white/40"
+          ? "border-najd-green bg-najd-green/8 shadow-sm"
+          : "border-stone/15 bg-charcoal/60 hover:border-najd-green/40"
       }`}
       aria-pressed={isSelected}
     >
       {offer.badgeAr && (
         <span
-          className={`absolute -top-3 right-3 text-xs px-2 py-0.5 rounded-full font-bold ${
+          className={`absolute -top-3 right-3 text-xs px-2 py-0.5 rounded-full font-bold shadow-sm ${
             isSelected
-              ? "bg-warm-sand text-deep-night"
-              : "bg-najd-green text-white"
+              ? "bg-najd-green text-white"
+              : "bg-warm-sand text-white"
           }`}
         >
           {offer.badgeAr}
@@ -34,9 +34,9 @@ export function OfferCard({ offer, isSelected, onSelect }: OfferCardProps) {
 
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          {isSelected && <Check className="w-4 h-4 text-warm-sand" />}
+          {isSelected && <Check className="w-4 h-4 text-najd-green" />}
           <span
-            className={`text-lg font-bold ${isSelected ? "text-warm-sand" : "text-stone"}`}
+            className={`text-lg font-bold ${isSelected ? "text-najd-green" : "text-stone"}`}
           >
             {offer.priceSar} ريال
           </span>

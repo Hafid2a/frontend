@@ -28,7 +28,7 @@ export function CartItem({ item }: CartItemProps) {
 
       <button
         onClick={() => removeItem(item.lineId)}
-        className="p-2 hover:bg-white/10 rounded-lg transition-colors text-muted hover:text-error"
+        className="p-2 hover:bg-stone/10 rounded-lg transition-colors text-muted hover:text-error"
         aria-label="حذف من السلة"
       >
         <Trash2 className="w-4 h-4" />

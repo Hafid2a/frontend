@@ -53,7 +53,7 @@ export function UpsellModal({ upsell, orderId, onDone }: UpsellModalProps) {
           className="bg-charcoal rounded-card w-full max-w-md border border-warm-sand/30 overflow-hidden"
         >
           {/* Countdown bar */}
-          <div className="h-1 bg-white/10">
+          <div className="h-1 bg-stone/10">
             <motion.div
               className="h-full bg-warm-sand"
               animate={{ width: `${progress}%` }}

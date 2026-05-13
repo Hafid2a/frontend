@@ -73,7 +73,7 @@ export function Footer() {
   const [openSection, setOpenSection] = useState<string | null>("منتجات نجد");
 
   return (
-    <footer className="mt-20 border-t border-warm-sand/10 bg-[#faf2f5] text-deep-night">
+    <footer className="mt-20 border-t border-warm-sand/15 bg-charcoal text-stone">
       <div className="mx-auto max-w-6xl px-4 py-8">
         <div className="-mx-4 mb-10 flex snap-x gap-3 overflow-x-auto px-4 pb-2 md:grid md:grid-cols-4 md:overflow-visible">
           {trustCards.map((card) => {
@@ -81,12 +81,12 @@ export function Footer() {
             return (
               <div
                 key={card.title}
-                className="min-w-[240px] snap-center rounded-2xl border border-najd-green/10 bg-white/55 p-4 shadow-sm md:min-w-0"
+                className="min-w-[240px] snap-center rounded-2xl border border-najd-green/15 bg-ink p-4 shadow-sm md:min-w-0"
               >
                 <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-najd-green/10 text-najd-green">
                   <Icon className="h-6 w-6" />
                 </div>
-                <h3 className="mb-1 text-sm font-medium text-deep-night">
+                <h3 className="mb-1 text-sm font-medium text-stone">
                   {card.title}
                 </h3>
                 <p className="text-xs leading-relaxed text-muted">{card.desc}</p>
@@ -99,18 +99,18 @@ export function Footer() {
           {footerSections.map((section) => {
             const isOpen = openSection === section.title;
             return (
-              <div key={section.title} className="border-b border-deep-night/10">
+              <div key={section.title} className="border-b border-stone/10">
                 <button
                   onClick={() => setOpenSection(isOpen ? null : section.title)}
                   className="flex w-full items-center justify-between py-5 text-right"
                   aria-expanded={isOpen}
                 >
                   <ChevronDown
-                    className={`h-5 w-5 text-deep-night transition-transform ${
+                    className={`h-5 w-5 text-stone transition-transform ${
                       isOpen ? "rotate-180" : ""
                     }`}
                   />
-                  <span className="text-lg font-medium text-deep-night">
+                  <span className="text-lg font-medium text-stone">
                     {section.title}
                   </span>
                 </button>
@@ -132,10 +132,10 @@ export function Footer() {
           })}
         </div>
 
-        <div className="hidden grid-cols-3 gap-12 border-b border-deep-night/10 py-10 text-right md:grid">
+        <div className="hidden grid-cols-3 gap-12 border-b border-stone/10 py-10 text-right md:grid">
           {footerSections.map((section) => (
             <div key={section.title}>
-              <h3 className="mb-4 text-sm font-medium text-deep-night">
+              <h3 className="mb-4 text-sm font-medium text-stone">
                 {section.title}
               </h3>
               <div className="space-y-2">

@@ -21,9 +21,9 @@ import { getOrder } from "@/lib/api";
 import { trackPurchase, generateEventId } from "@/lib/tracking";
 import { SITE_CONFIG } from "@/config/site";
 
-const cream = "#faf2f5";
-const ink = "#1c141f";
-const subtle = "#756a72";
+const cream = "#fbf6f0";
+const ink = "#1d1416";
+const subtle = "#6f5f63";
 
 const ORDER_STEPS = [
   {

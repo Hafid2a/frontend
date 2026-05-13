@@ -59,7 +59,7 @@ export function ProductHero({ product }: ProductHeroProps) {
               </div>
               <div className="absolute bottom-4 left-4 right-4 rounded-2xl border border-warm-sand/25 bg-stone/95 px-3 py-3 shadow-2xl md:left-5 md:right-auto md:max-w-[250px] z-10">
                 <div className="flex items-center gap-3">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-najd-green text-sm text-warm-sand">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-najd-green text-sm text-white">
                     ✓
                   </span>
                   <div className="min-w-0 text-right">

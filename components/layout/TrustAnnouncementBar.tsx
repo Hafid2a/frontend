@@ -37,7 +37,7 @@ export function TrustAnnouncementBar() {
   }, []);
 
   return (
-    <div className="border-t border-warm-sand/10 bg-najd-green text-stone shadow-[0_10px_35px_rgba(199,91,126,0.35)]">
+    <div className="border-t border-warm-sand/10 bg-najd-green text-white shadow-[0_10px_35px_rgba(194,70,111,0.3)]">
       <div className="mx-auto flex h-12 max-w-6xl items-center overflow-hidden px-4 md:h-11">
         <div className="relative flex min-w-full items-center justify-center">
           <AnimatePresence mode="wait">
@@ -49,7 +49,7 @@ export function TrustAnnouncementBar() {
               transition={{ duration: 0.28 }}
               className="flex items-center justify-center gap-3"
             >
-              <Icon className="h-4 w-4 shrink-0 text-warm-sand" />
+              <Icon className="h-4 w-4 shrink-0 text-white/90" />
               <p className="truncate text-center text-xs font-medium md:text-sm">
                 {activeItem.text}
               </p>

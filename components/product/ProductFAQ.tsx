@@ -32,7 +32,7 @@ export function ProductFAQ({ product }: ProductFAQProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
-              className="bg-charcoal rounded-2xl border border-white/10 overflow-hidden"
+              className="bg-charcoal rounded-2xl border border-stone/10 overflow-hidden"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}

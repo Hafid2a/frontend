@@ -71,7 +71,7 @@ export default function ProductPage({
 
           {product.descriptionImage && (
             <figure className="mt-10 text-center">
-              <div className="mx-auto inline-block max-w-2xl overflow-hidden rounded-card border border-warm-sand/20 bg-deep-night/60 p-2">
+              <div className="mx-auto inline-block max-w-2xl overflow-hidden rounded-card border border-warm-sand/20 bg-charcoal/60 p-2">
                 <Image
                   src={product.descriptionImage.src}
                   alt={product.descriptionImage.alt}
@@ -106,7 +106,7 @@ export default function ProductPage({
               key={i}
               {...fadeUp}
               transition={{ delay: i * 0.1 }}
-              className="bg-charcoal rounded-2xl p-6 border border-white/10 text-center"
+              className="bg-charcoal rounded-2xl p-6 border border-stone/10 text-center"
             >
               {!step.imageSrc && (
                 <div className="w-12 h-12 bg-warm-sand/20 border border-warm-sand/30 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -114,7 +114,7 @@ export default function ProductPage({
                 </div>
               )}
               {step.imageSrc && (
-                <div className="relative mb-4 aspect-[4/5] w-full overflow-hidden rounded-xl border border-warm-sand/15 bg-deep-night/50">
+                <div className="relative mb-4 aspect-[4/5] w-full overflow-hidden rounded-xl border border-warm-sand/15 bg-charcoal/50">
                   <Image
                     src={step.imageSrc}
                     alt={step.imageAlt ?? `${step.step} — ${step.desc}`}
@@ -174,7 +174,7 @@ export default function ProductPage({
                 key={i}
                 {...fadeUp}
                 transition={{ delay: i * 0.1 }}
-                className="flex items-start gap-4 bg-charcoal/60 rounded-2xl p-5 border border-white/10"
+                className="flex items-start gap-4 bg-charcoal/60 rounded-2xl p-5 border border-stone/10"
               >
                 <span className="text-3xl flex-shrink-0">{item.icon}</span>
                 <div>
@@ -280,7 +280,7 @@ export default function ProductPage({
       </section>
 
       {/* Fit checklist */}
-      <section className="py-14 bg-deep-night border-y border-white/5">
+      <section className="py-14 bg-deep-night border-y border-stone/5">
         <div className="max-w-5xl mx-auto px-4 grid md:grid-cols-2 gap-8 items-center">
           <motion.div {...fadeUp}>
             <p className="text-warm-sand text-sm mb-2">مناسب لك إذا</p>
@@ -297,7 +297,7 @@ export default function ProductPage({
             {product.bullets.slice(0, 4).map((bullet) => (
               <div
                 key={bullet}
-                className="flex items-start gap-3 rounded-2xl border border-white/10 bg-charcoal/70 p-4 text-right"
+                className="flex items-start gap-3 rounded-2xl border border-stone/10 bg-charcoal/70 p-4 text-right"
               >
                 <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-najd-green text-xs text-white">
                   ✓

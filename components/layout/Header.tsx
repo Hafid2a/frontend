@@ -21,13 +21,13 @@ export function Header() {
   const itemCount = items.length;
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-deep-night/55 backdrop-blur-xl backdrop-saturate-150 supports-[backdrop-filter]:bg-deep-night/45">
+    <header className="sticky top-0 z-50 border-b border-stone/10 bg-charcoal/90 backdrop-blur-xl backdrop-saturate-150 supports-[backdrop-filter]:bg-charcoal/80">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
         <div className="flex items-center gap-2">
           <button
             type="button"
             onClick={openCart}
-            className="relative rounded-full p-2 transition-colors hover:bg-white/10"
+            className="relative rounded-full p-2 transition-colors hover:bg-stone/10"
             aria-label={`السلة (${itemCount})`}
           >
             <ShoppingCart className="h-6 w-6 text-stone" />
@@ -41,7 +41,7 @@ export function Header() {
           <button
             type="button"
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="rounded-full p-2 transition-colors hover:bg-white/10 md:hidden"
+            className="rounded-full p-2 transition-colors hover:bg-stone/10 md:hidden"
             aria-label="القائمة"
           >
             {mobileOpen ? (
@@ -68,7 +68,7 @@ export function Header() {
       </div>
 
       {mobileOpen ? (
-        <div className="space-y-3 border-t border-white/5 bg-deep-night px-4 py-4 md:hidden">
+        <div className="space-y-3 border-t border-stone/5 bg-deep-night px-4 py-4 md:hidden">
           {navLinks.map(({ href, label }) => (
             <Link
               key={href}
