@@ -2,7 +2,7 @@
 # configured under Source (use branch main, not a pinned commit).
 #
 # 1. Easypanel → frontend app → copy "Deploy Webhook" URL.
-# 2. GitHub → Settings → Secrets → Actions → EASYPANEL_DEPLOY_WEBHOOK = <URL>
+# 2. GitHub → Settings → Secrets → Actions → EASYPANEL_FRONTEND_HOOK = <URL>
 #
 # If unset, this workflow exits 0 and does nothing.
 
@@ -18,10 +18,10 @@ jobs:
     steps:
       - name: Trigger Easypanel deployment
         env:
-          HOOK: ${{ secrets.EASYPANEL_DEPLOY_WEBHOOK }}
+          HOOK: ${{ secrets.EASYPANEL_FRONTEND_HOOK }}
         run: |
           if [ -z "$HOOK" ]; then
-            echo "EASYPANEL_DEPLOY_WEBHOOK not set; skip (see workflow file header)."
+            echo "EASYPANEL_FRONTEND_HOOK not set; skip (see workflow file header)."
             exit 0
           fi
           curl -fsS -X POST "$HOOK"
