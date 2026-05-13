@@ -3,6 +3,7 @@
 import { use, useEffect } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { PRODUCTS, PRODUCT_MAP } from "@/config/products";
 import { ProductHero } from "@/components/product/ProductHero";
@@ -63,9 +64,30 @@ export default function ProductPage({
             {product.problemAr}
           </h2>
           <p className="text-muted leading-relaxed">
-            مساءً، كثير من البنات يحسبن جفافاً أو إرهاقاً بصرياً بسيطاً لمظهر
-            الوجه — بدون مسار مسائي خارجي موضَّح بوضوح. {product.heroSubheading}
+            وقت الخروج والحرّ والتكييف، كثير من البنات يحسبن ذوباناً للمكياج أو
+            بهتاناً أو احتكاكاً حوالين الجبهة — بدون خط موضّح للوجه تحت الإيشارب.{" "}
+            {product.heroSubheading}
           </p>
+
+          {product.descriptionImage && (
+            <figure className="mt-10 text-center">
+              <div className="mx-auto inline-block max-w-2xl overflow-hidden rounded-card border border-warm-sand/20 bg-deep-night/60 p-2">
+                <Image
+                  src={product.descriptionImage.src}
+                  alt={product.descriptionImage.alt}
+                  width={1200}
+                  height={1800}
+                  sizes="(min-width: 768px) 42rem, 100vw"
+                  className="mx-auto h-auto max-h-[min(70vh,920px)] w-full object-contain"
+                />
+              </div>
+              {product.descriptionImage.captionAr && (
+                <figcaption className="mt-4 text-xs leading-relaxed text-muted md:text-sm">
+                  {product.descriptionImage.captionAr}
+                </figcaption>
+              )}
+            </figure>
+          )}
         </div>
       </motion.section>
 
@@ -78,7 +100,7 @@ export default function ProductPage({
           <h2 className="text-stone font-bold text-3xl">طريقة الاستخدام</h2>
           <p className="text-muted mt-2">بسيطة وما تأخذ وقت</p>
         </motion.div>
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid gap-6 md:grid-cols-3 md:items-start">
           {product.howToUse.map((step, i) => (
             <motion.div
               key={i}
@@ -86,13 +108,34 @@ export default function ProductPage({
               transition={{ delay: i * 0.1 }}
               className="bg-charcoal rounded-2xl p-6 border border-white/10 text-center"
             >
-              <div className="w-12 h-12 bg-warm-sand/20 border border-warm-sand/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-warm-sand font-bold">{i + 1}</span>
-              </div>
-              <h3 className="text-warm-sand font-bold text-lg mb-2">
-                {step.step}
-              </h3>
-              <p className="text-muted text-sm">{step.desc}</p>
+              {!step.imageSrc && (
+                <div className="w-12 h-12 bg-warm-sand/20 border border-warm-sand/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-warm-sand font-bold">{i + 1}</span>
+                </div>
+              )}
+              {step.imageSrc && (
+                <div className="relative mb-4 aspect-[4/5] w-full overflow-hidden rounded-xl border border-warm-sand/15 bg-deep-night/50">
+                  <Image
+                    src={step.imageSrc}
+                    alt={step.imageAlt ?? `${step.step} — ${step.desc}`}
+                    fill
+                    sizes="(min-width: 768px) 280px, 100vw"
+                    className="object-contain object-center"
+                  />
+                </div>
+              )}
+              {step.imageSrc ? (
+                <p className="sr-only">
+                  {step.step} {step.desc}
+                </p>
+              ) : (
+                <>
+                  <h3 className="text-warm-sand font-bold text-lg mb-2">
+                    {step.step}
+                  </h3>
+                  <p className="text-muted text-sm">{step.desc}</p>
+                </>
+              )}
             </motion.div>
           ))}
         </div>
@@ -109,12 +152,12 @@ export default function ProductPage({
               {
                 icon: "🇸🇦",
                 title: "صُمّم للبنات في السعودية",
-                desc: "نفهم إيقاع المدرسة والجامعة والمناسبات ونقدّم تعليمات مسائية واقعية بدون ادِّعاء طبي.",
+                desc: "نفهم إيقاع الدوام والجامعة والمناسبات والجو المحلي ونقدّم تعليمات واقعية بدون ادِّعاء طبي.",
               },
               {
                 icon: "⚡",
-                title: "روتين سريع قبل النوم",
-                desc: "خطوات قليلة بعد غسل وجهكِ — بينما تهيّئين وقت نومكِ.",
+                title: "روتين عملي صباحاً ومساءً",
+                desc: "خطوات قليلة بعد التنظيف — ثبات، واقي نهاري، أو تهيئة موضّعة حسب الصنف.",
               },
               {
                 icon: "💳",
@@ -152,41 +195,85 @@ export default function ProductPage({
         <motion.div {...fadeUp} className="text-center mb-10">
           <p className="text-warm-sand text-sm mb-2">الفرق اللي تحسّه</p>
           <h2 className="text-stone font-medium text-3xl">
-            ليه {product.nameAr} يستاهل يدخل روتينكِ الليلي؟
+            ليه {product.nameAr} يستاهل يكون جزءاً من روتين وجهكِ؟
           </h2>
           <p className="text-muted mt-3 max-w-2xl mx-auto">
-            مو منتج عشوائي تضيفينه على الرف. هذا جزء من عناية مسائية خارجية تساعد
-            على تهيئة مظهر البشرة قبل الغفوة — وفق الوصف على التعبئة والفئة
-            المستهدفة.
+            مو منتج عشوائي تضيفينه على الرف. هذا جزء من عناية خارجية تجميلية
+            للوجه تحت الإيشارب والجو وفق الوصف على التعبئة والفئة المستهدفة.
           </p>
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-4">
-          {[
+          {(
+            [
               {
-                title: "مظهر أوضح",
-                desc: "يساعدكِ تخفيف مظهر الجفاف أو البهتان الخارجي حيث ينطبق ذلك على منتجكم.",
+                title: "مظهر أكثر اتزاناً",
+                desc: "كل صنف يستهدف احتياجاً محدداً: ثبات، حماية من الشمس، أو تهيئة خط الجبهة حيث ينطبق ذلك على منتجكم.",
+                imageSrc: "/images/najd/trio-balanced-look.png",
+                imageAlt:
+                  "مظهر أكثر اتزاناً: كل صنف يستهدف احتياجاً محدداً — ثبات، حماية من الشمس، أو تهيئة خط الجبهة حيث ينطبق ذلك على منتجكم. مستحضر تجميلي موضَّع فقط (النص في الصورة).",
               },
               {
-                title: "وقت قبل النوم",
-                desc: "خطوات قليلة وواضحة تناسب اليوم بدون ضغط قبل المدرسة أو المحاضرات.",
+                title: "وقت استخدام واضح",
+                desc: "صباح أو مساء حسب الصنف — من غير تعقيد قبل الدوام أو المناسبة.",
+                imageSrc: "/images/najd/outcome-usage-time-clear.png",
+                imageAlt:
+                  "وقت استخدام واضح. صباح أو مساء حسب الصنف — من غير تعقيد قبل الدوام أو المناسبة. شعار نجد.",
+                imageFit: "contain" as const,
               },
               {
-                title: "ثقة في تفاصيل بسيطة",
-                desc: "رائحة مهيَّأة وطبقة تتحكّمين بغلظتِها قبل المخدة.",
+                title: "ثقة في التفاصيل",
+                desc: "طبقة تتحكّمين بكميتها؛ راجعي العبوّة لأي تحذير خاص بالعين أو المناطق الحساسة.",
+                imageSrc: "/images/najd/outcome-trust-in-details.png",
+                imageAlt:
+                  "ثقة في التفاصيل. طبقة تتحكّمين بكميتها؛ راجعي العبوّة لأي تحذير خاص بالعين أو المناطق الحساسة. شعار نجد.",
+                imageFit: "contain" as const,
               },
-          ].map((item, i) => (
+            ] as Array<
+              | {
+                  title: string;
+                  desc: string;
+                  imageSrc: string;
+                  imageAlt: string;
+                  imageFit?: "cover" | "contain";
+                }
+              | { title: string; desc: string }
+            >
+          ).map((item, i) => (
             <motion.div
               key={item.title}
               {...fadeUp}
               transition={{ delay: i * 0.08 }}
               className="rounded-2xl border border-warm-sand/15 bg-charcoal/70 p-6 text-right"
             >
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-najd-green/25 text-warm-sand">
-                {i + 1}
-              </div>
-              <h3 className="text-stone font-medium mb-2">{item.title}</h3>
-              <p className="text-muted text-sm leading-6">{item.desc}</p>
+              {"imageSrc" in item && item.imageSrc ? (
+                <>
+                  <div className="relative mb-2 aspect-[4/5] w-full overflow-hidden rounded-xl border border-najd-green/20 bg-deep-night">
+                    <Image
+                      src={item.imageSrc}
+                      alt={item.imageAlt ?? `${item.title} — ${item.desc}`}
+                      fill
+                      sizes="(min-width: 768px) 320px, 100vw"
+                      className={`${
+                        item.imageFit === "contain"
+                          ? "object-contain"
+                          : "object-cover"
+                      } object-center`}
+                    />
+                  </div>
+                  <p className="sr-only">
+                    {item.title} {item.desc}
+                  </p>
+                </>
+              ) : (
+                <>
+                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-najd-green/25 text-warm-sand">
+                    {i + 1}
+                  </div>
+                  <h3 className="text-stone font-medium mb-2">{item.title}</h3>
+                  <p className="text-muted text-sm leading-6">{item.desc}</p>
+                </>
+              )}
             </motion.div>
           ))}
         </div>
@@ -201,8 +288,8 @@ export default function ProductPage({
               عندكِ نفس الاحتياج وتبين تجربة واضحة
             </h2>
             <p className="text-muted leading-7">
-              {product.nameAr} مهيَّأ لتجربة تجميلية ليلية خارجية؛ جرّبي كما هو
-              موضّح على العبوّة وتأكدي من وقت التنشيف أو الغسل قبيل مخدتِكِ.
+              {product.nameAr} مهيَّأ لتجربة تجميلية خارجية؛ اتبعي تعليمات العبوّة
+              والترتيب مع باقي خط نجد إن كان مناسباً لكِ.
             </p>
           </motion.div>
 
@@ -265,8 +352,8 @@ export default function ProductPage({
             جاهزة تختارين عرض {product.nameAr}؟
           </h2>
           <p className="text-muted mb-6">
-            العروض موجودة أعلى الصفحة. اختاري قطعتين أو ثلاث وادمجي أكثر من
-            ماسك في طلب واحد إن كان مناسباً لكم.
+            العروض موجودة أعلى الصفحة. اختاري قطعتين أو ثلاث وادمجي أكثر من صنف
+            في طلب واحد إن كان مناسباً لكم.
           </p>
           <Link
             href="#offers"

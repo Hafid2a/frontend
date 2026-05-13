@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { OfferSelector } from "./OfferSelector";
 import type { ProductConfig } from "@/config/products";
@@ -9,6 +10,9 @@ interface ProductHeroProps {
 }
 
 export function ProductHero({ product }: ProductHeroProps) {
+  const hasImage = Boolean(product.imageSrc);
+  const imageFit = product.imageObjectFit ?? "cover";
+
   return (
     <section className="py-12 md:py-20">
       <div className="max-w-6xl mx-auto px-4">
@@ -20,20 +24,40 @@ export function ProductHero({ product }: ProductHeroProps) {
             transition={{ duration: 0.5 }}
             className="order-1 md:order-2"
           >
-            <div className="aspect-square max-w-md mx-auto bg-najd-green/20 rounded-card border border-najd-green/30 flex items-center justify-center relative overflow-hidden">
-              <div className="w-40 h-40 rounded-full bg-warm-sand/20 flex items-center justify-center">
-                <span className="text-warm-sand text-8xl font-bold font-arabic">
-                  {product.nameAr[2]}
-                </span>
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-br from-najd-green/10 to-transparent" />
-              <div className="absolute bottom-6 right-6 bg-charcoal/90 rounded-2xl px-4 py-3 border border-warm-sand/20">
+            <div className="max-w-md mx-auto space-y-3">
+              <div className="aspect-square bg-najd-green/20 rounded-card border border-najd-green/30 flex items-center justify-center relative overflow-hidden">
+              {hasImage ? (
+                <>
+                  <Image
+                    src={product.imageSrc!}
+                    alt={product.imageAlt || product.nameAr}
+                    fill
+                    sizes="(min-width: 768px) 28rem, 100vw"
+                    className={imageFit === "contain" ? "object-contain" : "object-cover"}
+                    priority
+                  />
+                  <div
+                    className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-br from-najd-green/10 to-transparent"
+                    aria-hidden
+                  />
+                </>
+              ) : (
+                <>
+                  <div className="w-40 h-40 rounded-full bg-warm-sand/20 flex items-center justify-center">
+                    <span className="text-warm-sand text-8xl font-bold font-arabic">
+                      {product.nameAr[2]}
+                    </span>
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-najd-green/10 to-transparent" />
+                </>
+              )}
+              <div className="absolute bottom-6 right-6 bg-charcoal/90 rounded-2xl px-4 py-3 border border-warm-sand/20 z-10">
                 <p className="text-muted text-xs mb-1">يحارب</p>
                 <p className="text-warm-sand font-bold text-sm">
                   {product.problemAr}
                 </p>
               </div>
-              <div className="absolute bottom-4 left-4 right-4 rounded-2xl border border-warm-sand/25 bg-stone/95 px-3 py-3 shadow-2xl md:left-5 md:right-auto md:max-w-[250px]">
+              <div className="absolute bottom-4 left-4 right-4 rounded-2xl border border-warm-sand/25 bg-stone/95 px-3 py-3 shadow-2xl md:left-5 md:right-auto md:max-w-[250px] z-10">
                 <div className="flex items-center gap-3">
                   <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-najd-green text-sm text-warm-sand">
                     ✓
@@ -48,6 +72,26 @@ export function ProductHero({ product }: ProductHeroProps) {
                   </div>
                 </div>
               </div>
+            </div>
+
+            {product.gallery && product.gallery.length > 0 && (
+              <div className="grid grid-cols-2 gap-2">
+                {product.gallery.map((item) => (
+                  <div
+                    key={item.src}
+                    className="relative aspect-[4/3] overflow-hidden rounded-xl border border-warm-sand/20 bg-charcoal/40"
+                  >
+                    <Image
+                      src={item.src}
+                      alt={item.alt}
+                      fill
+                      sizes="(min-width: 768px) 14rem, 50vw"
+                      className="object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
             </div>
           </motion.div>
 

@@ -91,9 +91,9 @@ const allReviews = PRODUCTS.flatMap((p) => p.reviews.slice(0, 1));
 
 /** أيقونات تعريفية لصفحة الرئيسية — أضف مفتاحاً عند إضافة منتج جديد */
 const HOME_PILLAR_ICON: Record<string, string> = {
-  "najd-night-dew": "🌙",
-  "najd-night-calm": "💧",
-  "najd-night-glow": "✨",
+  "najd-thabat-al-khat": "✨",
+  "najd-darag-al-nahar": "☀️",
+  "najd-safa-al-jabha": "💧",
 };
 
 const homePillars = PRODUCTS.map((p) => ({
@@ -121,9 +121,9 @@ function DecisionProofSection() {
             <span className="text-4xl text-warm-sand/25">“</span>
           </div>
           <p className="text-right text-stone leading-8 md:text-lg">
-            ما يكفيّني مظهر العبوة — المهم أن الروتين الليلي يكون واضح. مع نجد
-            فهمت وش كل ماسك يخدم بشرتي، والمجموعة تتوسع بمراحل، والدفع عند
-            الاستلام يبسّط قراري.
+            ما يكفيّني مظهر العبوة — المهم أن كل منتج يشرح مشكل حقيقي: ثبات، حماية
+            من الشمس، وخط الجبهة. مع نجد فهمت وش يخدم وجهي تحت الإيشارب والجو،
+            والمجموعة واضحة، والدفع عند الاستلام يبسّط قراري.
           </p>
           <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-5">
             <span className="rounded-full bg-najd-green/20 px-3 py-1 text-xs text-najd-green">
@@ -147,9 +147,9 @@ function DecisionProofSection() {
             قارن، وقرر بنفسك
           </h2>
           <p className="text-muted max-w-2xl mx-auto leading-7">
-            محورنا عناية ليلية بالبشرة للبنات في السعودية: تركيبات موضّحة، استخدام
-            مسائي واضح، وتوسّع تدريجي بالمجموعة — من غير ما نخسر الثقة أو نكثّر
-            الضجيج.
+            محورنا مستحضرات وجه للبنات في السعودية تحت الإيشارب والحرّ والتكييف:
+            تركيبات موضّحة، أوقات استخدام واقعية، وتوسّع تدريجي — من غير ما نخسر
+            الثقة أو نكثّر الضجيج.
           </p>
         </motion.div>
 
@@ -200,7 +200,7 @@ export default function HomePage() {
             <div className="flex flex-wrap items-center gap-2 mb-6">
               <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-3.5 py-1.5 backdrop-blur-md">
                 <span className="text-amber-100/90 text-xs font-semibold">
-                  عناية ليلية للوجه — مجموعة تنمو مع الوقت
+                  وجه تحت الإيشارب والجو — خط كوزميتيك من نجد
                 </span>
               </div>
               <div className="inline-flex items-center gap-2 rounded-full border border-najd-green/35 bg-najd-green/[0.12] px-3.5 py-1.5 backdrop-blur-md">
@@ -216,14 +216,14 @@ export default function HomePage() {
                 نجد
               </span>
               <span className="block max-w-[22rem] text-balance text-stone/95 text-[0.95rem] leading-snug sm:max-w-xl sm:text-base md:max-w-lg md:text-lg md:leading-relaxed">
-                روتين ليلي بسيط، وبشرة مرتاحة صباحًا — عناية موضّعة بلا تعقيد،
-                وثقة مع نجد من أول مرة.
+                ثبات للمكياج، حماية نهارية، وتهيئة خط الجبهة — عناية موضّعة بلا
+                تعقيد، وثقة مع نجد من أول مرة.
               </span>
             </h1>
             <p className="text-muted text-base md:text-lg mb-2 leading-relaxed">
-              اليوم عندنا ثلاثة مسارات للماسك المسائي: ترطيب ليلي، لمسة هدوء، ولمعة
-              راحة — مبنية على وقت النوم ووضوح التعليمات على العبوّة. مع الوقت
-              نزيد إصدارات جديدة بنفس المعيار.
+              ثلاثة منتجات في خط واحد: برايمر ثبات، واقي وجه SPF خفيف، وسيروم موضّع
+              للجبهة وخط الإيشارب — بلغة تجميلية واضحة على العبوّة، بدون ادِّعاء طبي.
+              مع الوقت نزيد إصدارات جديدة بنفس المعيار.
             </p>
             <p className="text-warm-sand/85 text-sm mb-8 leading-relaxed">
               بشرة أولاً · شفافية في الوصف · جودة تعبئة مدروسة · توصيل خلال 2–4
@@ -238,10 +238,10 @@ export default function HomePage() {
                 استكشف مجموعة نجد
               </Link>
               <Link
-                href="/products/najd-night-dew"
+                href="/products/najd-thabat-al-khat"
                 className="border border-white/20 bg-white/[0.06] text-stone px-8 py-4 rounded-btn text-base backdrop-blur-sm hover:bg-white/[0.1] transition-colors text-center"
               >
-                ابدئي بندى الليل
+                ابدئي بثبات الخط
               </Link>
               <Link
                 href="#routine"
@@ -288,14 +288,14 @@ export default function HomePage() {
                 >
                   <div className="text-center">
                     <span className="text-6xl md:text-7xl drop-shadow-lg" aria-hidden>
-                      🌙
+                      🧴
                     </span>
                     <p className="mt-5 text-lg font-semibold text-stone md:text-xl">
-                      خط نجد الليلي
+                      خط الإيشارب والجو
                     </p>
                     <p className="mx-auto mt-2 max-w-xs text-sm text-muted">
-                      ماسكات مسائية موضّعة — عبوّة مهيَّأة ومعلومات واضحة قبل
-                      النوم
+                      برايمر، واقي نهاري، وسيروم موضّع — عبوّة مهيَّأة ومعلومات
+                      واضحة على التغليف
                     </p>
                   </div>
                   <span className="pointer-events-none absolute -left-16 top-12 h-40 w-40 rounded-full bg-warm-sand/15 blur-3xl" />
@@ -336,11 +336,11 @@ export default function HomePage() {
       <section className="py-16 max-w-6xl mx-auto px-4">
         <motion.div {...fadeUp} className="text-center mb-10">
           <h2 className="text-stone font-bold text-3xl mb-3">
-            ابدأ من احتياج بشرتك اليوم
+            ابدئي من مشكلة وجهك اليوم
           </h2>
           <p className="text-muted">
-            كل صنف يشرح وش يخدم بشرتِكِ بالمساء — والقائمة تتوسع دون تعقيد على
-            الاختيار.
+            كل صنف يشرح مشكلة وجه حقيقية تحت الإيشارب والجو — والقائمة تتوسع دون
+            تعقيد على الاختيار.
           </p>
         </motion.div>
 
@@ -380,8 +380,8 @@ export default function HomePage() {
               مجموعة نجد الحالية
             </h2>
             <p className="text-muted">
-              عناية بالبشرة والمظهر في أوقات الراحة — اختاري مساراً، والجديد ينضاف
-              هنا بنفس المعيار
+              ثبات، حماية نهارية، وتهيئة موضّعة لخط الجبهة — إصدارات جديدة بنفس
+              المعيار لاحقاً
             </p>
           </motion.div>
 
@@ -414,7 +414,7 @@ export default function HomePage() {
             {
               icon: "🧴",
               title: "بشرة أولاً، لا مفاجآت",
-              desc: "نركّز على ملاءمة التركيبة للبشرة ووضوح المكوّنات وبساطة الاستخدام قبل النوم.",
+              desc: "نركّز على ملاءمة التركيبة للجو المحلي ووضوح المكوّنات وبساطة الاستخدام قبل الخروج وبعد العناية.",
             },
             {
               icon: "✅",
@@ -559,11 +559,11 @@ export default function HomePage() {
         className="py-20 text-center max-w-3xl mx-auto px-4"
       >
         <h2 className="text-stone font-bold text-4xl md:text-5xl mb-4">
-          اطلب روتين نجد اليوم
+          اطلبي خط نجد اليوم
         </h2>
         <p className="text-muted text-lg mb-8">
-          عناية ليلية بسيطة، ومظهر بشرة مريح وقت الصباح — جرّبي نجد اليوم،
-          والدفع عند الاستلام.
+          ثلاثة منتجات للوجه تحت الإيشارب والحرّ — جرّبي نجد اليوم، والدفع عند
+          الاستلام.
         </p>
         <Link
           href="/products"

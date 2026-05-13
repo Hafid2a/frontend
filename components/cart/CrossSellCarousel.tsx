@@ -4,9 +4,9 @@ import { useCartStore, OFFER_PRICES } from "@/stores/cart-store";
 import { PRODUCTS } from "@/config/products";
 
 const crossSellCopy: Record<string, string> = {
-  "najd-night-dew": "كمّلي روتين الليل بـلمسة هدوء أو لمعة راحة خفيفة طبقاً لبشرتكِ.",
-  "najd-night-calm": "بعد لمسة الهدوء، جرّبي ندى الليل لترطيب مظهر البشرة.",
-  "najd-night-glow": "اكملي المجموعة بندى الليل لطبقة ترطيب مسائية مناسبة.",
+  "najd-thabat-al-khat": "كمّلي خط الإيشارب بدرع النهار SPF أو سيروم الجبهة حسب احتياجكِ.",
+  "najd-darag-al-nahar": "أضيفي صفاء الجبهة مساءً أو ثبات الخط قبل الأساس لروتين أكثر اتزاناً.",
+  "najd-safa-al-jabha": "ثبات الخط صباحاً + درع النهار يكمّلان تهيئة الوجه قبل الخروج.",
 };
 
 export function CrossSellCarousel() {

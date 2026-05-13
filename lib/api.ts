@@ -1,20 +1,45 @@
-/** وضع تجريبي: طلبات داخل Next.js بدون FastAPI (مناسب إن ما كانش الباكند شغال) */
+/** وضع تجريبي: طلبات داخل Next.js بدون FastAPI */
 export function useMockOrdersApi(): boolean {
   const v = process.env.NEXT_PUBLIC_MOCK_ORDERS;
   return v === "true" || v === "1";
 }
 
 /**
- * عنوان الـ API من المتصفح (NEXT_PUBLIC_* عبر next.config).
- * لا يُستخدم بروكسي /api/backend — اتصال مباشر (يتطلّب CORS صحيح على الباكند).
+ * الطلبات من المتصفح نحو /api/backend تتفادى CORS.
+ * معاينات Easypanel (*.easypanel.host): البروكسي يُفعَّل تلقائياً حتى مع build فيه USE_API_PROXY=false.
+ * عندها لازم BACKEND_INTERNAL_URL عند تشغيل خادم Next (انظر deploy/easypanel-frontend.env).
  */
+export function useBackendProxy(): boolean {
+  if (typeof window !== "undefined") {
+    const h = window.location.hostname.toLowerCase();
+    if (h.endsWith(".easypanel.host")) {
+      return true;
+    }
+  }
+
+  const v = process.env.NEXT_PUBLIC_USE_API_PROXY?.trim().toLowerCase();
+  if (v === "true" || v === "1") return true;
+  if (v === "false" || v === "0") return false;
+
+  return process.env.NODE_ENV === "development";
+}
+
+/** يطابق ترتيب الاشتقاق في next.config.ts (عنوان المتصفّح للوضع غير البروكسي). */
 const REMOTE_API = (
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
+  process.env.NEXT_PUBLIC_API_URL?.trim() ||
+  process.env.API_BASE_URL?.trim() ||
+  process.env.API_URL?.trim() ||
+  "http://localhost:8000"
 ).replace(/\/$/, "");
+
+function browserOrdersBase(): string {
+  if (useBackendProxy()) return "/api/backend";
+  return REMOTE_API;
+}
 
 function ordersPostUrl(): string {
   if (useMockOrdersApi()) return "/api/orders";
-  return `${REMOTE_API}/orders`;
+  return `${browserOrdersBase()}/orders`;
 }
 
 function orderResourceUrl(orderId: string, suffix: "" | "/upsell"): string {
@@ -22,30 +47,77 @@ function orderResourceUrl(orderId: string, suffix: "" | "/upsell"): string {
   if (useMockOrdersApi()) {
     return `/api/orders/${enc}${suffix}`;
   }
-  return `${REMOTE_API}/orders/${enc}${suffix}`;
+  return `${browserOrdersBase()}/orders/${enc}${suffix}`;
 }
 
 function formatApiDetail(detail: unknown): string {
-  if (typeof detail === "string") return detail;
+  if (typeof detail === "string") return detail.trim();
   if (Array.isArray(detail)) {
     const parts = detail
-      .map((x) =>
-        typeof x === "object" && x !== null && "msg" in x
-          ? String((x as { msg: unknown }).msg)
-          : typeof x === "string"
-            ? x
-            : ""
-      )
+      .map((x) => {
+        if (typeof x === "string") return x;
+        if (typeof x !== "object" || x === null) return "";
+        const o = x as {
+          msg?: unknown;
+          loc?: unknown;
+          type?: unknown;
+        };
+        const msg =
+          typeof o.msg === "string"
+            ? o.msg
+            : o.msg != null
+              ? String(o.msg)
+              : "";
+        if (!msg) return "";
+        const loc = Array.isArray(o.loc)
+          ? o.loc.map((part) => String(part)).join(".")
+          : "";
+        const shortLoc = loc.replace(/^body\.?/, "");
+        return shortLoc ? `${shortLoc}: ${msg}` : msg;
+      })
       .filter(Boolean);
     if (parts.length) return parts.join(" — ");
   }
+  if (detail !== null && typeof detail === "object") return "";
   return "";
 }
 
+/** يستخرج رسالة خطأ FastAPI وأي وكيل أمامها (nginx، Cloudflare، …). */
 export function parseApiErrorBody(body: unknown): string {
   if (typeof body !== "object" || body === null) return "";
-  const d = (body as { detail?: unknown }).detail;
-  return formatApiDetail(d);
+  const obj = body as Record<string, unknown>;
+  const fromDetail = formatApiDetail(obj.detail);
+  if (fromDetail) return fromDetail;
+  if (typeof obj.message === "string" && obj.message.trim())
+    return obj.message.trim();
+  return "";
+}
+
+function stripHtml(s: string): string {
+  return s.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+}
+
+export async function parseOrderErrorResponse(res: Response): Promise<string> {
+  const suffix = `[HTTP ${res.status}]`;
+  const raw = await res.text();
+  if (!raw.trim()) {
+    return `تعذر إنشاء الطلب؛ الخادم أرسل رداً فارغاً ${suffix}. تحقّق من أن عنوان الـAPI شغّال وقاعدة البيانات متصلة.`;
+  }
+  try {
+    const body = JSON.parse(raw) as unknown;
+    const fromDetail = parseApiErrorBody(body);
+    if (fromDetail) return `${fromDetail} ${suffix}`;
+  } catch {
+    /* ليس JSON */
+  }
+  const snippet = stripHtml(raw.slice(0, 240));
+  if (snippet.length > 0 && snippet.length < 220) {
+    return `تعذر إنشاء الطلب ${suffix}. ${snippet}`;
+  }
+  if (snippet.length > 0) {
+    return `تعذر إنشاء الطلب ${suffix}. رد الخادم ليس بتنسيق JSON (غالباً صفحة خطأ أمام الباكند).`;
+  }
+  return `تعذر إنشاء الطلب ${suffix}`;
 }
 
 export interface OrderItem {
@@ -85,7 +157,6 @@ export interface CreateOrderResponse {
   total_sar: number;
   status: string;
   upsell: UpsellSuggestion | null;
-  /** طلب تجريبي (رقم في قائمة تجاوز الموقع) — لا يُرسل للشيت ولا CAPI */
   is_test_order?: boolean;
 }
 
@@ -119,8 +190,7 @@ export async function createOrder(
     body: JSON.stringify(payload),
   });
   if (!res.ok) {
-    const err = await res.json().catch(() => ({}));
-    const msg = parseApiErrorBody(err) || "فشل في إنشاء الطلب";
+    const msg = await parseOrderErrorResponse(res);
     throw new Error(msg);
   }
   return res.json();

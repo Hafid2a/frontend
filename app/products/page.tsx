@@ -9,16 +9,16 @@ import { PRODUCTS } from "@/config/products";
 
 const FILTERS = [
   { id: "all", label: "الكل" },
-  { id: "hydrate", label: "ترطيب ليلي" },
-  { id: "calm", label: "مساء هادئ" },
-  { id: "glow", label: "لمعة راحة" },
+  { id: "primer", label: "ثبات المكياج" },
+  { id: "spf", label: "حماية نهارية" },
+  { id: "hairline", label: "خط الجبهة" },
   { id: "gifts", label: "هدية" },
 ];
 
 const FILTER_MAP: Record<string, string[]> = {
-  hydrate: ["najd-night-dew"],
-  calm: ["najd-night-calm"],
-  glow: ["najd-night-glow"],
+  primer: ["najd-thabat-al-khat"],
+  spf: ["najd-darag-al-nahar"],
+  hairline: ["najd-safa-al-jabha"],
   gifts: PRODUCTS.map((p) => p.slug),
 };
 
@@ -48,12 +48,12 @@ export default function ProductsPage() {
           transition={{ duration: 0.5 }}
         >
           <h1 className="text-stone font-bold text-4xl md:text-5xl mb-4">
-            روتين ليلي واضح للوجه.{" "}
-            <span className="text-warm-sand">مجموعة نجد تنمو معاكِ.</span>
+            وجه تحت الإيشارب والجو السعودي.{" "}
+            <span className="text-warm-sand">ثلاثة منتجات، خط واحد من نجد.</span>
           </h1>
           <p className="text-muted text-lg">
-            اليوم عندنا ثلاث مسارات للعناية الليلية الموضّعة: ترطيب، وهدوء ظاهري،
-            ولمعة خفيفة — واضيفات لاحقة بنفس مبدأ الشفافية والدفع عند الاستلام.
+            ثبات للمكياج، واقي نهاري خفيف، وسيروم موضّع لخط الجبهة — مستحضرات
+            تجميلية خارجية بلا ادِّعاء طبي، مع الشفافية والدفع عند الاستلام.
           </p>
         </motion.div>
       </section>

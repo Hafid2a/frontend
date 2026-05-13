@@ -2,6 +2,7 @@
 
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { PRODUCTS } from "@/config/products";
 
 export interface CartItem {
   lineId: string;
@@ -85,7 +86,7 @@ export const useCartStore = create<CartStore>()(
 
       getSuggestedCrossSell: () => {
         const slugs = new Set(get().items.map((i) => i.slug));
-        const all = ["najd-clear", "najd-align", "najd-rest"];
+        const all = PRODUCTS.map((p) => p.slug);
         for (const slug of all) {
           if (!slugs.has(slug)) return slug;
         }

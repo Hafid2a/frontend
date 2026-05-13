@@ -18,11 +18,12 @@ import { z } from "zod";
 import { useCheckoutStore } from "@/stores/checkout-store";
 import { dedupeCartItems, useCartStore } from "@/stores/cart-store";
 import { normalizeSaudiMobile } from "@/lib/phone";
-import { createOrder, useMockOrdersApi } from "@/lib/api";
+import { createOrder, useBackendProxy, useMockOrdersApi } from "@/lib/api";
 import { generateEventId } from "@/lib/event-id";
 import { trackInitiateCheckout } from "@/lib/tracking";
 import { UpsellModal } from "./UpsellModal";
 import type { CreateOrderResponse } from "@/lib/api";
+import { SITE_CONFIG } from "@/config/site";
 import { useRouter } from "next/navigation";
 
 const checkoutSchema = z.object({
@@ -47,6 +48,8 @@ function checkoutErrorKind(message: string): "network" | "geo" | "other" {
   if (
     m.includes("تعذر إتمام الطلب") ||
     m.includes("تعذّر إتمام الطلب") ||
+    m.includes("خدمة التحقق غير متاحة") ||
+    m.includes("التحقق غير متاحة") ||
     (m.includes("المملكة") &&
       (m.includes("VPN") || m.includes("بروكسي") || m.includes("افتراضية")))
   ) {
@@ -85,6 +88,8 @@ export function CheckoutModal() {
   });
 
   const isMockOrdersApi = useMockOrdersApi();
+  const usesBackendProxy = useBackendProxy();
+  const resolvedApiBase = SITE_CONFIG.apiUrl.replace(/\/$/, "");
 
   const onSubmit = async (data: CheckoutForm) => {
     const phone = normalizeSaudiMobile(data.phone)!;
@@ -233,7 +238,7 @@ export function CheckoutModal() {
                         </div>
                       ) : null}
 
-                      {!isMockOrdersApi ? (
+                      {!isMockOrdersApi && !usesBackendProxy ? (
                         <div
                           role="status"
                           className="mx-6 mb-1 rounded-2xl border border-sky-400/40 bg-sky-500/10 px-4 py-3 text-right text-xs text-sky-50/95"
@@ -329,27 +334,93 @@ export function CheckoutModal() {
                                       لا يوجد اتصال بالخادم (فشل الطلب)
                                     </p>
                                     <p className="mt-1 text-xs leading-relaxed text-muted">
-                                      المتصفح ينادي{" "}
-                                      <span dir="ltr" className="font-mono text-[10px]">
-                                        NEXT_PUBLIC_API_URL
-                                      </span>{" "}
-                                      مباشرة. تأكد أن الـ API يعمل ويُفتح من المتصفح، وأن{" "}
-                                      <span dir="ltr" className="font-mono text-[10px]">
-                                        CORS_ORIGINS
-                                      </span>{" "}
-                                      على الباكند يتضمّن أصل الموقع الحالي (وبـ www إن
-                                      استخدمتَه).
+                                      {usesBackendProxy ? (
+                                        <>
+                                          الوضع الحالي: الطلب يمر عبر{" "}
+                                          <span dir="ltr" className="font-mono text-[10px]">
+                                            /api/backend
+                                          </span>{" "}
+                                          نحو FastAPI. شغّل الباكند (مثلاً منفذ 8000) أو
+                                          عدّل{" "}
+                                          <span dir="ltr" className="font-mono text-[10px]">
+                                            BACKEND_INTERNAL_URL
+                                          </span>{" "}
+                                          في{" "}
+                                          <span dir="ltr" className="font-mono text-[10px]">
+                                            .env.local
+                                          </span>
+                                          .
+                                        </>
+                                      ) : (
+                                        <>
+                                          الوضع الحالي: المتصفح يتصل مباشرة بـ{" "}
+                                          <span dir="ltr" className="font-mono text-[10px]">
+                                            NEXT_PUBLIC_API_URL
+                                          </span>
+                                          . تأكد أن الـ API يفتح من المتصفح وأن{" "}
+                                          <span dir="ltr" className="font-mono text-[10px]">
+                                            CORS_ORIGINS
+                                          </span>{" "}
+                                          يتضمن أصل الموقع. للتطوير يمكنك حذف تعطيل
+                                          البروكسي: لا تضع{" "}
+                                          <span dir="ltr" className="font-mono text-[10px]">
+                                            NEXT_PUBLIC_USE_API_PROXY=false
+                                          </span>{" "}
+                                          في{" "}
+                                          <span dir="ltr" className="font-mono text-[10px]">
+                                            .env.local
+                                          </span>{" "}
+                                          (في dev يُفعّل تلقائياً عبر{" "}
+                                          <span dir="ltr" className="font-mono text-[10px]">
+                                            next.config
+                                          </span>
+                                          ).
+                                        </>
+                                      )}
                                     </p>
-                                    <p className="mt-2 text-[11px] text-muted">
-                                      للتجربة المحلية يمكن تفعيل{" "}
-                                      <span
-                                        dir="ltr"
-                                        className="font-mono text-[10px]"
-                                      >
+                                    <p className="mt-2 text-[11px] leading-relaxed text-muted">
+                                      <strong className="font-medium">بلا باكند ولا Docker:</strong>{" "}
+                                      في{" "}
+                                      <span dir="ltr" className="font-mono text-[10px]">
+                                        .env.local
+                                      </span>{" "}
+                                      ضع{" "}
+                                      <span dir="ltr" className="font-mono text-[10px]">
                                         NEXT_PUBLIC_MOCK_ORDERS=true
                                       </span>{" "}
-                                      مؤقتاً بدون FastAPI.
+                                      ثم أعد تشغيل{" "}
+                                      <span dir="ltr" className="font-mono text-[10px]">
+                                        npm run dev
+                                      </span>
+                                      . لنشر مجاني بلا شراء دومين يمكن استخدام عنوان مجاني
+                                      من المنصة (مثل{" "}
+                                      <span dir="ltr" className="font-mono text-[10px]">
+                                        .vercel.app
+                                      </span>
+                                      ).
                                     </p>
+                                    {!usesBackendProxy && (
+                                      <p className="mt-2 text-[11px] leading-relaxed text-muted">
+                                        <span className="block font-medium text-stone">
+                                          العنوان الفعلي لهذا البناء (تحقّق منه في Easypanel ثم أعد البناء إن لزم):
+                                        </span>
+                                        <span
+                                          dir="ltr"
+                                          className="mt-1 block break-all font-mono text-[10px] text-stone"
+                                        >
+                                          {resolvedApiBase}/orders
+                                        </span>
+                                        {/localhost|127\.0\.0\.1/i.test(resolvedApiBase) ? (
+                                          <span className="mt-1 block">
+                                            ما زال البناء يوجّه إلى عنوان محلي — مرّر{" "}
+                                            <span dir="ltr" className="font-mono text-[10px]">
+                                              NEXT_PUBLIC_API_URL
+                                            </span>{" "}
+                                            كمتغير بناء على الواجهة وأعد النشر.
+                                          </span>
+                                        ) : null}
+                                      </p>
+                                    )}
                                   </>
                                 ) : checkoutErrKind === "geo" ? (
                                   <>
@@ -373,6 +444,12 @@ export function CheckoutModal() {
                                     </p>
                                     <p className="mt-1 text-xs leading-relaxed text-muted">
                                       {checkoutError}
+                                    </p>
+                                    <p className="mt-2 text-[11px] leading-relaxed text-muted">
+                                      ملاحظة: خدمة Google Sheets تشتغل فقط بعد ما يخلق الطلب بنجاح
+                                      على الخادم. إذا كانت رسالة الخطأ فيها رقم نوعًا ما مثل HTTP 502 أو
+                                      503 فغالبًا المشكلة من الخادم، قاعدة البيانات، أو التحقّق الجغرافي —
+                                      وليست من الشيت.
                                     </p>
                                   </>
                                 )}

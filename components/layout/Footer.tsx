@@ -39,9 +39,9 @@ const footerSections = [
   {
     title: "منتجات نجد",
     links: [
-      { label: "نجد ندى الليل · ماسك مرطّب", href: "/products/najd-night-dew" },
-      { label: "نجد لمسة الهدوء · مسائي", href: "/products/najd-night-calm" },
-      { label: "نجد لمعة الراحة · قبل النوم", href: "/products/najd-night-glow" },
+      { label: "نجد ثبات الخط · برايمر", href: "/products/najd-thabat-al-khat" },
+      { label: "نجد درع النهار · واقي SPF", href: "/products/najd-darag-al-nahar" },
+      { label: "نجد صفاء الجبهة · سيروم موضّع", href: "/products/najd-safa-al-jabha" },
       { label: "كل المنتجات", href: "/products" },
     ],
   },

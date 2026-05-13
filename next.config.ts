@@ -1,8 +1,8 @@
 import type { NextConfig } from "next";
 
 /**
- * عنوان الـ API للمتصفح (NEXT_PUBLIC_API_URL) — طلبات checkout مباشرة بدون بروكسي Next.
- * يكفي API_BASE_URL أو API_URL أو NEXT_PUBLIC_API_URL وقت البناء.
+ * مع NEXT_PUBLIC_USE_API_PROXY الطلبات تمر عبر /api/backend (أنسب للتطوير المحلي).
+ * يكفي API_BASE_URL أو NEXT_PUBLIC_API_URL وقت البناء للاتصال المباشر من المتصفح.
  */
 function publicApiBaseUrl(): string {
   return (
@@ -13,6 +13,13 @@ function publicApiBaseUrl(): string {
   );
 }
 
+function publicUseApiProxy(): string {
+  const v = process.env.NEXT_PUBLIC_USE_API_PROXY?.trim().toLowerCase();
+  if (v === "true" || v === "1") return "true";
+  if (v === "false" || v === "0") return "false";
+  return process.env.NODE_ENV === "development" ? "true" : "false";
+}
+
 const nextConfig: NextConfig = {
   output: "standalone",
   images: {
@@ -20,6 +27,7 @@ const nextConfig: NextConfig = {
   },
   env: {
     NEXT_PUBLIC_API_URL: publicApiBaseUrl(),
+    NEXT_PUBLIC_USE_API_PROXY: publicUseApiProxy(),
   },
 };
 

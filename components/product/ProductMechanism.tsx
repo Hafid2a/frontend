@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import type { ProductConfig } from "@/config/products";
 
@@ -20,10 +21,13 @@ export function ProductMechanism({ product }: ProductMechanismProps) {
           <h2 className="text-stone font-bold text-3xl mb-2">
             كيف يشتغل {product.nameAr}؟
           </h2>
-          <p className="text-muted">آلية عمل المكونات بشكل مبسط</p>
+          <p className="text-muted max-w-2xl mx-auto text-sm leading-relaxed md:text-base">
+            {product.mechanismSubheading ??
+              "آلية عمل المكونات بشكل مبسط"}
+          </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid gap-6 md:grid-cols-3 md:items-start">
           {product.mechanismPoints.map((point, i) => (
             <motion.div
               key={i}
@@ -33,11 +37,32 @@ export function ProductMechanism({ product }: ProductMechanismProps) {
               transition={{ delay: i * 0.1 }}
               className="bg-charcoal rounded-card p-6 border border-white/10"
             >
-              <div className="w-10 h-10 bg-najd-green rounded-xl flex items-center justify-center mb-4">
-                <span className="text-warm-sand font-bold text-lg">{i + 1}</span>
-              </div>
-              <h3 className="text-stone font-bold text-lg mb-2">{point.title}</h3>
-              <p className="text-muted text-sm leading-relaxed">{point.desc}</p>
+              {!point.imageSrc && (
+                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-najd-green">
+                  <span className="text-lg font-bold text-warm-sand">{i + 1}</span>
+                </div>
+              )}
+              {point.imageSrc && (
+                <div className="relative mb-4 aspect-[4/5] w-full overflow-hidden rounded-xl border border-najd-green/25 bg-deep-night bg-linear-to-b from-deep-night via-charcoal/90 to-deep-night">
+                  <Image
+                    src={point.imageSrc}
+                    alt={point.imageAlt ?? `${point.title} — ${point.desc}`}
+                    fill
+                    sizes="(min-width: 768px) 320px, 33vw"
+                    className="object-cover object-center"
+                  />
+                </div>
+              )}
+              {point.imageSrc ? (
+                <p className="sr-only">
+                  {point.title} {point.desc}
+                </p>
+              ) : (
+                <>
+                  <h3 className="mb-2 text-lg font-bold text-stone">{point.title}</h3>
+                  <p className="text-sm leading-relaxed text-muted">{point.desc}</p>
+                </>
+              )}
             </motion.div>
           ))}
         </div>
