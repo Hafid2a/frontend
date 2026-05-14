@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { SITE_CONFIG } from "@/config/site";
 
@@ -8,10 +9,10 @@ interface LogoProps {
 export function Logo({ size = "md" }: LogoProps) {
   const circleSize =
     size === "sm"
-      ? "h-8 w-8 text-xs"
+      ? "h-8 w-8"
       : size === "lg"
-        ? "h-11 w-11 text-lg sm:h-12 sm:w-12 sm:text-xl"
-        : "h-9 w-9 text-sm sm:h-10 sm:w-10 sm:text-base";
+        ? "h-11 w-11 sm:h-12 sm:w-12"
+        : "h-9 w-9 sm:h-10 sm:w-10";
 
   return (
     <Link
@@ -19,9 +20,16 @@ export function Logo({ size = "md" }: LogoProps) {
       className="group flex min-w-0 max-w-full items-center gap-1.5 sm:gap-2 no-underline"
     >
       <div
-        className={`${circleSize} flex shrink-0 items-center justify-center rounded-full bg-najd-green`}
+        className={`relative ${circleSize} shrink-0 overflow-hidden rounded-full bg-najd-green/15 ring-2 ring-najd-green/30 shadow-sm`}
       >
-        <span className="font-bold font-latin text-white">N</span>
+        <Image
+          src={SITE_CONFIG.storeProfileImage}
+          alt=""
+          fill
+          sizes="(max-width: 640px) 36px, 48px"
+          className="object-contain p-px"
+          priority
+        />
       </div>
       <div className="min-w-0 text-end leading-none">
         <span className="block truncate font-arabic text-[1.05rem] font-bold text-stone sm:text-lg md:text-xl">
