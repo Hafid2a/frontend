@@ -2,7 +2,7 @@ export const SITE_CONFIG = {
   name: "نجد",
   nameEn: "NAJD Official",
   /** صورة دائرية للشعار في الهيدر + معاينة مشاركة افتراضية (بدون تغيير الاسم) */
-  storeProfileImage: "/brand-hero-logo.png",
+  storeProfileImage: "/brand-hero-logo-beae91d9.png",
   storeProfileImageAlt:
     "متجر نجد — لوحة لوتس وزهور على رخام، هوية بصرية للعناية والرفاهية",
   url: "https://najdofficial.com",
