@@ -20,14 +20,14 @@ export function Logo({ size = "md" }: LogoProps) {
       className="group flex min-w-0 max-w-full items-center gap-1.5 sm:gap-2 no-underline"
     >
       <div
-        className={`relative ${circleSize} shrink-0 overflow-hidden rounded-full bg-najd-green/15 ring-2 ring-najd-green/30 shadow-sm`}
+        className={`relative ${circleSize} shrink-0 overflow-hidden rounded-full bg-stone/40 ring-2 ring-najd-green/25 shadow-sm`}
       >
         <Image
           src={SITE_CONFIG.storeProfileImage}
           alt=""
           fill
-          sizes="(max-width: 640px) 36px, 48px"
-          className="object-contain p-px"
+          sizes="(max-width: 640px) 40px, 52px"
+          className="object-cover object-center"
           priority
         />
       </div>

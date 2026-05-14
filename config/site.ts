@@ -1,9 +1,10 @@
 export const SITE_CONFIG = {
   name: "نجد",
   nameEn: "NAJD Official",
-  /** صورة الشعار (بدل الحرف N في الهيدر) + معاينة مشاركة افتراضية */
-  storeProfileImage: "/store-profile.png",
-  storeProfileImageAlt: "شعار متجر نجد — حرف N على خلفية وردية",
+  /** صورة دائرية للشعار في الهيدر + معاينة مشاركة افتراضية (بدون تغيير الاسم) */
+  storeProfileImage: "/brand-hero-logo.png",
+  storeProfileImageAlt:
+    "متجر نجد — لوحة لوتس وزهور على رخام، هوية بصرية للعناية والرفاهية",
   url: "https://najdofficial.com",
   apiUrl:
     process.env.NEXT_PUBLIC_API_URL?.trim() ||
