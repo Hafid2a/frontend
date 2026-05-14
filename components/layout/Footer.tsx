@@ -12,6 +12,7 @@ import {
   Truck,
 } from "lucide-react";
 import { SITE_CONFIG } from "@/config/site";
+import { PRODUCTS } from "@/config/products";
 
 const trustCards = [
   {
@@ -40,9 +41,10 @@ const footerSections = [
   {
     title: "منتجات نجد",
     links: [
-      { label: "ثبات الخط", href: "/products/face-primer" },
-      { label: "درع النهار", href: "/products/face-sunscreen-spf50" },
-      { label: "صفاء الجبهة", href: "/products/forehead-serum" },
+      ...PRODUCTS.map((p) => ({
+        label: p.nameAr,
+        href: `/products/${p.slug}`,
+      })),
       { label: "كل المنتجات", href: "/products" },
     ],
   },

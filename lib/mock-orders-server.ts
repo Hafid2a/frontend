@@ -5,14 +5,13 @@ import type {
   UpsellSuggestion,
 } from "./api";
 import { normalizeSaudiMobile } from "./phone";
+import { PRODUCTS } from "@/config/products";
 
 const OFFER_PRICE: Record<number, number> = { 1: 199, 2: 279, 3: 349 };
 
-const PRODUCT_NAMES: Record<string, string> = {
-  "face-primer": "ثبات الخط",
-  "face-sunscreen-spf50": "درع النهار",
-  "forehead-serum": "صفاء الجبهة",
-};
+const PRODUCT_NAMES: Record<string, string> = Object.fromEntries(
+  PRODUCTS.map((p) => [p.slug, p.nameAr])
+);
 
 const UPSELL_MAP: Record<string, string> = {
   "face-primer": "forehead-serum",
@@ -21,7 +20,7 @@ const UPSELL_MAP: Record<string, string> = {
 };
 
 const UPSELL_PRICE = 99;
-const ALL_SLUGS = new Set(Object.keys(PRODUCT_NAMES));
+const ALL_SLUGS = new Set(PRODUCTS.map((p) => p.slug));
 
 /** رقم الاختبار الوحيد (تجاوز موقع فالمحاكاة — مطابق للباكند) */
 const CANONICAL_BYPASS_E164 = "+966550505044";

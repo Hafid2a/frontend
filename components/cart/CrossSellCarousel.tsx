@@ -4,9 +4,12 @@ import { useCartStore, OFFER_PRICES } from "@/stores/cart-store";
 import { PRODUCTS } from "@/config/products";
 
 const crossSellCopy: Record<string, string> = {
-  "face-primer": "كمّلي روتينكِ بدرع النهار أو صفاء الجبهة حسب احتياجكِ.",
-  "face-sunscreen-spf50": "أضيفي صفاء الجبهة مساءً أو ثبات الخط صباحاً لروتين أكثر اتزاناً.",
-  "forehead-serum": "ثبات الخط صباحاً ودرع النهار يكمّلان تهيئة الوجه قبل الخروج.",
+  "face-primer":
+    "كمّلي روتينكِ بواقي SPF اليومي أو بالسيروم الموضّع حسب احتياجكِ.",
+  "face-sunscreen-spf50":
+    "أضيفي السيروم الموضّع مساءً أو البرايمر صباحاً لروتين أكثر اتزاناً.",
+  "forehead-serum":
+    "البرايمر صباحاً وواقي الشمس يكمّلان تهيئة الوجه قبل الخروج.",
 };
 
 export function CrossSellCarousel() {

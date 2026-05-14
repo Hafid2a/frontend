@@ -109,7 +109,7 @@ export function ProductHero({ product }: ProductHeroProps) {
             <p className="mb-2 text-sm font-semibold tracking-tight text-najd-green md:text-base">
               {product.displayTaglineAr}
             </p>
-            <h1 className="text-stone font-bold text-4xl md:text-5xl mb-3 leading-tight">
+            <h1 className="mb-3 text-balance text-4xl font-bold leading-snug text-stone md:text-5xl">
               {product.nameAr}
             </h1>
             <p className="text-muted text-lg mb-6">{product.heroSubheading}</p>

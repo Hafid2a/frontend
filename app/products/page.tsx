@@ -109,7 +109,7 @@ export default function ProductsPage() {
                 {PRODUCTS.map((p) => (
                   <th
                     key={p.slug}
-                    className="text-stone font-bold py-3 px-4 text-center"
+                    className="max-w-[12rem] px-2 py-3 text-center align-bottom text-xs font-bold leading-snug text-stone md:max-w-[14rem] md:px-3 md:text-sm"
                   >
                     {p.nameAr}
                   </th>
@@ -165,7 +165,7 @@ export default function ProductsPage() {
             <Link
               key={p.slug}
               href={`/products/${p.slug}`}
-              className="bg-charcoal border border-warm-sand/30 text-warm-sand px-6 py-3 rounded-btn font-bold hover:bg-warm-sand/10 transition-colors text-sm"
+              className="rounded-btn border border-warm-sand/30 bg-charcoal px-4 py-3 text-center text-xs font-bold leading-snug text-warm-sand transition-colors hover:bg-warm-sand/10 sm:px-6 sm:text-sm"
             >
               {p.nameAr}
             </Link>

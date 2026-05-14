@@ -117,9 +117,9 @@ export const PRODUCTS: ProductConfig[] = [
 
     sku: "NAJD-STAY-PRIMER",
 
-    nameAr: "ثبات الخط",
+    nameAr: "برايمر وجه لثبات الأساس ضد ذوبان المكياج مع الحرّ والإيشارب",
 
-    nameEn: "Face primer",
+    nameEn: "NAJD Stay · Makeup primer",
 
     shortDescAr:
       "برايمر خفيف قبل الأساس يهدف تثبيت مظهر الطبقة وتخفيف اللمعة الخارجية مع الحرّ والتكييف والإيشارب.",
@@ -133,7 +133,7 @@ export const PRODUCTS: ProductConfig[] = [
     compareHighlightAr:
       "ملمس مهيّأ لثبات المكياج — حسب طبيعة التركيبة على عبوة الدفعة",
 
-    displayTaglineAr: "قبل الفونداشن · مهيّئ ملمس وتثبيت مظهر",
+    displayTaglineAr: "روتين الثبات · NAJD Stay",
 
     heroSubheading:
       "برايمر تجميلي يُطبَّق قبل الفونداشن أو البودرة: يهدف تثبيت مظهر الطبقة وتقليل اللمعة الخارجية تحت الإيشارب والجو — من دون ادِّعاء طبي. التزمي بطبقة رقيقة وتعليم عبوة الدفعة.",
@@ -319,9 +319,10 @@ export const PRODUCTS: ProductConfig[] = [
 
     sku: "NAJD-DAY-SPF-50",
 
-    nameAr: "درع النهار",
+    nameAr:
+      "واقي شمس وجه SPF 50 خفيف ضد اللمعان والطبقة الثقيلة تحت المكياج",
 
-    nameEn: "SPF 50+ face sunscreen",
+    nameEn: "NAJD Day · SPF 50 face sunscreen",
 
     shortDescAr:
       "واقٍ للوجه بملمس أخف: حماية يومية من الشمس وفق التغليف، مع إحساس أقل بالثقل تحت المكياج.",
@@ -335,7 +336,7 @@ export const PRODUCTS: ProductConfig[] = [
     compareHighlightAr:
       "ملمس مهيّأ للاستخدام تحت المكياج عند طبقة رقيقة — وفق تعليم المنتج",
 
-    displayTaglineAr: "حماية يومية · ملمس أخف تحت المكياج",
+    displayTaglineAr: "روتين الحماية اليومية · NAJD Day",
 
     heroSubheading:
       "واقٍ شمسي للوجه وفق SPF/PA المذكورة على الدفعة. أعيدي التطبيق مع التعرّق أو المسح حسب تعليم المصنّع — المنتج ما يضمن لوحده عدم أذى شمسي.",
@@ -505,9 +506,10 @@ export const PRODUCTS: ProductConfig[] = [
 
     sku: "NAJD-HAIRLINE-SERUM",
 
-    nameAr: "صفاء الجبهة",
+    nameAr:
+      "سيروم موضّع للجبهة وخط الإيشارب ضد الخشونة ومظهر الحبوب الصغيرة",
 
-    nameEn: "Targeted forehead serum",
+    nameEn: "NAJD Focus · Hairline serum",
 
     shortDescAr:
       "سيروم موضّع للجبهة ومحيط الإيشارب: يهدف تهيئة الملمس وتلطيف مظهر الحبوب الصغيرة والخشونة الخفيفة — نتائج فردية.",
@@ -521,7 +523,7 @@ export const PRODUCTS: ProductConfig[] = [
     compareHighlightAr:
       "تركيز على الجبهة والصدغ حيث الاحتكاك يبان أوضح",
 
-    displayTaglineAr: "للجبهة وخط الإيشارب · تهيئة ملمس",
+    displayTaglineAr: "روتين الموضع · NAJD Focus",
 
     heroSubheading:
       "سيروم تجميلي خارجي للبشرة النظيفة؛ ما يعالج حب الشباب الطبي ولا العدوى. طبقة رقيقة، تجنّبي العين والغشاء المخاطي، وابدئي بتكرار معتدل كما في تعليمكم.",

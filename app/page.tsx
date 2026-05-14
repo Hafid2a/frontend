@@ -574,7 +574,7 @@ export default function HomePage() {
                     <span className="text-warm-sand font-medium text-sm">
                       قطعتين — {p.offers.find((offer) => offer.qty === 2)?.priceSar ?? 279} ريال
                     </span>
-                    <span className="text-najd-green group-hover:text-warm-sand transition-colors text-sm font-semibold">
+                    <span className="max-w-[60%] text-left text-xs font-semibold leading-snug text-najd-green line-clamp-2 transition-colors group-hover:text-warm-sand sm:text-sm">
                       {p.nameAr} ←
                     </span>
                   </div>

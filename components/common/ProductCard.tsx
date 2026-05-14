@@ -54,7 +54,9 @@ export function ProductCard({ product }: ProductCardProps) {
             ))}
             <span className="mr-1 text-xs text-muted">4.8</span>
           </div>
-          <h3 className="text-lg font-bold text-stone">{product.nameAr}</h3>
+          <h3 className="line-clamp-3 text-lg font-bold leading-snug text-stone">
+            {product.nameAr}
+          </h3>
           <p className="mt-1 line-clamp-2 text-sm text-muted">
             {product.shortDescAr}
           </p>
