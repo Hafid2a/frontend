@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { TrustBar } from "@/components/common/TrustBar";
 import { ProductCard } from "@/components/common/ProductCard";
@@ -308,22 +309,32 @@ export default function HomePage() {
 
                 <Link
                   href="/products"
-                  className="relative z-10 flex min-h-[220px] items-center justify-center overflow-hidden rounded-xl border border-stone/15 bg-gradient-to-br from-najd-green/35 via-deep-night to-charcoal px-8 py-16 transition duration-300 hover:border-warm-sand/35 hover:shadow-[0_0_40px_-10px_rgba(194,70,111,0.25)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-warm-sand md:min-h-[280px] md:rounded-2xl"
+                  className="group relative z-10 block min-h-[220px] overflow-hidden rounded-xl border border-stone/15 bg-white transition duration-300 hover:border-warm-sand/35 hover:shadow-[0_0_40px_-10px_rgba(194,70,111,0.25)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-warm-sand md:min-h-[360px] md:rounded-2xl"
                 >
-                  <div className="text-center">
-                    <span className="text-6xl md:text-7xl drop-shadow-lg" aria-hidden>
+                  <Image
+                    src="/brand/lineup-hero.png"
+                    alt="خط الإيشارب والجو — برايمر، واقي نهاري، وسيروم موضّع"
+                    fill
+                    priority
+                    sizes="(min-width: 1024px) 560px, (min-width: 768px) 50vw, 100vw"
+                    className="object-cover transition duration-500 group-hover:scale-[1.02]"
+                  />
+                  <div
+                    className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-charcoal/85 via-charcoal/40 to-transparent"
+                    aria-hidden
+                  />
+                  <div className="absolute inset-x-0 bottom-0 z-10 px-5 pb-5 pt-10 text-center md:px-6 md:pb-6">
+                    <span className="hidden" aria-hidden>
                       🧴
                     </span>
-                    <p className="mt-5 text-lg font-semibold text-stone md:text-xl">
+                    <p className="text-lg font-semibold text-white drop-shadow md:text-xl">
                       خط الإيشارب والجو
                     </p>
-                    <p className="mx-auto mt-2 max-w-xs text-sm text-muted">
+                    <p className="mx-auto mt-2 max-w-xs text-sm text-white/85 drop-shadow">
                       برايمر، واقي نهاري، وسيروم موضّع — عبوّة مهيَّأة ومعلومات
                       واضحة على التغليف
                     </p>
                   </div>
-                  <span className="pointer-events-none absolute -left-16 top-12 h-40 w-40 rounded-full bg-warm-sand/15 blur-3xl" />
-                  <span className="pointer-events-none absolute -right-12 bottom-0 h-36 w-36 rounded-full bg-najd-green/30 blur-3xl" />
                 </Link>
 
                 {/* تحت الصورة: تباين قوي (ما فوق البانر الأبيض) */}
