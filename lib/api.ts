@@ -5,9 +5,8 @@ export function useMockOrdersApi(): boolean {
 }
 
 /**
- * الطلبات من المتصفح نحو /api/backend تتفادى CORS.
- * معاينات Easypanel (*.easypanel.host): البروكسي يُفعَّل تلقائياً حتى مع build فيه USE_API_PROXY=false.
- * عندها لازم BACKEND_INTERNAL_URL عند تشغيل خادم Next (انظر deploy/easypanel-frontend.env).
+ * البروكسي /api/backend يُفعّل فقط على *.easypanel.host (CORS) أو عند
+ * NEXT_PUBLIC_USE_API_PROXY=true. خلاف ذلك المتصفح يتصل مباشرة بـ NEXT_PUBLIC_API_URL.
  */
 export function useBackendProxy(): boolean {
   if (typeof window !== "undefined") {
@@ -21,7 +20,7 @@ export function useBackendProxy(): boolean {
   if (v === "true" || v === "1") return true;
   if (v === "false" || v === "0") return false;
 
-  return process.env.NODE_ENV === "development";
+  return false;
 }
 
 /** يطابق ترتيب الاشتقاق في next.config.ts (عنوان المتصفّح للوضع غير البروكسي). */

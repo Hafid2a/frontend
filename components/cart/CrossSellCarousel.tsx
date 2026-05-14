@@ -4,9 +4,9 @@ import { useCartStore, OFFER_PRICES } from "@/stores/cart-store";
 import { PRODUCTS } from "@/config/products";
 
 const crossSellCopy: Record<string, string> = {
-  "najd-thabat-al-khat": "كمّلي خط الإيشارب بدرع النهار SPF أو سيروم الجبهة حسب احتياجكِ.",
-  "najd-darag-al-nahar": "أضيفي صفاء الجبهة مساءً أو ثبات الخط قبل الأساس لروتين أكثر اتزاناً.",
-  "najd-safa-al-jabha": "ثبات الخط صباحاً + درع النهار يكمّلان تهيئة الوجه قبل الخروج.",
+  "face-primer": "كمّلي روتينكِ بدرع النهار أو صفاء الجبهة حسب احتياجكِ.",
+  "face-sunscreen-spf50": "أضيفي صفاء الجبهة مساءً أو ثبات الخط صباحاً لروتين أكثر اتزاناً.",
+  "forehead-serum": "ثبات الخط صباحاً ودرع النهار يكمّلان تهيئة الوجه قبل الخروج.",
 };
 
 export function CrossSellCarousel() {

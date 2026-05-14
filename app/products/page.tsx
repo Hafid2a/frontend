@@ -16,9 +16,9 @@ const FILTERS = [
 ];
 
 const FILTER_MAP: Record<string, string[]> = {
-  primer: ["najd-thabat-al-khat"],
-  spf: ["najd-darag-al-nahar"],
-  hairline: ["najd-safa-al-jabha"],
+  primer: ["face-primer"],
+  spf: ["face-sunscreen-spf50"],
+  hairline: ["forehead-serum"],
   gifts: PRODUCTS.map((p) => p.slug),
 };
 

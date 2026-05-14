@@ -7,7 +7,7 @@ import { BadgeCheck, PhoneCall, ShieldCheck, Truck } from "lucide-react";
 const trustItems = [
   {
     icon: ShieldCheck,
-    text: "متجر نجد الرسمي — وجه تحت الإيشارب والجو",
+    text: "متجر نجد — وجه تحت الإيشارب والجو",
   },
   {
     icon: PhoneCall,

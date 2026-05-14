@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { PRODUCT_MAP } from "@/config/products";
+import { SITE_CONFIG } from "@/config/site";
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL || "https://najdofficial.com";
@@ -13,10 +14,11 @@ export async function generateMetadata({
   const { slug } = await params;
   const product = PRODUCT_MAP[slug];
   if (!product) {
-    return { title: "منتج | نجد" };
+    return { title: "منتج" };
   }
 
-  const title = `${product.nameAr} | نجد`;
+  // عنوان التبويب والمشاركة: اسم المنتج فقط (بدون اسم المتجر)، مثل متاجر الكوزميتيك الكبيرة
+  const title = product.nameAr;
   const description = product.shortDescAr;
 
   const ogImages =
@@ -35,6 +37,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
+      siteName: SITE_CONFIG.name,
       locale: "ar_SA",
       type: "website",
       images: ogImages,

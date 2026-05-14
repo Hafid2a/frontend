@@ -112,9 +112,9 @@ const allReviews = PRODUCTS.flatMap((p) => p.reviews.slice(0, 1));
 
 /** أيقونات تعريفية لصفحة الرئيسية — أضف مفتاحاً عند إضافة منتج جديد */
 const HOME_PILLAR_ICON: Record<string, string> = {
-  "najd-thabat-al-khat": "✨",
-  "najd-darag-al-nahar": "☀️",
-  "najd-safa-al-jabha": "💧",
+  "face-primer": "✨",
+  "face-sunscreen-spf50": "☀️",
+  "forehead-serum": "💧",
 };
 
 const homePillars = PRODUCTS.map((p) => ({
@@ -123,6 +123,7 @@ const homePillars = PRODUCTS.map((p) => ({
   desc: p.shortDescAr,
   slug: p.slug,
   product: p.nameAr,
+  displayTagline: p.displayTaglineAr,
 }));
 
 function DecisionProofSection() {
@@ -218,55 +219,57 @@ export default function HomePage() {
             transition={{ duration: 0.6 }}
             className="order-2 md:order-none mt-8 md:mt-0 rounded-[24px] border border-warm-sand/25 bg-ink/85 p-6 shadow-[0_24px_80px_-24px_rgba(29,20,22,0.18)] backdrop-blur-2xl backdrop-saturate-150 sm:rounded-[28px] sm:p-7 md:rounded-[32px] md:p-8 md:shadow-[0_32px_100px_-28px_rgba(29,20,22,0.22)]"
           >
-            <div className="flex flex-wrap items-center gap-2 mb-6">
-              <div className="inline-flex items-center gap-2 rounded-full border border-warm-sand/35 bg-warm-sand/[0.08] px-3.5 py-1.5 backdrop-blur-md">
-                <span className="text-warm-sand text-xs font-semibold">
+            <div className="mb-5 flex flex-wrap items-center gap-2">
+              <div className="inline-flex min-h-[2.25rem] items-center rounded-full border border-stone/12 bg-stone/[0.06] px-3.5 py-1.5 backdrop-blur-sm">
+                <span className="text-[11px] font-medium leading-snug text-stone sm:text-xs">
                   وجه تحت الإيشارب والجو — خط كوزميتيك من نجد
                 </span>
               </div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-najd-green/35 bg-najd-green/[0.12] px-3.5 py-1.5 backdrop-blur-md">
-                <span className="w-2 h-2 shrink-0 bg-warm-sand rounded-full animate-pulse shadow-[0_0_8px_rgba(185,112,73,0.65)]" />
-                <span className="text-stone/95 text-xs font-medium">
-                  الدفع عند الاستلام داخل السعودية
+              <div className="inline-flex min-h-[2.25rem] items-center gap-2 rounded-full border border-najd-green/25 bg-najd-green/[0.1] px-3.5 py-1.5 backdrop-blur-sm">
+                <span
+                  className="h-1.5 w-1.5 shrink-0 rounded-full bg-najd-green animate-pulse shadow-[0_0_6px_rgba(194,70,111,0.5)]"
+                  aria-hidden
+                />
+                <span className="text-[11px] font-medium leading-snug text-stone sm:text-xs">
+                  الدفع عند الاستلام · توصيل داخل المملكة
                 </span>
               </div>
             </div>
 
-            <h1 className="mb-3 space-y-2 drop-shadow-sm">
-              <span className="block text-warm-sand text-3xl font-bold tracking-tight sm:text-4xl md:text-[2.65rem] md:leading-tight">
+            <h1 className="mb-4 space-y-3 drop-shadow-sm">
+              <span className="block text-3xl font-bold tracking-tight text-najd-green sm:text-4xl md:text-[2.5rem] md:leading-[1.15]">
                 نجد
               </span>
-              <span className="block max-w-[22rem] text-balance text-stone/95 text-[0.95rem] leading-snug sm:max-w-xl sm:text-base md:max-w-lg md:text-lg md:leading-relaxed">
-                ثبات للمكياج، حماية نهارية، وتهيئة خط الجبهة — عناية موضّعة بلا
-                تعقيد، وثقة مع نجد من أول مرة.
+              <span className="block max-w-xl text-pretty text-base leading-relaxed text-stone sm:text-lg md:text-xl md:leading-relaxed">
+                ثلاث منتجات، ثلاث مشاكل يومية: ذوبان المكياج، حماية النهار، وخط
+                الجبهة — وروتين واحد يفهم وجهكِ تحت الإيشارب والجو.
               </span>
             </h1>
-            <p className="text-muted text-base md:text-lg mb-2 leading-relaxed">
-              ثلاثة منتجات في خط واحد: برايمر ثبات، واقي وجه SPF خفيف، وسيروم موضّع
-              للجبهة وخط الإيشارب — بلغة تجميلية واضحة على العبوّة، بدون ادِّعاء طبي.
-              مع الوقت نزيد إصدارات جديدة بنفس المعيار.
+            <p className="mb-4 max-w-xl text-pretty text-sm leading-relaxed text-muted sm:text-base md:text-[1.05rem]">
+              اختاري اللي يشغلك أو ادمجي الثلاثة: برايمر ثبات، واقٍ SPF بملمس أخف،
+              وسيروم موضّع للجبهة — لغة تجميل واضحة على العبوة، من دون وعود طبية.
             </p>
-            <p className="text-warm-sand/85 text-sm mb-8 leading-relaxed">
-              بشرة أولاً · شفافية في الوصف · جودة تعبئة مدروسة · توصيل خلال 2–4
-              أيام عمل داخل السعودية
+            <p className="mb-8 border-y border-stone/10 py-3 text-center text-[13px] leading-relaxed text-muted sm:text-right sm:text-sm">
+              بشرة أولاً · شفافية في الوصف · تعبئة مدروسة · توصيل سريع خلال ٢–٤ أيام
+              عمل
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3">
+            <div className="grid gap-3 sm:grid-cols-3">
               <Link
                 href="/products"
-                className="bg-najd-green text-white px-8 py-4 rounded-btn text-base hover:bg-najd-green/85 transition-colors text-center shadow-lg shadow-najd-green/25"
+                className="flex min-h-[3rem] items-center justify-center rounded-btn bg-najd-green px-5 py-3.5 text-center text-sm font-medium text-white shadow-lg shadow-najd-green/20 transition-colors hover:bg-najd-green/90 sm:min-h-[3.25rem] sm:text-base"
               >
                 استكشف مجموعة نجد
               </Link>
               <Link
-                href="/products/najd-thabat-al-khat"
-                className="border border-stone/20 bg-stone/[0.06] text-stone px-8 py-4 rounded-btn text-base backdrop-blur-sm hover:bg-stone/[0.1] transition-colors text-center"
+                href="/products/face-primer"
+                className="flex min-h-[3rem] items-center justify-center rounded-btn border border-stone/18 bg-stone/[0.06] px-5 py-3.5 text-center text-sm font-medium text-stone backdrop-blur-sm transition-colors hover:bg-stone/[0.1] sm:min-h-[3.25rem] sm:text-base"
               >
-                ابدئي بثبات الخط
+                ابدئي بالبرايمر
               </Link>
               <Link
                 href="#routine"
-                className="border border-stone/12 bg-transparent text-muted px-8 py-4 rounded-btn text-base hover:bg-stone/[0.05] hover:text-stone transition-colors text-center sm:px-6"
+                className="flex min-h-[3rem] items-center justify-center rounded-btn border border-stone/10 bg-transparent px-5 py-3.5 text-center text-sm font-medium text-muted transition-colors hover:bg-stone/[0.05] hover:text-stone sm:min-h-[3.25rem] sm:text-base"
               >
                 قارن المنتجات
               </Link>
@@ -374,10 +377,12 @@ export default function HomePage() {
               className="bg-charcoal rounded-card border border-stone/10 p-6 hover:border-warm-sand/30 transition-colors group"
             >
               <span className="text-4xl mb-4 block">{item.icon}</span>
-              <h3 className="text-stone font-bold text-xl mb-2">
-                {item.problem}
-              </h3>
-              <p className="text-muted text-sm leading-relaxed mb-4">
+              <p className="text-najd-green text-sm font-semibold mb-1">
+                {item.displayTagline}
+              </p>
+              <h3 className="text-stone font-bold text-xl mb-2">{item.product}</h3>
+              <p className="text-muted text-sm leading-relaxed mb-1">{item.problem}</p>
+              <p className="text-muted text-sm leading-relaxed mb-4 opacity-90">
                 {item.desc}
               </p>
               <div className="flex items-center justify-between mt-auto">
@@ -385,7 +390,7 @@ export default function HomePage() {
                   href={`/products/${item.slug}`}
                   className="text-warm-sand text-sm font-semibold hover:underline"
                 >
-                  الحل: {item.product} ←
+                  اطّلعي على {item.product} ←
                 </Link>
               </div>
             </motion.div>

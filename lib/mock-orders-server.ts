@@ -9,15 +9,15 @@ import { normalizeSaudiMobile } from "./phone";
 const OFFER_PRICE: Record<number, number> = { 1: 199, 2: 279, 3: 349 };
 
 const PRODUCT_NAMES: Record<string, string> = {
-  "najd-thabat-al-khat": "نجد ثبات الخط",
-  "najd-darag-al-nahar": "نجد درع النهار",
-  "najd-safa-al-jabha": "نجد صفاء الجبهة",
+  "face-primer": "ثبات الخط",
+  "face-sunscreen-spf50": "درع النهار",
+  "forehead-serum": "صفاء الجبهة",
 };
 
 const UPSELL_MAP: Record<string, string> = {
-  "najd-thabat-al-khat": "najd-safa-al-jabha",
-  "najd-darag-al-nahar": "najd-thabat-al-khat",
-  "najd-safa-al-jabha": "najd-darag-al-nahar",
+  "face-primer": "forehead-serum",
+  "face-sunscreen-spf50": "face-primer",
+  "forehead-serum": "face-sunscreen-spf50",
 };
 
 const UPSELL_PRICE = 99;

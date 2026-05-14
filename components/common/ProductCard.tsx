@@ -38,9 +38,9 @@ export function ProductCard({ product }: ProductCardProps) {
             </div>
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-charcoal/50 to-transparent" />
-          <div className="absolute bottom-3 right-3">
-            <span className="rounded-full bg-najd-green px-2 py-1 text-xs text-white shadow-sm">
-              {product.problemAr}
+          <div className="absolute bottom-3 right-3 max-w-[min(92%,14rem)]">
+            <span className="block rounded-full bg-najd-green px-2 py-1 text-center text-[11px] font-medium leading-snug text-white shadow-sm line-clamp-2">
+              {product.displayTaglineAr}
             </span>
           </div>
         </div>

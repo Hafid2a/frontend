@@ -44,7 +44,7 @@ const ORDER_STEPS = [
 ] as const;
 
 const TRUST_BADGES = [
-  { Icon: ShieldCheck, label: "متجر نجد الرسمي" },
+  { Icon: ShieldCheck, label: "متجر نجد" },
   { Icon: Truck, label: "شحن داخل المملكة" },
   { Icon: CreditCard, label: "الدفع عند الاستلام" },
   { Icon: Headphones, label: "دعم واتساب" },

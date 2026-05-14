@@ -1,8 +1,9 @@
 import type { NextConfig } from "next";
 
 /**
- * مع NEXT_PUBLIC_USE_API_PROXY الطلبات تمر عبر /api/backend (أنسب للتطوير المحلي).
- * يكفي API_BASE_URL أو NEXT_PUBLIC_API_URL وقت البناء للاتصال المباشر من المتصفح.
+ * البروكسي /api/backend يناسب معاينات *.easypanel.host أو عند تعيين
+ * NEXT_PUBLIC_USE_API_PROXY=true صراحة. الافتراضي: اتصال مباشر من المتصفح
+ * إلى NEXT_PUBLIC_API_URL (أبسط للتطوير المحلي مع باكند على 8000).
  */
 function publicApiBaseUrl(): string {
   return (
@@ -17,11 +18,30 @@ function publicUseApiProxy(): string {
   const v = process.env.NEXT_PUBLIC_USE_API_PROXY?.trim().toLowerCase();
   if (v === "true" || v === "1") return "true";
   if (v === "false" || v === "0") return "false";
-  return process.env.NODE_ENV === "development" ? "true" : "false";
+  return "false";
 }
 
 const nextConfig: NextConfig = {
   output: "standalone",
+  async redirects() {
+    return [
+      {
+        source: "/products/najd-thabat-al-khat",
+        destination: "/products/face-primer",
+        permanent: true,
+      },
+      {
+        source: "/products/najd-darag-al-nahar",
+        destination: "/products/face-sunscreen-spf50",
+        permanent: true,
+      },
+      {
+        source: "/products/najd-safa-al-jabha",
+        destination: "/products/forehead-serum",
+        permanent: true,
+      },
+    ];
+  },
   images: {
     domains: [],
   },

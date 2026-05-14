@@ -8,6 +8,7 @@ function backendBase(): string {
     process.env.BACKEND_INTERNAL_URL?.trim() ||
     process.env.API_URL?.trim() ||
     process.env.API_BASE_URL?.trim() ||
+    process.env.NEXT_PUBLIC_API_URL?.trim() ||
     "http://127.0.0.1:8000"
   ).replace(/\/$/, "");
 }
@@ -46,7 +47,7 @@ async function proxy(req: NextRequest, segments: string[] | undefined) {
     return NextResponse.json(
       {
         detail:
-          "تعذّر الوصول لـ FastAPI من خادم Next. في Easypanel ضع BACKEND_INTERNAL_URL=http://اسم_خدمة_الباكند:8000 في بيئة الواجهة وأعد التشغيل. محلياً: شغّل الباكند على 8000 أو NEXT_PUBLIC_MOCK_ORDERS=true.",
+          "تعذّر الاتصال بطلبات المتجر من الخادم. أعد المحاولة أو تواصل مع الدعم. إن استمر الخطأ: راجع الإنترنت أو إعدادات الاستضافة (عنوان الـ API).",
       },
       { status: 502 }
     );

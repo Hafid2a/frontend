@@ -11,6 +11,7 @@ import {
   ShieldCheck,
   Truck,
 } from "lucide-react";
+import { SITE_CONFIG } from "@/config/site";
 
 const trustCards = [
   {
@@ -39,9 +40,9 @@ const footerSections = [
   {
     title: "منتجات نجد",
     links: [
-      { label: "نجد ثبات الخط · برايمر", href: "/products/najd-thabat-al-khat" },
-      { label: "نجد درع النهار · واقي SPF", href: "/products/najd-darag-al-nahar" },
-      { label: "نجد صفاء الجبهة · سيروم موضّع", href: "/products/najd-safa-al-jabha" },
+      { label: "ثبات الخط", href: "/products/face-primer" },
+      { label: "درع النهار", href: "/products/face-sunscreen-spf50" },
+      { label: "صفاء الجبهة", href: "/products/forehead-serum" },
       { label: "كل المنتجات", href: "/products" },
     ],
   },
@@ -155,12 +156,12 @@ export function Footer() {
 
         <div className="flex flex-col items-center justify-between gap-4 pt-7 text-center md:flex-row">
           <p className="text-xs text-muted">
-            © {new Date().getFullYear()} نجد. جميع الحقوق محفوظة.
+            © {new Date().getFullYear()} {SITE_CONFIG.name}. جميع الحقوق محفوظة.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3 text-xs text-muted">
             <span className="inline-flex items-center gap-1">
               <ShieldCheck className="h-3.5 w-3.5 text-najd-green" />
-              متجر نجد الرسمي
+              متجر نجد
             </span>
             <span className="inline-flex items-center gap-1">
               <MessageCircle className="h-3.5 w-3.5 text-najd-green" />

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Sans_Arabic, Inter } from "next/font/google";
 import "./globals.css";
+import { SITE_CONFIG } from "@/config/site";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Providers } from "@/components/layout/Providers";
@@ -20,16 +21,16 @@ const latinFont = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "نجد | كوزميتيك للوجه تحت الإيشارب والجو — الدفع عند الاستلام",
+  title: `${SITE_CONFIG.name} | كوزميتيك للوجه تحت الإيشارب والجو — الدفع عند الاستلام`,
   description:
-    "نجد: برايمر ثبات، واقي شمس وجه، وسيروم موضّع لخط الجبهة والإيشارب — للبنات والشابات في السعودية. عبوّة مختومة، شفافية في الوصف، والدفع عند الاستلام. مستحضرات تجميلية موضّعة فقط.",
+    `${SITE_CONFIG.name}: برايمر ثبات، واقي شمس وجه، وسيروم موضّع لخط الجبهة والإيشارب — للبنات والشابات في السعودية. عبوّة مختومة، شفافية في الوصف، والدفع عند الاستلام. مستحضرات تجميلية موضّعة فقط.`,
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL || "https://najdofficial.com"
   ),
   openGraph: {
-    title: "نجد | خط وجه للجو المحلي والإيشارب",
+    title: `${SITE_CONFIG.name} | خط وجه للجو المحلي والإيشارب`,
     description:
-      "مستحضرات وجه من نجد مع توصيل داخل السعودية والدفع عند الاستلام.",
+      `مستحضرات وجه من ${SITE_CONFIG.name} مع توصيل داخل السعودية والدفع عند الاستلام.`,
     locale: "ar_SA",
     type: "website",
   },

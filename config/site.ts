@@ -1,6 +1,6 @@
 export const SITE_CONFIG = {
   name: "نجد",
-  nameEn: "NAJD",
+  nameEn: "NAJD Official",
   url: "https://najdofficial.com",
   apiUrl:
     process.env.NEXT_PUBLIC_API_URL?.trim() ||
