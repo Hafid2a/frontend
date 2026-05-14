@@ -8,7 +8,14 @@ import { ProductCard } from "@/components/common/ProductCard";
 import { ReviewCard } from "@/components/common/ReviewCard";
 import { PRODUCTS } from "@/config/products";
 import { useState } from "react";
-import { ChevronDown, ShoppingBag, PhoneCall, PackageCheck } from "lucide-react";
+import {
+  ChevronDown,
+  ShoppingBag,
+  PhoneCall,
+  PackageCheck,
+  ShieldCheck,
+  ArrowLeft,
+} from "lucide-react";
 
 const fadeUp = {
   initial: { opacity: 0, y: 12 },
@@ -205,83 +212,87 @@ function DecisionProofSection() {
 export default function HomePage() {
   return (
     <div>
-      {/* ── Hero — خلفية ناعمة + طبقات زجاجية (مستوحاة من نمط المتاجر الراقية) ── */}
-      <section className="relative overflow-hidden min-h-[85vh] md:min-h-[90vh] flex items-center">
-        <div className="absolute inset-0 bg-gradient-to-b from-najd-green/[0.07] via-deep-night to-deep-night" />
-        <div className="absolute inset-0 bg-gradient-to-br from-najd-green/15 via-transparent to-warm-sand/[0.08]" />
-        <div className="absolute top-0 right-0 h-[28rem] w-[28rem] rounded-full bg-najd-green/15 blur-3xl translate-x-1/4 -translate-y-1/3" />
-        <div className="absolute bottom-0 left-0 h-[22rem] w-[22rem] rounded-full bg-warm-sand/15 blur-3xl -translate-x-1/3 translate-y-1/4" />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_20%,rgba(194,70,111,0.06),transparent_55%)]" />
+      {/* ── Hero — هيكل Nama Beauty + ألوان Najd (cream + rose) ── */}
+      <section className="relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_55%_at_50%_0%,rgba(194,70,111,0.08),transparent_60%)]" />
+        <div className="pointer-events-none absolute top-0 -left-32 h-72 w-72 rounded-full bg-najd-green/[0.08] blur-3xl" />
+        <div className="pointer-events-none absolute bottom-0 -right-24 h-64 w-64 rounded-full bg-warm-sand/10 blur-3xl" />
 
-        <div className="relative w-full max-w-7xl xl:max-w-[90rem] 2xl:max-w-[96rem] mx-auto px-4 sm:px-6 py-12 md:py-20 lg:py-24 grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,1.32fr)] md:gap-x-10 lg:gap-x-12 xl:gap-x-14 items-stretch md:items-center">
+        <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-6 py-12 md:py-16 lg:py-20 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-center">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="order-2 md:order-none mt-8 md:mt-0 rounded-[24px] border border-warm-sand/25 bg-ink/85 p-6 shadow-[0_24px_80px_-24px_rgba(29,20,22,0.18)] backdrop-blur-2xl backdrop-saturate-150 sm:rounded-[28px] sm:p-7 md:rounded-[32px] md:p-8 md:shadow-[0_32px_100px_-28px_rgba(29,20,22,0.22)]"
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="order-2 md:order-none text-right"
           >
-            <div className="mb-5 flex flex-wrap items-center gap-2">
-              <div className="inline-flex min-h-[2.25rem] items-center rounded-full border border-stone/12 bg-stone/[0.06] px-3.5 py-1.5 backdrop-blur-sm">
-                <span className="text-[11px] font-medium leading-snug text-stone sm:text-xs">
-                  وجه تحت الإيشارب والجو — خط كوزميتيك من نجد
-                </span>
-              </div>
-              <div className="inline-flex min-h-[2.25rem] items-center gap-2 rounded-full border border-najd-green/25 bg-najd-green/[0.1] px-3.5 py-1.5 backdrop-blur-sm">
-                <span
-                  className="h-1.5 w-1.5 shrink-0 rounded-full bg-najd-green animate-pulse shadow-[0_0_6px_rgba(194,70,111,0.5)]"
-                  aria-hidden
-                />
-                <span className="text-[11px] font-medium leading-snug text-stone sm:text-xs">
-                  الدفع عند الاستلام · توصيل داخل المملكة
-                </span>
-              </div>
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-najd-green/25 bg-najd-green/[0.08] px-3.5 py-1.5">
+              <ShieldCheck className="h-3.5 w-3.5 text-najd-green" />
+              <span className="text-[11px] font-semibold text-najd-green">
+                صيدلية الجمال السعودية · مرخّصة SFDA
+              </span>
             </div>
 
-            <h1 className="mb-4 space-y-3 drop-shadow-sm">
-              <span className="block text-3xl font-bold tracking-tight text-najd-green sm:text-4xl md:text-[2.5rem] md:leading-[1.15]">
-                نجد
+            <h1 className="mb-5 space-y-1.5">
+              <span className="block text-3xl sm:text-4xl md:text-[2.75rem] font-bold leading-[1.15] text-stone">
+                كوزميتيك سعودي
               </span>
-              <span className="block max-w-xl text-pretty text-base leading-relaxed text-stone sm:text-lg md:text-xl md:leading-relaxed">
-                ثلاث منتجات، ثلاث مشاكل يومية: ذوبان المكياج، حماية النهار، وخط
-                الجبهة — وروتين واحد يفهم وجهكِ تحت الإيشارب والجو.
+              <span className="block text-3xl sm:text-4xl md:text-[2.75rem] font-bold leading-[1.15] text-najd-green">
+                للوجه تحت الإيشارب والجو
               </span>
             </h1>
-            <p className="mb-4 max-w-xl text-pretty text-sm leading-relaxed text-muted sm:text-base md:text-[1.05rem]">
-              اختاري اللي يشغلك أو ادمجي الثلاثة: برايمر ثبات، واقٍ SPF بملمس أخف،
-              وسيروم موضّع للجبهة — لغة تجميل واضحة على العبوة، من دون وعود طبية.
-            </p>
-            <p className="mb-8 border-y border-stone/10 py-3 text-center text-[13px] leading-relaxed text-muted sm:text-right sm:text-sm">
-              بشرة أولاً · شفافية في الوصف · تعبئة مدروسة · توصيل سريع خلال ٢–٤ أيام
-              عمل
+
+            <p className="mb-6 max-w-xl text-base md:text-[1.05rem] leading-relaxed text-muted">
+              ثلاث منتجات سعودية مدروسة — برايمر يثبّت المكياج، واقٍ SPF بملمس
+              أخف، وسيروم موضّع للجبهة. لغة كوزميتيك واضحة على العبوة، توصيل
+              داخل المملكة، والدفع عند الاستلام.
             </p>
 
-            <div className="grid gap-3 sm:grid-cols-3">
+            <div className="mb-7 flex flex-wrap gap-2">
+              {[
+                { label: "SFDA", sub: "مرخّص" },
+                { label: "COD", sub: "دفع عند الاستلام" },
+                { label: "٢–٤ أيام", sub: "توصيل" },
+                { label: "٣٠ يوم", sub: "ضمان" },
+              ].map((chip) => (
+                <div
+                  key={chip.label}
+                  className="flex items-center gap-2 rounded-full border border-warm-sand/25 bg-ink/85 px-3 py-1.5 shadow-sm"
+                >
+                  <strong
+                    className="font-latin text-[11px] font-bold text-najd-green"
+                    dir="ltr"
+                  >
+                    {chip.label}
+                  </strong>
+                  <span className="text-[11px] text-stone/75">{chip.sub}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex flex-wrap items-center gap-3">
               <Link
                 href="/products"
-                className="flex min-h-[3rem] items-center justify-center rounded-btn bg-najd-green px-5 py-3.5 text-center text-sm font-medium text-white shadow-lg shadow-najd-green/20 transition-colors hover:bg-najd-green/90 sm:min-h-[3.25rem] sm:text-base"
+                className="inline-flex min-h-[3.25rem] items-center justify-center rounded-btn bg-najd-green px-7 py-3.5 text-base font-semibold text-white shadow-lg shadow-najd-green/25 transition hover:bg-najd-green/90"
               >
-                استكشف مجموعة نجد
-              </Link>
-              <Link
-                href="/products/face-primer"
-                className="flex min-h-[3rem] items-center justify-center rounded-btn border border-stone/18 bg-stone/[0.06] px-5 py-3.5 text-center text-sm font-medium text-stone backdrop-blur-sm transition-colors hover:bg-stone/[0.1] sm:min-h-[3.25rem] sm:text-base"
-              >
-                ابدئي بالبرايمر
+                اكتشفي مجموعة نجد
               </Link>
               <Link
                 href="#routine"
-                className="flex min-h-[3rem] items-center justify-center rounded-btn border border-stone/10 bg-transparent px-5 py-3.5 text-center text-sm font-medium text-muted transition-colors hover:bg-stone/[0.05] hover:text-stone sm:min-h-[3.25rem] sm:text-base"
+                className="inline-flex items-center gap-2 rounded-full border border-najd-green/30 bg-najd-green/[0.06] px-5 py-2.5 text-sm font-semibold text-najd-green transition hover:bg-najd-green/[0.12]"
               >
-                قارن المنتجات
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-najd-green text-white">
+                  <ArrowLeft className="h-3.5 w-3.5" />
+                </span>
+                قارني المنتجات
               </Link>
             </div>
 
-            <div className="mt-8 flex items-center gap-4 rounded-2xl border border-stone/10 bg-stone/[0.04] px-4 py-3 backdrop-blur-md">
+            <div className="mt-7 flex items-center gap-3">
               <div className="flex -space-x-2 space-x-reverse">
                 {["س", "د", "ر", "ن"].map((letter, i) => (
                   <div
                     key={i}
-                    className="w-8 h-8 rounded-full bg-najd-green border-2 border-stone/10 flex items-center justify-center shadow-sm"
+                    className="flex h-8 w-8 items-center justify-center rounded-full bg-najd-green border-2 border-deep-night shadow-sm"
                   >
                     <span className="text-white text-xs font-bold">
                       {letter}
@@ -289,7 +300,9 @@ export default function HomePage() {
                   </div>
                 ))}
               </div>
-              <p className="text-stone/80 text-sm">+2,400 طلب داخل السعودية</p>
+              <p className="text-sm text-muted">
+                <strong className="text-stone">+٢٬٤٠٠ طلب</strong> داخل المملكة
+              </p>
             </div>
           </motion.div>
 
@@ -297,20 +310,13 @@ export default function HomePage() {
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="order-1 md:order-none w-full md:min-w-0 flex justify-center md:justify-end"
+            transition={{ duration: 0.6 }}
+            className="order-1 md:order-none"
           >
-            <div className="w-[calc(100%+1.5rem)] max-w-none -mx-3 sm:w-full sm:max-w-xl sm:mx-auto md:max-w-none md:w-full md:mx-0">
-              <div className="relative overflow-hidden rounded-2xl border border-stone/[0.16] bg-stone/[0.06] p-2 pb-2 shadow-[0_28px_90px_-20px_rgba(0,0,0,0.72)] backdrop-blur-2xl backdrop-saturate-150 sm:rounded-[26px] sm:p-3 md:rounded-[32px] md:p-4 md:pb-3 lg:p-5 lg:pb-4 md:shadow-[0_40px_110px_-24px_rgba(0,0,0,0.78)]">
-                <div
-                  className="pointer-events-none absolute inset-0 bg-gradient-to-br from-stone/[0.08] via-transparent to-najd-green/[0.08]"
-                  aria-hidden
-                />
+            <div className="relative overflow-hidden rounded-[28px] border border-warm-sand/20 bg-charcoal shadow-[0_28px_70px_-24px_rgba(120,50,70,0.18)]">
+              <div className="pointer-events-none absolute inset-2 z-20 rounded-[22px] border border-najd-green/10" />
 
-                <Link
-                  href="/products"
-                  className="group relative z-10 block min-h-[220px] overflow-hidden rounded-xl border border-stone/15 bg-white transition duration-300 hover:border-warm-sand/35 hover:shadow-[0_0_40px_-10px_rgba(194,70,111,0.25)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-warm-sand md:min-h-[360px] md:rounded-2xl"
-                >
+              <div className="relative aspect-[5/6] md:aspect-[4/5]">
                   <Image
                     src="/brand/lineup-hero.png"
                     alt="خط الإيشارب والجو — برايمر، واقي نهاري، وسيروم موضّع"
@@ -319,45 +325,54 @@ export default function HomePage() {
                     sizes="(min-width: 1024px) 560px, (min-width: 768px) 50vw, 100vw"
                     className="object-cover transition duration-500 group-hover:scale-[1.02]"
                   />
-                  <div
-                    className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-charcoal/85 via-charcoal/40 to-transparent"
-                    aria-hidden
-                  />
-                  <div className="absolute inset-x-0 bottom-0 z-10 px-5 pb-5 pt-10 text-center md:px-6 md:pb-6">
-                    <span className="hidden" aria-hidden>
-                      🧴
-                    </span>
-                    <p className="text-lg font-semibold text-white drop-shadow md:text-xl">
-                      خط الإيشارب والجو
-                    </p>
-                    <p className="mx-auto mt-2 max-w-xs text-sm text-white/85 drop-shadow">
-                      برايمر، واقي نهاري، وسيروم موضّع — عبوّة مهيَّأة ومعلومات
-                      واضحة على التغليف
-                    </p>
-                  </div>
-                </Link>
-
-                {/* تحت الصورة: تباين قوي (ما فوق البانر الأبيض) */}
-                <div className="relative z-20 mt-2 flex flex-wrap items-stretch justify-between gap-2 sm:mt-2.5 md:mt-3">
-                  <div className="min-w-0 flex-1 rounded-xl border border-warm-sand/25 bg-charcoal/92 px-2.5 py-2 shadow-md backdrop-blur-sm sm:rounded-2xl sm:px-3 sm:py-2">
-                    <p className="text-right text-[10px] leading-snug text-warm-sand sm:text-[11px]">
-                      <span className="text-warm-sand" aria-hidden>
-                        ★★★★★
-                      </span>
-                    </p>
-                    <p className="text-right text-[11px] text-stone mt-0.5 sm:text-xs">
-                      تقييم العملاء ٤٫٨ من ٥
-                    </p>
-                  </div>
-                  <div className="min-w-0 flex-1 rounded-xl border border-najd-green/35 bg-charcoal/92 px-2.5 py-2 shadow-md backdrop-blur-sm sm:rounded-2xl sm:px-3 sm:py-2">
-                    <p className="text-right text-[11px] text-stone sm:text-xs">
-                      الدفع عند الاستلام
-                    </p>
-                    <p className="text-right text-[10px] text-muted mt-0.5 leading-snug sm:text-[11px]">
-                      بدون بطاقة — تسليم يد بيد
-                    </p>
-                  </div>
+                <div className="absolute inset-x-0 top-0 z-20 px-5 pt-5 md:px-6 md:pt-6 text-center">
+                  <span
+                    className="block font-latin text-base md:text-lg font-bold tracking-[0.35em] text-stone/85 drop-shadow-sm"
+                    dir="ltr"
+                  >
+                    NAJD
+                  </span>
+                  <span className="mt-1 block text-[11px] md:text-xs text-stone/65 drop-shadow-sm">
+                    للعناية بالوجه
+                  </span>
                 </div>
+              </div>
+
+              {/* SFDA badge — Nama-style ribbon */}
+              <div className="absolute bottom-3 right-3 md:bottom-4 md:right-4 z-30 flex items-center gap-2 rounded-2xl border border-najd-green/20 bg-white/95 px-3 py-2 shadow-[0_6px_18px_-6px_rgba(120,50,70,0.25)] backdrop-blur-sm">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-najd-green/15 text-najd-green">
+                  <ShieldCheck className="h-4 w-4" />
+                </span>
+                <span className="flex flex-col leading-tight text-right">
+                  <span
+                    className="font-latin text-[9px] font-bold uppercase tracking-[0.15em] text-najd-green"
+                    dir="ltr"
+                  >
+                    SFDA Licensed
+                  </span>
+                  <span className="text-[11px] font-medium text-stone">
+                    مرخّص من الغذاء والدواء
+                  </span>
+                </span>
+              </div>
+            </div>
+
+            <div className="mt-3 grid grid-cols-2 gap-2">
+              <div className="rounded-2xl border border-warm-sand/25 bg-ink px-3 py-2.5 shadow-sm">
+                <p className="text-warm-sand text-sm leading-none" aria-hidden>
+                  ★★★★★
+                </p>
+                <p className="mt-1 text-[11px] text-stone">
+                  تقييم العملاء ٤٫٨ من ٥
+                </p>
+              </div>
+              <div className="rounded-2xl border border-najd-green/25 bg-ink px-3 py-2.5 shadow-sm">
+                <p className="text-[12px] font-semibold text-stone">
+                  الدفع عند الاستلام
+                </p>
+                <p className="mt-0.5 text-[11px] text-muted leading-snug">
+                  بدون بطاقة — تسليم يد بيد
+                </p>
               </div>
             </div>
           </motion.div>
