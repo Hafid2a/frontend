@@ -327,21 +327,8 @@ export default function HomePage() {
                     className="object-cover transition duration-500 group-hover:scale-[1.02]"
                   />
                 <div className="absolute inset-x-0 top-0 z-20 flex flex-col items-center px-5 pt-5 text-center md:px-6 md:pt-6">
-                  <div
-                    className="mx-auto flex h-[5.25rem] w-[5.25rem] justify-center overflow-hidden rounded-full md:h-24 md:w-24"
-                    dir="ltr"
-                  >
-                    <Image
-                      src={SITE_CONFIG.storeProfileImage}
-                      alt={`${SITE_CONFIG.name} — ${SITE_CONFIG.nameEn}`}
-                      width={512}
-                      height={512}
-                      priority
-                      className="h-full w-full origin-center object-contain object-center scale-[1.75] drop-shadow-sm"
-                    />
-                  </div>
                   <span
-                    className="mt-2 block font-latin text-[10px] font-bold uppercase leading-tight tracking-[0.18em] text-najd-green drop-shadow-sm sm:text-[11px] md:text-xs md:tracking-[0.22em]"
+                    className="block font-latin text-[10px] font-bold uppercase leading-tight tracking-[0.18em] text-najd-green drop-shadow-sm sm:text-[11px] md:text-xs md:tracking-[0.22em]"
                     dir="ltr"
                     lang="en"
                   >
