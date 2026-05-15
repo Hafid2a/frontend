@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { SITE_CONFIG } from "@/config/site";
 import { PRODUCTS } from "@/config/products";
+import { Logo } from "@/components/brand/Logo";
 
 const trustCards = [
   {
@@ -103,6 +104,11 @@ export function Footer() {
             const isOpen = openSection === section.title;
             return (
               <div key={section.title} className="border-b border-stone/10">
+                {section.title === "منتجات نجد" ? (
+                  <div className="flex justify-start pt-5 pb-1">
+                    <Logo size="sm" />
+                  </div>
+                ) : null}
                 <button
                   onClick={() => setOpenSection(isOpen ? null : section.title)}
                   className="flex w-full items-center justify-between py-5 text-right"
@@ -138,6 +144,11 @@ export function Footer() {
         <div className="hidden grid-cols-3 gap-12 border-b border-stone/10 py-10 text-right md:grid">
           {footerSections.map((section) => (
             <div key={section.title}>
+              {section.title === "منتجات نجد" ? (
+                <div className="mb-3 flex justify-start">
+                  <Logo size="md" />
+                </div>
+              ) : null}
               <h3 className="mb-4 text-sm font-medium text-stone">
                 {section.title}
               </h3>
