@@ -328,7 +328,7 @@ export default function HomePage() {
                   />
                 <div className="absolute inset-x-0 top-0 z-20 px-5 pt-5 md:px-6 md:pt-6 text-center">
                   <div
-                    className="mx-auto flex h-[5.5rem] w-[5.5rem] justify-center overflow-hidden rounded-full md:h-28 md:w-28"
+                    className="mx-auto flex h-[6.25rem] w-[6.25rem] justify-center overflow-hidden rounded-full md:h-[7.25rem] md:w-[7.25rem]"
                     dir="ltr"
                   >
                     <Image
@@ -337,7 +337,7 @@ export default function HomePage() {
                       width={512}
                       height={512}
                       priority
-                      className="h-full w-full origin-center object-contain object-center scale-[1.68] drop-shadow-sm"
+                      className="h-full w-full origin-center object-contain object-center scale-[1.82] drop-shadow-sm"
                     />
                   </div>
                   <span className="mt-1 block text-[11px] md:text-xs text-stone/65 drop-shadow-sm">

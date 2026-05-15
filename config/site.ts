@@ -1,11 +1,10 @@
 export const SITE_CONFIG = {
   name: "نجد",
   nameEn: "NAJD Official",
-  /** شعار العلامة (هيدر + OG/Twitter افتراضي) */
-  /** مسار جديد باش ما يبقاش الكاش يخدم على شعار قديم بنفس الاسم */
-  storeProfileImage: "/najd-mark-official.png",
+  /** شعار العلامة (هيدر + OG/Twitter افتراضي) — وردي/ماجنتا على خلفية سوداء */
+  storeProfileImage: "/najd-brand-mark.png",
   storeProfileImageAlt:
-    "شعار NAJD Official — حرف N هندسي داخل إطار دائري بلون ذهبي وردي على خلفية داكنة",
+    "شعار NAJD Official — حرف N هندسي داخل إطار دائري، نص NAJD OFFICIAL بوردي على خلفية سوداء",
   url: "https://najdofficial.com",
   apiUrl:
     process.env.NEXT_PUBLIC_API_URL?.trim() ||

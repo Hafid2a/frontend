@@ -22,7 +22,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-stone/10 bg-charcoal/90 backdrop-blur-xl backdrop-saturate-150 supports-[backdrop-filter]:bg-charcoal/80">
-      <div className="mx-auto flex min-h-[4rem] max-w-6xl items-center justify-between gap-2 px-3 py-1 sm:min-h-[4.5rem] sm:gap-3 sm:px-4">
+      <div className="mx-auto flex min-h-[4.25rem] max-w-6xl items-center justify-between gap-2 px-3 py-1 sm:min-h-[4.75rem] sm:gap-3 sm:px-4">
         <div className="flex shrink-0 items-center gap-1 sm:gap-2">
           <button
             type="button"
