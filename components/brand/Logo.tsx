@@ -7,41 +7,31 @@ interface LogoProps {
 }
 
 export function Logo({ size = "md" }: LogoProps) {
-  const circleSize =
+  const alt = `${SITE_CONFIG.name} — ${SITE_CONFIG.nameEn}`;
+
+  /** شعار مربّع/دائري (شفاف) — أبعاد عرض مناسبة للهاتف والديسكتوب */
+  const box =
     size === "sm"
       ? "h-8 w-8"
       : size === "lg"
-        ? "h-11 w-11 sm:h-12 sm:w-12"
-        : "h-9 w-9 sm:h-10 sm:w-10";
+        ? "h-[3.25rem] w-[3.25rem] sm:h-14 sm:w-14"
+        : "h-10 w-10 sm:h-11 sm:w-11";
 
   return (
     <Link
       href="/"
-      className="group flex min-w-0 max-w-full items-center gap-1.5 sm:gap-2 no-underline"
+      className="group flex min-w-0 max-w-full shrink-0 items-center no-underline"
     >
-      <div
-        className={`relative ${circleSize} shrink-0 overflow-hidden rounded-full bg-stone/40 ring-2 ring-najd-green/25 shadow-sm`}
-      >
+      <div className={`relative shrink-0 ${box}`}>
         <Image
           src={SITE_CONFIG.storeProfileImage}
-          alt=""
-          fill
-          sizes="(max-width: 640px) 40px, 52px"
-          className="object-cover object-center"
+          alt={alt}
+          width={512}
+          height={512}
+          sizes="(max-width: 640px) 40px, 44px"
+          className="h-full w-full object-contain object-center"
           priority
         />
-      </div>
-      <div className="min-w-0 text-end leading-none">
-        <span className="block truncate font-arabic text-[1.05rem] font-bold text-stone sm:text-lg md:text-xl">
-          {SITE_CONFIG.name}
-        </span>
-        <span
-          className="mt-1 block font-latin text-[clamp(9px,2.8vw,11px)] font-medium leading-none tracking-wide text-muted sm:mt-1.5 sm:text-[11px] md:text-xs"
-          dir="ltr"
-          translate="no"
-        >
-          {SITE_CONFIG.nameEn}
-        </span>
       </div>
     </Link>
   );

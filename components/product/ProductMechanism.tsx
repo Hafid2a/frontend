@@ -67,11 +67,35 @@ export function ProductMechanism({ product }: ProductMechanismProps) {
           ))}
         </div>
 
+        {product.ingredientsTeaserAr && product.ingredientsTeaserAr.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mx-auto mt-10 max-w-3xl rounded-2xl border border-warm-sand/15 bg-charcoal/70 px-5 py-5"
+          >
+            <p className="mb-3 text-center text-xs font-semibold uppercase tracking-wide text-najd-green">
+              لمحة المكوّنات
+            </p>
+            <ul className="space-y-2 text-sm leading-relaxed text-stone/85">
+              {product.ingredientsTeaserAr.map((line, i) => (
+                <li key={i} className="flex gap-2">
+                  <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-najd-green" aria-hidden />
+                  <span>{line}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-3 border-t border-warm-sand/10 pt-3 text-center text-xs text-muted">
+              القائمة الكاملة ومدة الصلاحية: على غلاف المنتج.
+            </p>
+          </motion.div>
+        )}
+
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-8 bg-charcoal/60 rounded-2xl p-4 border border-warm-sand/10 text-center"
+          className="mt-8 bg-charcoal/60 rounded-2xl border border-warm-sand/10 p-4 text-center"
         >
           <p className="text-muted text-sm">
             <span className="text-warm-sand">⚠️ تنبيه: </span>

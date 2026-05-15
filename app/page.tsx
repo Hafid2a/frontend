@@ -7,6 +7,7 @@ import { TrustBar } from "@/components/common/TrustBar";
 import { ProductCard } from "@/components/common/ProductCard";
 import { ReviewCard } from "@/components/common/ReviewCard";
 import { PRODUCTS } from "@/config/products";
+import { SITE_CONFIG } from "@/config/site";
 import { useState } from "react";
 import {
   ChevronDown,
@@ -326,13 +327,17 @@ export default function HomePage() {
                     className="object-cover transition duration-500 group-hover:scale-[1.02]"
                   />
                 <div className="absolute inset-x-0 top-0 z-20 px-5 pt-5 md:px-6 md:pt-6 text-center">
-                  <span
-                    className="block font-latin text-base md:text-lg font-bold tracking-[0.35em] text-stone/85 drop-shadow-sm"
-                    dir="ltr"
-                  >
-                    NAJD
-                  </span>
-                  <span className="mt-1 block text-[11px] md:text-xs text-stone/65 drop-shadow-sm">
+                  <div className="flex justify-center" dir="ltr">
+                    <Image
+                      src={SITE_CONFIG.storeProfileImage}
+                      alt={`${SITE_CONFIG.name} — ${SITE_CONFIG.nameEn}`}
+                      width={512}
+                      height={512}
+                      priority
+                      className="h-12 w-12 object-contain object-center drop-shadow-sm md:h-14 md:w-14"
+                    />
+                  </div>
+                  <span className="mt-2 block text-[11px] md:text-xs text-stone/65 drop-shadow-sm">
                     للعناية بالوجه
                   </span>
                 </div>
