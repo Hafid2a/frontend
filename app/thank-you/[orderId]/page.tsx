@@ -711,41 +711,6 @@ export default function ThankYouPage() {
           </div>
         </motion.section>
 
-        {/* 9) Final action bar — WhatsApp + shop more + home. */}
-        <motion.section
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.22 }}
-          className="rounded-[28px] border border-najd-green/20 bg-gradient-to-l from-najd-green to-[#a93961] p-6 text-white shadow-[0_24px_70px_rgba(194,70,111,0.25)] md:p-8"
-        >
-          <div className="grid items-center gap-5 md:grid-cols-[1fr,auto]">
-            <div className="text-right">
-              <p className="font-latin text-[11px] font-medium uppercase tracking-[0.22em] text-white/80">
-                Need anything?
-              </p>
-              <h2 className="mt-1 text-xl font-medium md:text-2xl">
-                راسلينا على واتساب — نرد بسرعة قبل الاتصال
-              </h2>
-              <p className="mt-2 text-sm leading-relaxed text-white/85">
-                تعديل عنوان، إضافة منتج، أو سؤال عن المكالمة؟ ابعثي رقم طلبك{" "}
-                <span className="font-mono text-white dir-ltr">
-                  #{order.order_number}
-                </span>{" "}
-                وسنرد فوراً.
-              </p>
-            </div>
-            <a
-              href={SITE_CONFIG.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-white px-6 py-4 text-base font-medium text-najd-green shadow-lg shadow-black/10 transition hover:bg-[#FAFAF8] md:w-auto"
-            >
-              <MessageCircle className="h-5 w-5" aria-hidden />
-              فتح المحادثة
-            </a>
-          </div>
-        </motion.section>
-
         <div className="grid gap-3 sm:grid-cols-2">
           <Link
             href="/products"
