@@ -124,7 +124,7 @@ export default function ProductPage({
                   />
                 </div>
               )}
-              {step.imageSrc ? (
+              {step.imageSrc && step.imageHasText ? (
                 <p className="sr-only">
                   {step.step} {step.desc}
                 </p>

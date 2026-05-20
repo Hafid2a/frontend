@@ -53,7 +53,7 @@ export function ProductMechanism({ product }: ProductMechanismProps) {
                   />
                 </div>
               )}
-              {point.imageSrc ? (
+              {point.imageSrc && point.imageHasText ? (
                 <p className="sr-only">
                   {point.title} {point.desc}
                 </p>
