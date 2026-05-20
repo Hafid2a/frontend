@@ -213,3 +213,45 @@ export async function getOrder(orderId: string): Promise<OrderDetail> {
   if (!res.ok) throw new Error("الطلب غير موجود");
   return res.json();
 }
+
+export interface TrackClickPayload {
+  event_id?: string;
+  landing_page?: string;
+  referrer?: string;
+  user_agent?: string;
+  utm?: {
+    utm_source?: string;
+    utm_medium?: string;
+    utm_campaign?: string;
+    utm_content?: string;
+    utm_term?: string;
+  };
+  click_ids?: {
+    fbclid?: string;
+    ttclid?: string;
+    sc_click_id?: string;
+  };
+}
+
+function trackingPostUrl(): string {
+  return `${browserOrdersBase()}/tracking/click`;
+}
+
+/**
+ * Best-effort click/landing-page tracking. Fire-and-forget — never throws.
+ * The backend dedupes by event_id, and we session-dedupe so each visitor
+ * counts as a single Valid KSA Click in the admin dashboard.
+ */
+export async function trackClick(payload: TrackClickPayload): Promise<void> {
+  if (useMockOrdersApi()) return;
+  try {
+    await fetch(trackingPostUrl(), {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+      keepalive: true,
+    });
+  } catch {
+    // swallow — tracking must never break the storefront
+  }
+}

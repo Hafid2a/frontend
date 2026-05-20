@@ -1,15 +1,53 @@
 "use client";
 
 import { useEffect } from "react";
+import { trackClick } from "@/lib/api";
 
 const META_PIXEL_ID =
   process.env.NEXT_PUBLIC_META_PIXEL_ID || "1956891195007947";
 const TIKTOK_PIXEL_ID = process.env.NEXT_PUBLIC_TIKTOK_PIXEL_ID;
 const SNAP_PIXEL_ID = process.env.NEXT_PUBLIC_SNAP_PIXEL_ID;
 
+const CLICK_TRACKED_KEY = "_najd_click_tracked";
+
+function recordLandingClickOnce() {
+  if (typeof window === "undefined") return;
+  try {
+    if (window.sessionStorage.getItem(CLICK_TRACKED_KEY)) return;
+    window.sessionStorage.setItem(CLICK_TRACKED_KEY, "1");
+  } catch {
+    // sessionStorage blocked (private mode, etc.) — skip dedupe but still track once
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  const utm = {
+    utm_source: params.get("utm_source") || undefined,
+    utm_medium: params.get("utm_medium") || undefined,
+    utm_campaign: params.get("utm_campaign") || undefined,
+    utm_content: params.get("utm_content") || undefined,
+    utm_term: params.get("utm_term") || undefined,
+  };
+  const clickIds = {
+    fbclid: params.get("fbclid") || undefined,
+    ttclid: params.get("ttclid") || undefined,
+    sc_click_id:
+      params.get("ScCid") || params.get("sc_click_id") || undefined,
+  };
+
+  trackClick({
+    landing_page: window.location.href,
+    referrer: document.referrer || undefined,
+    user_agent: navigator.userAgent,
+    utm: Object.values(utm).some(Boolean) ? utm : undefined,
+    click_ids: Object.values(clickIds).some(Boolean) ? clickIds : undefined,
+  });
+}
+
 export function PixelProvider() {
   useEffect(() => {
     if (typeof window === "undefined") return;
+
+    recordLandingClickOnce();
 
     window._pixelQueue = window._pixelQueue || [];
     window._pixelsLoaded = false;
